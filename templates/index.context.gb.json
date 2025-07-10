@@ -1,0 +1,92 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "parent": "index.json",
+  "context": {
+    "market": "gb"
+  },
+  "sections": {
+    "feature_text_with_offset_images_aCYatd": {
+      "type": "feature-text-with-offset-images",
+      "settings": {
+        "max_width_heading": "max-w-2xl",
+        "desktop_text_scale": 7,
+        "layout_gap_mobile": 8,
+        "layout_vertical_spacing_mobile": 10,
+        "layout_vertical_spacing_desktop": 10
+      },
+      "blocks": {
+        "sticker_Xmgcy": {
+          "type": "sticker",
+          "disabled": false,
+          "settings": {
+            "width": 240,
+            "half_width_on_mobile": false,
+            "text": "",
+            "shape": "star_1",
+            "sticker_font_size": "1.953rem",
+            "header-facb46cb7e04c04fdda9586e2978c3e5": null,
+            "paragraph-25cf1e799d7f0f7767607ae80750392c": null,
+            "image": "shopify://shop_images/cake-cookies-jar.png",
+            "header-77f42fe30d8f2c7e54297b1b49d2be71": null,
+            "horizontal_position": 81,
+            "vertical_position": 49,
+            "rotate": 0,
+            "header-52b9eab49f91f50da1fdcb005f160309": null,
+            "show_sticker_on_mobile": false,
+            "show_sticker_on_desktop": true,
+            "header-bb9e25794b7e142899f029bec20ea71b": null,
+            "rotation_animation": "none",
+            "enable_parallax": false,
+            "parallax_speed": 3,
+            "header-fdba3d0a9652b5a5c1981c5d0b324186": null,
+            "color_scheme": "scheme1",
+            "color": "bg-scheme-accent-1 text-scheme-accent-1-contrast"
+          }
+        },
+        "sticker_C4tUe": {
+          "type": "sticker",
+          "disabled": false,
+          "settings": {
+            "width": 190,
+            "half_width_on_mobile": false,
+            "text": "",
+            "shape": "star_1",
+            "sticker_font_size": "1.563rem",
+            "header-facb46cb7e04c04fdda9586e2978c3e5": null,
+            "paragraph-25cf1e799d7f0f7767607ae80750392c": null,
+            "image": "shopify://shop_images/image_52.png",
+            "header-77f42fe30d8f2c7e54297b1b49d2be71": null,
+            "horizontal_position": 17,
+            "vertical_position": 48,
+            "rotate": 0,
+            "header-52b9eab49f91f50da1fdcb005f160309": null,
+            "show_sticker_on_mobile": false,
+            "show_sticker_on_desktop": true,
+            "header-bb9e25794b7e142899f029bec20ea71b": null,
+            "rotation_animation": "none",
+            "enable_parallax": false,
+            "parallax_speed": 3,
+            "header-fdba3d0a9652b5a5c1981c5d0b324186": null,
+            "color_scheme": "scheme1",
+            "color": "bg-scheme-accent-1 text-scheme-accent-1-contrast"
+          }
+        }
+      },
+      "block_order": [
+        "sticker_Xmgcy",
+        "sticker_C4tUe"
+      ]
+    }
+  },
+  "order": [
+    "feature_text_with_offset_images_aCYatd"
+  ]
+}

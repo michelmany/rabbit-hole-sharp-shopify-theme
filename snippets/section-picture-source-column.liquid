@@ -1,0 +1,19 @@
+<picture>
+  <source media="(max-width: 440px)" srcset="{{ image_mobile | image_url: width: 440 }} 440w">
+  <source media="(max-width: 640px)" srcset="{{ image_mobile | image_url: width: 640 }} 640w">
+  <source media="(max-width: 768px)" srcset="{{ image_mobile | image_url: width: 768 }} 768w">
+  <source media="(max-width: 1024px)" srcset="{{ image | image_url: width: 1024 }} 1024w">
+  <source media="(max-width: 1366px)" srcset="{{ image | image_url: width: 1366 }} 1366w">
+  {{
+    image
+    | image_url: width: image.width
+    | image_tag:
+      widths: '440, 640, 768, 1024, 1366',
+      sizes: sizes,
+      id: img_id,
+      class: 'w-full',
+      alt: alt,
+      fetchpriority: fetchpriority,
+      loading: loading
+  }}
+</picture>

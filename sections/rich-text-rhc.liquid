@@ -1,0 +1,249 @@
+<section
+  class="rich-text-rhc-section relative overflow-hidden bg-scheme-background text-scheme-text {% if section.settings.use_gradient_background %}bg-scheme-gradient{% endif %}"
+  data-color-scheme="{{ section.settings.color_scheme }}"
+>
+  <div class="section-content px-section py-section-vertical-spacing">
+    <div class="mx-auto {% if section.settings.content_width_desktop == 'lg:w-1/3' %}lg:w-1/3{% elsif section.settings.content_width_desktop == 'lg:w-1/2' %}lg:w-1/2{% elsif section.settings.content_width_desktop == 'lg:w-2/3' %}lg:w-2/3{% elsif section.settings.content_width_desktop == 'full' %}w-full{% endif %} {% if section.settings.display_on_card %}card{% endif %}">
+      <div class="{% if section.settings.display_on_card %}card__surface p-5 lg:p-10{% endif %} relative z-shape-divider mx-auto text-center">
+        <div class="hero-layout-container">
+          {%- if section.settings.title != '' -%}
+            <div class="rabbit-hole-container">
+              <h1 class="feature-text inline-heading-rte font-heading heading-style break-words text-scale-n0 lg:text-scale-n0">
+                <span class="rabbit-hole-title">
+                  <span class="title-line rabbit" style="color: {{ section.settings.rabbit_color }};">
+                    {{- section.settings.rabbit_text -}}
+                  </span>
+                  <span class="title-line hole" style="color: {{ section.settings.hole_color }};">
+                    {{- section.settings.hole_text -}}
+                  </span>
+                  <span class="title-line cakes" style="color: {{ section.settings.cakes_color }};">
+                    {{- section.settings.cakes_text -}}
+                  </span>
+                </span>
+              </h1>
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.button_link != blank and section.settings.button_label != '' -%}
+            <a href="{{ section.settings.button_link }}" class="shop-now-btn">
+              <span class="push-btn__surface">{{- section.settings.button_label -}}</span>
+            </a>
+          {%- endif -%}
+
+          {%- if section.settings.lovedby_text != blank -%}
+            <div class="brand-text-wrapper">
+              <div class="brand-text-logos">
+                <span style="color: {{ section.settings.lovedby_text_color }};">
+                  {{- section.settings.lovedby_text -}}
+                </span>
+                {% if section.settings.logo_apple != blank -%}
+                  <a href="{{ section.settings.logo_apple_link | default: '#' }}" target="_blank"
+                    ><img src="{{ section.settings.logo_apple | image_url }}" alt="Apple"
+                  ></a>
+                {%- endif %}
+                {% if section.settings.logo_three != blank -%}
+                  <a href="{{ section.settings.logo_three_link | default: '#' }}" target="_blank"
+                    ><img src="{{ section.settings.logo_three | image_url }}" alt="3"
+                  ></a>
+                {%- endif %}
+                {% if section.settings.logo_sse != blank -%}
+                  <a href="{{ section.settings.logo_sse_link | default: '#' }}" target="_blank"
+                    ><img src="{{ section.settings.logo_sse | image_url }}" alt="SSE"
+                  ></a>
+                {%- endif %}
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+
+        <div class="font-main {% if section.settings.title != '' %}mt-5{% endif %} rte mx-auto leading-snug">
+          {{ section.settings.rich_text }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- liquid
+    assign stickers = section.blocks | where: 'type', 'sticker'
+    assign shape_dividers = section.blocks | where: 'type', 'shape_divider'
+    for sticker in stickers
+      render 'block-sticker', block: sticker
+    endfor
+    for shape_divider in shape_dividers
+      render 'block-shape-divider', block: shape_divider
+    endfor
+  -%}
+</section>
+
+{% schema %}
+{
+  "name": "Rich Text RHC",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "t:common.settings.title.label",
+      "default": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "rabbit_text",
+      "label": "Rabbit Text",
+      "default": "RABBIT"
+    },
+    {
+      "type": "color",
+      "id": "rabbit_color",
+      "label": "Rabbit Color",
+      "default": "#D74112"
+    },
+    {
+      "type": "text",
+      "id": "hole_text",
+      "label": "Hole Text",
+      "default": "HOLE"
+    },
+    {
+      "type": "color",
+      "id": "hole_color",
+      "label": "Hole Color",
+      "default": "#D74112"
+    },
+    {
+      "type": "text",
+      "id": "cakes_text",
+      "label": "Cakes Text",
+      "default": "CAKES"
+    },
+    {
+      "type": "color",
+      "id": "cakes_color",
+      "label": "Cakes Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "richtext",
+      "id": "rich_text",
+      "label": "t:sections.rich_text.settings.rich_text.label",
+      "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "display_on_card",
+      "label": "t:common.settings.display_on_card.label"
+    },
+    {
+      "type": "select",
+      "id": "content_width_desktop",
+      "label": "t:sections.rich_text.settings.content_width_desktop.label",
+      "default": "lg:w-2/3",
+      "options": [
+        { "value": "lg:w-1/3", "label": "t:common.options.one_third.label" },
+        { "value": "lg:w-1/2", "label": "t:common.options.one_half.label" },
+        { "value": "lg:w-2/3", "label": "t:common.options.two_thirds.label" },
+        { "value": "lg:w-full", "label": "t:common.options.full_width.label" }
+      ]
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "t:common.settings.button_link.label"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "t:common.settings.button_label.label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "scheme1",
+      "label": "t:common.settings.color_scheme.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_gradient_background",
+      "label": "t:common.settings.use_gradient_background.label"
+    },
+    {
+      "type": "text",
+      "id": "lovedby_text",
+      "label": "Loved By Text",
+      "default": "Loved by:"
+    },
+    {
+      "type": "color",
+      "id": "lovedby_text_color",
+      "label": "Loved By Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_apple",
+      "label": "Apple Logo"
+    },
+    {
+      "type": "url",
+      "id": "logo_apple_link",
+      "label": "Apple Logo Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_three",
+      "label": "3 Logo"
+    },
+    {
+      "type": "url",
+      "id": "logo_three_link",
+      "label": "3 Logo Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_sse",
+      "label": "SSE Logo"
+    },
+    {
+      "type": "url",
+      "id": "logo_sse_link",
+      "label": "SSE Logo Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "background_pattern",
+      "name": "Background Pattern",
+      "settings": [
+        { "type": "select", "id": "type", "label": "Type", "options": [ { "value": "diagonal_lines", "label": "Diagonal Lines" }, { "value": "grid", "label": "Grid" } ], "default": "grid" },
+        { "type": "select", "id": "color", "label": "Color", "default": "text", "options": [ { "value": "text", "label": "Text" }, { "value": "accent-1", "label": "Accent 1" } ] }
+      ]
+    },
+    {
+      "type": "background_shape",
+      "name": "Background Shape",
+      "settings": [
+        { "type": "select", "id": "shape", "label": "Shape", "default": "square", "options": [ { "value": "square", "label": "Square" }, { "value": "circle", "label": "Circle" } ] },
+        { "type": "color_scheme", "id": "color_scheme", "default": "scheme1", "label": "Color Scheme" }
+      ]
+    },
+    {
+      "type": "sticker",
+      "name": "Sticker",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "range", "id": "horizontal_position", "label": "Horizontal Position (%)", "min": 0, "max": 100, "default": 50 },
+        { "type": "range", "id": "vertical_position", "label": "Vertical Position (%)", "min": 0, "max": 100, "default": 50 }
+      ]
+    },
+    {
+      "type": "shape_divider",
+      "name": "Shape Divider",
+      "settings": [
+        { "type": "select", "id": "target_section", "label": "Target Section", "default": "above", "options": [ { "value": "above", "label": "Above" }, { "value": "below", "label": "Below" } ] },
+        { "type": "color_scheme", "id": "target_section_color_scheme", "label": "Color Scheme", "default": "scheme1" },
+        { "type": "select", "id": "style", "label": "Style", "default": "waves-1-patterned_1200x20", "options": [ { "value": "waves-1-patterned_1200x20", "label": "Waves 1" }, { "value": "rhc-1-patterned_1200x20", "label": "RHC 1" }, { "value": "rhc-2-patterned_1200x20", "label": "RHC 2" } ] }
+      ]
+    }
+  ]
+}
+{% endschema %}

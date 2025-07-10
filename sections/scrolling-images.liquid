@@ -1,0 +1,176 @@
+{%- liquid
+  assign logos = section.blocks | where: 'type', 'logo'
+  assign max_width = section.settings.max_width
+  assign direction = section.settings.direction
+  assign speed_setting = section.settings.speed | plus: 0
+  assign min_speed_setting = 20
+  assign max_speed_setting = 400
+  assign speed_number = min_speed_setting | plus: max_speed_setting | minus: speed_setting
+  assign speed_number = speed_number | divided_by: 2 | divided_by: 10
+  assign content_class = 'grow-0 shrink-0'
+-%}
+
+{% capture logos %}
+  {% for block in logos %}
+    {% if block.settings.image != blank %}
+      <div
+        class="relative mx-2 block lg:mt-0"
+        data-fade-in
+        style="max-height: 150px"
+        {{ block.shopify_attributes }}
+      >
+        {%- if block.settings.link != blank -%}
+          <a href="{{ block.settings.link }}" class="block">
+        {%- endif -%}
+        <img
+          src="{{ block.settings.image | image_url }}"
+          alt=""
+          style="height: 100%; width: auto"
+          loading="lazy"
+        >
+        {%- if block.settings.link != blank -%}
+          </a>
+        {%- endif -%}
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endcapture %}
+
+<section
+  class="relative bg-scheme-background text-scheme-text {% if section.settings.use_gradient_background %}bg-scheme-gradient{% endif %} overflow-hidden"
+  data-color-scheme="{{ section.settings.color_scheme }}"
+>
+  <div class="section-content relative z-10 px-section py-section-vertical-spacing">
+    {% if section.settings.title != '' %}
+      <h2 class="inline-heading-rte font-heading heading-standard heading-style break-words text-center {{ settings.heading_drop_shadow_style }}">
+        {{ section.settings.title }}
+      </h2>
+    {% endif %}
+
+    <div class="{% if section.settings.title != '' %}section-content-top-margin{% endif %}">
+      <scrolling-items-container class="block">
+        <scrolling-items
+          style="
+            --base-scrolling-items-speed: {{ speed_number }}s;
+            --local-scrolling-items-speed-multiplier: 1;
+            --scrolling-items-speed: calc(
+              var(--base-scrolling-items-speed) * var(--global-scrolling-items-speed-multiplier) *
+              var(--local-scrolling-items-speed-multiplier)
+            );
+            --scrolling-items-direction: {{ direction }};
+          "
+          class="motion-reduce:px-section-horizontal-spacing block w-max whitespace-nowrap translate-x-1/2 motion-safe:animate-[scrolling-items_var(--scrolling-items-speed)_linear_infinite_var(--scrolling-items-direction)] motion-safe:hover:[animation-play-state:paused] motion-reduce:block motion-reduce:-translate-x-1/4 motion-reduce:whitespace-normal motion-reduce:text-center"
+        >
+          <scrolling-items-surface
+            id="icon-row-{{ section.id }}"
+            class="flex flex-wrap items-center justify-center lg:-mx-5 lg:mt-0 lg:flex-nowrap"
+          >
+            <scrolling-items-content class="{{ content_class }}">
+              <div class="flex items-center">
+                {{- logos -}}
+              </div>
+            </scrolling-items-content>
+            <noscript>
+              {% for i in (1..11) %}
+                <div class="motion-reduce:hidden {{ content_class }}" aria-hidden="true">
+                  {{- logos -}}
+                </div>
+              {% endfor %}
+            </noscript>
+          </scrolling-items-surface>
+        </scrolling-items>
+      </scrolling-items-container>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Scrolling Images",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Section Title"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 50,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Max Image Width",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 20,
+      "max": 400,
+      "step": 10,
+      "label": "Scroll Speed",
+      "default": 180
+    },
+    {
+      "type": "select",
+      "id": "direction",
+      "label": "Scroll Direction",
+      "options": [
+        { "value": "normal", "label": "Left to Right" },
+        { "value": "reverse", "label": "Right to Left" }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "scheme1",
+      "label": "Color Scheme"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_gradient_background",
+      "label": "Use Gradient Background"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Scrolling Images",
+      "blocks": [
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "aside"]
+  }
+}
+{% endschema %}

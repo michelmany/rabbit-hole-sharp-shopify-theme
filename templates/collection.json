@@ -1,0 +1,77 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-collection-banner",
+      "blocks": {
+        "shape_divider_JaKbqa": {
+          "type": "shape_divider",
+          "settings": {
+            "target_section": "below",
+            "target_section_color_scheme": "scheme1",
+            "style": "rhc-1-patterned_1200x20",
+            "flip_horizontal": false,
+            "enable_animation": false,
+            "animation_direction": ""
+          }
+        }
+      },
+      "block_order": [
+        "shape_divider_JaKbqa"
+      ],
+      "custom_css": [
+        ".font-heading {font-size: clamp(2rem, 10vw, 9.375rem); line-height: 1.1; text-transform: uppercase; text-shadow: 5px 6px 27px #000000;}",
+        ".py-section-vertical-spacing {padding-bottom: calc(var(--section-vertical-spacing) / 2.9);}"
+      ],
+      "settings": {
+        "display_on_card": false,
+        "show_collection_title": true,
+        "show_collection_description": false,
+        "linklist": "",
+        "color_scheme": "scheme3",
+        "use_gradient_background": false
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "custom_css": [],
+      "settings": {
+        "no_products": 16,
+        "display_on_card": false,
+        "enable_quick_buy": false,
+        "products_per_row_mobile": "1",
+        "products_per_row_desktop": 4,
+        "enable_filtering": true,
+        "enable_sorting": true,
+        "expand_filters": true,
+        "show_filter_count": true,
+        "enable_color_swatch_filters": false,
+        "color_scheme": "scheme1",
+        "use_gradient_background": false
+      }
+    },
+    "featured-image": {
+      "type": "main-collection-image",
+      "disabled": true,
+      "settings": {
+        "style": "full",
+        "height": "pt-two-thirds-screen-height",
+        "color_scheme": "",
+        "use_gradient_background": false
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "product-grid",
+    "featured-image"
+  ]
+}

@@ -1,0 +1,404 @@
+{%- assign section_wrapper = section.id | prepend: '#shopify-section-' -%}
+{%- assign section_id = section.id
+  | remove: 'template--'
+  | replace: '__', ','
+  | replace: '_', ','
+  | split: ','
+  | last
+-%}
+
+{%- comment -%} DESKTOP AND MOBILE CONTENT PADDING {%- endcomment -%}
+{%- assign desktop_content_padding = settings.content_padding | times: 2 -%}
+{%- assign mobile_content_padding = settings.content_padding_mobile | times: 2 -%}
+
+{%- comment -%} DEFAULT GLOBAL THEME SETTINGS {%- endcomment -%}
+{%- assign content_width = settings.content_width -%}
+{%- assign width_class = ' page-width' -%}
+{%- assign content_no_padding = settings.content_width | minus: desktop_content_padding -%}
+
+{% comment %} GET THE % TO DIVIDE COLUMN WIDTH BY SO WE CAN WORK OUT THE IMAGE SIZE WITHOUT INCLUDING ANY GAPS INBETWEEN {% endcomment %}
+{%- assign no_gap = content_no_padding | divided_by: section.settings.per_page -%}
+
+{%- assign gap = section.settings.gap | times: section.settings.per_page -%}
+
+{% assign image_width = no_gap | minus: gap | minus: 60 %}
+
+{%- comment -%} CHECK IF CUSTOM WIDTH SETTINGS ARE ACTIVE TO CHANGE ABOVE DEFAULT VALUES {%- endcomment -%}
+{%- if section.settings.full_width -%}
+  {%- comment -%} Check if Global Full Width Max Global Setting is active to reset cap the full width {%- endcomment -%}
+  {%- if settings.full_width_max_switch -%}
+    {%- assign content_width = settings.full_width_max -%}
+    {%- assign width_class = ' full-width-max' -%}
+  {%- else -%}
+    {%- assign content_width = 2560 -%}
+    {%- assign width_class = ' w-full' -%}
+  {%- endif -%}
+{%- elsif section.settings.custom_content_width -%}
+  {%- assign content_width = section.settings.custom_width -%}
+  {%- capture custom_width_css -%}
+  {{- section_wrapper -}} {max-width: {{- content_width -}}px;margin-left:auto;margin-right:auto;}
+{%- endcapture -%}
+{%- endif -%}
+
+{%- comment -%} SIZES {%- endcomment -%}
+{%- capture sizes -%}
+    (min-width: {{ content_width }}px) {{ image_width }}px,(min-width: 769px) calc((50vw - {{ desktop_content_padding }}px) / 2),calc(100vw - {{ mobile_content_padding }}px)
+  {%- endcapture -%}
+
+{%- comment -%} CHECK IF FIRST SECTION TO ACTIVATE LAZY LOAD AND FETCH PRIORITY {%- endcomment -%}
+{%- if section.index == 1 -%}
+  {%- assign fetchpriority = 'high' -%}
+  {%- assign loading = 'eager' -%}
+{%- else -%}
+  {%- assign fetchpriority = 'auto' -%}
+  {%- assign loading = 'lazy' -%}
+{%- endif -%}
+
+{%- comment -%} GIVE THE IMAGE A UNIQUE ID TO GET THE WIDTH DEPENDING ON THE CONTENT {%- endcomment -%}
+{%- assign img_id = section_id | prepend: 'img_' -%}
+
+<div
+  id="section-wrapper-{{ section_id }}"
+  class="auto-image-carousel--wrapper flex flex-wrap items-center justify-between{% if section.settings.reverse %} row-reverse{% endif %}{{- width_class -}}{{- section.settings.custom_class | prepend: ' ' -}}"
+>
+  {%- if section.settings.title != blank -%}
+    <h2
+      style="--m:0;--mb:50px;--text-align:{{- section.settings.title_align -}};--text-align-mobile:{{- section.settings.title_align_mobile -}};"
+      class="m mb text-align text-align-mobile"
+    >
+      {{- section.settings.title -}}
+    </h2>
+  {%- endif -%}
+
+  <section id="auto-carousel-{{ section_id }}" class="splide w-full" aria-label="Auto Image Carousel">
+    <div class="splide__track">
+      <ul class="splide__list">
+        {%- for block in section.blocks -%}
+          {%- comment -%} IMAGE & ALT {%- endcomment -%}
+          {%- assign image = block.settings.image -%}
+          {%- assign title = block.settings.title -%}
+
+          {%- comment -%} FIND ALT TAG {%- endcomment -%}
+          {%- if image.alt != blank -%}
+            {%- assign alt = image.alt -%}
+          {%- elsif title != blank -%}
+            {%- assign alt = title -%}
+          {%- else -%}
+            {%- assign alt = 'Auto Carousel Image ' | append: forloop.index -%}
+          {%- endif -%}
+          <li
+            class="splide__slide"
+            {% if block.settings.width != ' blank' %}
+              style="width:{{ block.settings.width }}px"
+            {% endif %}
+          >
+            {%- if image != blank -%}
+              {%- render 'section-picture-source-column',
+                image: image,
+                image_mobile: image,
+                img_id: img_id,
+                alt: alt,
+                sizes: sizes,
+                fetchpriority: fetchpriority,
+                loading: loading
+              -%}
+            {%- else -%}
+              {{- 'image' | placeholder_svg_tag: 'w-400' -}}
+            {%- endif -%}
+
+            {%- if block.settings.title != blank -%}
+              <h3 style="--mt:20px;" class="m-0 mt">{{ block.settings.title }}</h3>
+            {%- endif -%}
+
+            {%- if block.settings.title != blank -%}
+              {{ block.settings.description }}
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </section>
+</div>
+
+<script>
+  document.addEventListener( 'DOMContentLoaded', function () {
+    new Splide( '#auto-carousel-{{ section_id }}', {
+      type   : 'loop',
+      drag   : 'free',
+      focus  : 'center',
+      autoScroll: {
+          speed: 0.1,
+      },
+      autoStart: true,
+      perPage: {{ section.settings.per_page }},
+      autoWidth: true,
+      arrows: false,
+      pagination: false,
+      pauseOnHover: true,
+      gap: '{{ section.settings.gap }}px',
+      ease: 'easing',
+      breakpoints: {
+        580: {
+          perPage: 2,
+        },
+        480: {
+          perPage: 1,
+          gap: '10px',
+        },
+      }
+    }).mount(window.splide.Extensions);
+  });
+</script>
+
+{%- style -%}
+  #auto-image-carousel--{{ section_id }} .splide__list {
+    align-items:center;
+  }
+
+  {%- if section.settings.section_space -%}
+    {{- section_wrapper -}} {
+      margin-top: {{- settings.section_space -}}px;
+      margin-bottom: {{- settings.section_space -}}px;
+    }
+    @media (max-width: 768px) {
+      {{- section_wrapper -}} {
+        margin-top: {{- settings.section_space_mobile -}}px;
+        margin-bottom: {{- settings.section_space_mobile -}}px;
+      }
+    }
+  {%- endif -%}
+
+  {%- if section.settings.bg_color != "rgba(0,0,0,0)" -%}
+    {{- section_wrapper -}} {
+      background-color: {{- section.settings.bg_color -}};
+    }
+  {%- endif -%}
+
+  {{- custom_width_css -}}
+
+  {%- if section.settings.custom_settings_padding -%}
+  {% comment %} CUSTOM PADDING {% endcomment %}
+    {{- section_wrapper -}} {
+      padding-top: {{- section.settings.padding_top -}}px;
+      padding-bottom: {{- section.settings.padding_bottom -}}px;
+    }
+    @media (min-width: 769px) {
+      {{- section_wrapper -}} {
+        padding-top: {{- section.settings.padding_top | times: 2 | round: 0 -}}px;
+        padding-bottom: {{- section.settings.padding_bottom | times: 2 | round: 0 -}}px;
+      }
+    }
+  {%- endif -%}
+{%- endstyle -%}
+
+{%- schema -%}
+{
+  "name": "Auto Carousel",
+  "max_blocks": 8,
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom Class",
+      "info": "Extra class to expand on customisations within the theme code."
+    },
+    {
+      "type": "header",
+      "content": "Section Style & Settings"
+    },
+    {
+      "id": "bg_color",
+      "type": "color",
+      "label" :"Background Color",
+      "default": "transparent"
+    },
+    {
+      "type": "header",
+      "content": "Section Width"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full Width?",
+      "info": "Choose if section is full width or confined within the global page width settings.",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "custom_section_settings_width",
+      "label": "Custom Inner Width",
+      "info": "Override default global page width.",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "custom_width",
+      "min": 200,
+      "max": 2200,
+      "step": 20,
+      "unit": "px",
+      "label": "Custom Width",
+      "default": 1240
+    },
+    {
+      "type": "header",
+      "content": "Spacing",
+      "info": "The top and bottom margins within this section."
+    },
+    {
+      "type": "checkbox",
+      "id": "section_space",
+      "label": "On",
+      "default": true,
+      "info": "Global spacing for sections set in the theme settings area."
+    },
+    {
+      "type": "header",
+      "content": "Section Padding",
+      "info": "Use with or without the global section space settings. By default you pick the mobile padding, then it is automatically doubled for desktop. (Min-width: 769px+)"
+    },
+    {
+      "type": "checkbox",
+      "id": "custom_settings_padding",
+      "label": "Custom Section Padding",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 25
+    },
+    {
+      "type": "header",
+      "content": "Title Settings"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Image Carousel"
+    },
+    {
+      "type": "select",
+      "id": "title_align",
+      "label": "Title Align",
+      "info": "(Min-width: 769px+)",
+      "options": [
+        {
+          "value": "text-left",
+          "label": "Left"
+        },
+        {
+          "value": "text-center",
+          "label": "Center"
+        },
+        {
+          "value": "text-right",
+          "label": "Right"
+        }
+      ],
+      "default": "text-center"
+    },
+    {
+      "type": "select",
+      "id": "title_align_mobile",
+      "label": "Mobile:",
+      "info": "(Max Width: 768px)",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Carousel Settings",
+      "info": "Customise the look."
+    },
+    {
+      "type": "range",
+      "id": "per_page",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "label": "Per Page",
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Gap",
+      "default": 20
+    }
+      ],
+      "blocks": [
+        {
+          "type": "image",
+          "name": "Image",
+          "settings": [
+            {
+              "id": "image",
+              "type": "image_picker",
+              "label": "Image"
+            },
+            {
+              "type": "text",
+              "id": "width",
+              "label": "Width",
+              "info": "If you have different widths of an image they can be added here to help with the styles."
+            },
+            {
+              "type": "text",
+              "id": "title",
+              "label": "Title",
+              "default": "Title"
+            },
+            {
+              "type": "richtext",
+              "id": "description",
+              "label": "Inner",
+              "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur molestie quam lorem, non varius elit tincidunt eu. Proin congue tincidunt efficitur.</p>"
+            }
+          ]
+        }
+  ],
+  "presets": [
+    {
+      "name": "Auto Carousel",
+      "settings": {}
+    }
+  ]
+}
+{%- endschema -%}

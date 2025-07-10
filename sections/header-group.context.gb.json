@@ -1,0 +1,27 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "parent": "header-group.json",
+  "context": {
+    "market": "gb"
+  },
+  "sections": {
+    "header": {
+      "settings": {
+        "sticky_header": true,
+        "enable_overlay_on_collection_pages": true,
+        "enable_overlay_on_product_pages": true,
+        "overlay_first_section_padding_top_desktop": 0,
+        "overlay_first_section_padding_top_mobile": 0
+      },
+      "blocks": {}
+    }
+  }
+}

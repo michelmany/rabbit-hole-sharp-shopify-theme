@@ -1,0 +1,168 @@
+<section
+  class="bg-scheme-background text-scheme-text relative overflow-hidden"
+  data-color-scheme="{{ section.settings.color_scheme }}"
+>
+  <div class="section-content relative z-10 py-section-vertical-spacing hero-grid">
+    <div class="hero-left text-left px-4 sm:px-section max-w-none w-full">
+      {% if section.settings.hero_left_image != blank %}
+        <img
+          src="{{ section.settings.hero_left_image | image_url }}"
+          alt="Rabbit Hole Products"
+          class="hero-left-image"
+          style="width: {{ section.settings.hero_left_image_width }}%; position: {{ section.settings.hero_left_image_position }};"
+        >
+      {% endif %}
+      <h1
+        class="feature-text inline-heading-rte font-heading heading-style break-words text-scale-n0 lg:text-scale-n0"
+        style="color: {{ section.settings.heading_color }};"
+      >
+        <span class="rabbit-hole-title">
+          <span class="title-line rabbit" style="color: {{ section.settings.rabbit_color }}; font-size: calc(8vw);">
+            {{- section.settings.rabbit_text -}}
+          </span>
+          <span class="title-line hole" style="color: {{ section.settings.hole_color }};">
+            {{- section.settings.hole_text -}}
+          </span>
+          <span class="title-line cakes" style="color: {{ section.settings.cakes_color }};">
+            {{- section.settings.cakes_text -}}
+          </span>
+        </span>
+      </h1>
+    </div>
+    <div class="hero-right">
+      <div class="hero-text-button">
+        <p style="color: {{ section.settings.body_text_color }};">{{ section.settings.body_text }}</p>
+        <a
+          href="{{ section.settings.button_link }}"
+          class="shop-now-btn"
+          style="background: {{ section.settings.button_bg_color }}; color: {{ section.settings.button_text_color }};"
+        >
+          {{- section.settings.button_text -}}
+        </a>
+      </div>
+      <div class="brand-text-logos">
+        <span style="color: {{ section.settings.lovedby_text_color }}; font-family: 'Rubik Mono One', monospace;">
+          {{- section.settings.lovedby_text -}}
+        </span>
+        {% if section.settings.logo_apple != blank -%}
+          <img src="{{ section.settings.logo_apple | image_url }}" alt="Apple">
+        {%- endif %}
+        {% if section.settings.logo_three != blank -%}
+          <img src="{{ section.settings.logo_three | image_url }}" alt="3">
+        {%- endif %}
+        {% if section.settings.logo_sse != blank -%}
+          <img src="{{ section.settings.logo_sse | image_url }}" alt="SSE">
+        {%- endif %}
+      </div>
+    </div>
+  </div>
+  {% for block in section.blocks %}
+    {% if block.type == 'sticker' %}
+      <div
+        class="sticker-block"
+        style="position: absolute; top: {{ block.settings.sticker_top }}%; left: {{ block.settings.sticker_left }}%; width: {{ block.settings.sticker_size }}%;"
+      >
+        <img src="{{ block.settings.sticker_image | image_url }}" alt="Sticker">
+      </div>
+    {% endif %}
+    {% if block.type == 'shape_divider' %}
+      {% render 'block-shape-divider', block: block, section: section %}
+    {% endif %}
+  {% endfor %}
+</section>
+
+<style>
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1rem;
+    width: 100%;
+    height: 100%;
+    align-items: stretch;
+  }
+  .hero-left {
+    text-align: left !important;
+    position: relative;
+  }
+  .hero-left-image {
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+  }
+  .hero-right {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+  .hero-text-button {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    text-align: left;
+    margin-bottom: 1.5rem;
+  }
+  .hero-text-button p {
+    margin-bottom: 1rem;
+  }
+  .brand-text-logos {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    white-space: nowrap;
+  }
+  .brand-text-logos img {
+    width: 40px;
+  }
+  .shop-now-btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    margin-top: 1rem;
+    text-decoration: none;
+    border-radius: 0.5rem;
+  }
+  @media (max-width: 767px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+    .hero-left, .hero-right {
+      text-align: center;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Custom Hero Section",
+  "tag": "section",
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color Scheme", "default": "scheme1" },
+    { "type": "image_picker", "id": "hero_left_image", "label": "Hero Left Image" },
+    { "type": "range", "id": "hero_left_image_width", "label": "Hero Left Image Width (%)", "min": 10, "max": 100, "default": 50 },
+    { "type": "select", "id": "hero_left_image_position", "label": "Hero Left Image Position", "default": "absolute", "options": [ { "value": "absolute", "label": "Absolute" }, { "value": "relative", "label": "Relative" }, { "value": "static", "label": "Static" } ] },
+    { "type": "text", "id": "rabbit_text", "label": "Rabbit Text", "default": "RABBIT" },
+    { "type": "color", "id": "rabbit_color", "label": "Rabbit Color", "default": "#D74112" },
+    { "type": "text", "id": "hole_text", "label": "Hole Text", "default": "HOLE" },
+    { "type": "color", "id": "hole_color", "label": "Hole Color", "default": "#D74112" },
+    { "type": "text", "id": "cakes_text", "label": "Cakes Text", "default": "CAKES" },
+    { "type": "color", "id": "cakes_color", "label": "Cakes Color", "default": "#FFFFFF" },
+    { "type": "text", "id": "body_text", "label": "Body Text", "default": "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
+    { "type": "color", "id": "body_text_color", "label": "Body Text Color", "default": "#000000" },
+    { "type": "text", "id": "lovedby_text", "label": "Loved By Text", "default": "Loved by:" },
+    { "type": "color", "id": "lovedby_text_color", "label": "Loved By Text Color", "default": "#000000" },
+    { "type": "url", "id": "button_link", "label": "Shop Now Button Link", "default": "/collections/all" },
+    { "type": "text", "id": "button_text", "label": "Button Text", "default": "SHOP NOW" },
+    { "type": "color", "id": "button_bg_color", "label": "Button Background Color", "default": "#446C74" },
+    { "type": "color", "id": "button_text_color", "label": "Button Text Color", "default": "#FFFFFF" },
+    { "type": "image_picker", "id": "logo_apple", "label": "Apple Logo" },
+    { "type": "image_picker", "id": "logo_three", "label": "3 Logo" },
+    { "type": "image_picker", "id": "logo_sse", "label": "SSE Logo" }
+  ],
+  "blocks": [
+    { "type": "sticker", "name": "Sticker", "settings": [ { "type": "image_picker", "id": "sticker_image", "label": "Sticker Image" }, { "type": "range", "id": "sticker_top", "label": "Top Position (%)", "min": 0, "max": 100, "default": 10 }, { "type": "range", "id": "sticker_left", "label": "Left Position (%)", "min": 0, "max": 100, "default": 10 }, { "type": "range", "id": "sticker_size", "label": "Sticker Width (%)", "min": 5, "max": 100, "default": 20 } ] },
+    { "type": "shape_divider", "name": "Shape Divider", "settings": [ { "type": "select", "id": "target_section", "label": "Target Section", "default": "above", "options": [ { "value": "above", "label": "Above" }, { "value": "below", "label": "Below" } ] }, { "type": "color_scheme", "id": "target_section_color_scheme", "label": "Target Section Color Scheme", "default": "scheme1" }, { "type": "select", "id": "style", "label": "Style", "default": "waves-1-patterned_1200x20", "options": [ { "value": "waves-1-patterned_1200x20", "label": "Waves 1" }, { "value": "rhc-1-patterned_1200x20", "label": "RHC 1" }, { "value": "rhc-2-patterned_1200x20", "label": "RHC 2" }, { "value": "rhc-3-patterned_1200x20", "label": "RHC 3" }, { "value": "rhc-4-patterned_1200x20", "label": "RHC 4" } ] }, { "type": "checkbox", "id": "flip_horizontal", "label": "Flip Horizontal" } ] }
+  ],
+  "presets": [ { "name": "Custom Hero Section" } ]
+}
+{% endschema %}

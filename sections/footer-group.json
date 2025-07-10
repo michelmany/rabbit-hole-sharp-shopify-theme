@@ -1,0 +1,65 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "Footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "logo_cxNFeQ": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/RHC-logo-inverted_1.png",
+            "logo_max_width": 160
+          }
+        },
+        "menus-0": {
+          "type": "menus",
+          "settings": {
+            "show_menu_headings": false,
+            "linklist_1": "main-menu",
+            "linklist_2": "footer",
+            "linklist_3": ""
+          }
+        },
+        "tagline-and-social-links-0": {
+          "type": "tagline_and_social_links",
+          "settings": {
+            "tagline": "<strong>Rabbit Hole Cakes Limited</strong>, 50 High Street, Perth and Kinross,Perth, PH1 5TQ, United Kingdom",
+            "show_social_icons": true
+          }
+        },
+        "newsletter-0": {
+          "type": "newsletter",
+          "settings": {
+            "newsletter_heading": "Sign up to our newsletter"
+          }
+        }
+      },
+      "block_order": [
+        "logo_cxNFeQ",
+        "menus-0",
+        "tagline-and-social-links-0",
+        "newsletter-0"
+      ],
+      "settings": {
+        "show_payment_icons": true,
+        "show_country_selector": true,
+        "show_locale_selector": true,
+        "color_scheme": "scheme4",
+        "use_gradient_background": true
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

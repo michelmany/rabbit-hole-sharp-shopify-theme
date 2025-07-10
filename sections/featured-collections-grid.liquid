@@ -1,0 +1,265 @@
+{%- assign blocks = section.blocks -%}
+
+<div class="section-content z-10 px-section py-section-vertical-spacing mx-auto w-full">
+  {% if section.settings.section_heading != blank %}
+    <h2 class="section-heading">{{ section.settings.section_heading }}</h2>
+  {% endif %}
+
+  <div class="parent">
+    {% for block in blocks %}
+      {% assign collection = block.settings.collection %}
+      {% assign title = block.settings.title | default: collection.title %}
+      {% assign words = title | split: ' ' %}
+
+      {% assign desktop_transform = 'translate('
+        | append: block.settings.image_x_offset
+        | append: 'px, '
+        | append: block.settings.image_y_offset
+        | append: 'px) rotate('
+        | append: block.settings.image_rotation
+        | append: 'deg) scale('
+        | append: block.settings.image_scale
+        | divided_by: 100.0
+        | append: ')'
+      %}
+      {% assign mobile_transform = 'translate('
+        | append: block.settings.image_x_offset_mobile
+        | append: 'px, '
+        | append: block.settings.image_y_offset_mobile
+        | append: 'px) rotate('
+        | append: block.settings.image_rotation_mobile
+        | append: 'deg) scale('
+        | append: block.settings.image_scale_mobile
+        | divided_by: 100.0
+        | append: ')'
+      %}
+
+      <a
+        class="div{{ forloop.index }}"
+        href="{{ collection.url }}"
+        style="background-color: {{ block.settings.bg_color }};"
+      >
+        {% if block.settings.image %}
+          <img
+            src="{{ block.settings.image | image_url: width: 600 }}"
+            width="600"
+            height="600"
+            alt="{{ title }}"
+            class="grid-img block-img-{{ block.id }}"
+          >
+          <style>
+            .block-img-{{ block.id }} {
+              z-index: {{ block.settings.image_z_index }};
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%) translate({{ block.settings.image_x_offset }}px, {{ block.settings.image_y_offset }}px) rotate({{ block.settings.image_rotation }}deg) scale({{ block.settings.image_scale | divided_by: 100.0 }});
+              position: absolute;
+            }
+
+            @media (max-width: 767px) {
+              .block-img-{{ block.id }} {
+                z-index: {{ block.settings.image_z_index_mobile }} !important;
+                top: 50% !important;
+                left: 50% !important;
+                transform: translate(-50%, -50%) translate({{ block.settings.image_x_offset_mobile }}px, {{ block.settings.image_y_offset_mobile }}px) rotate({{ block.settings.image_rotation_mobile }}deg) scale({{ block.settings.image_scale_mobile | divided_by: 100.0 }}) !important;
+                position: absolute !important;
+              }
+            }
+          </style>
+        {% endif %}
+
+        <h2 class="grid-title {% if forloop.index == 1 or forloop.index == 3 or forloop.index == 6 %}bottom-left{% else %}top-left{% endif %}">
+          <span class="title-outline">{{ words[0] | upcase }}</span><br>
+          {% for word in words offset: 1 %}
+            <span class="title-fill">{{ word | upcase }}</span><br>
+          {% endfor %}
+        </h2>
+      </a>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .section-content {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  @media (min-width: 1024px) {
+    .section-content {
+      max-width: 90vw;
+    }
+  }
+  @media (min-width: 1280px) {
+    .section-content {
+      max-width: 80vw;
+    }
+  }
+  @media (min-width: 1536px) {
+    .section-content {
+      max-width: 70vw;
+    }
+  }
+
+  .section-heading {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    margin-bottom: 2rem;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .parent {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+    gap: 15px;
+  }
+
+  .div1 { grid-area: 1 / 1 / 5 / 9; }
+  .div2 { grid-area: 1 / 9 / 5 / 13; }
+  .div3 { grid-area: 5 / 1 / 9 / 7; }
+  .div4 { grid-area: 5 / 7 / 9 / 13; }
+  .div5 { grid-area: 9 / 1 / 13 / 5; }
+  .div6 { grid-area: 9 / 5 / 13 / 13; }
+
+  .parent a {
+    position: relative;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 24px;
+    overflow: hidden;
+    min-height: 360px;
+    color: black;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .grid-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    max-width: 90%;
+    max-height: 90%;
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+    opacity: 1;
+  }
+
+  .grid-title {
+    position: absolute;
+    z-index: 2;
+    font-size: clamp(1.75rem, 4vw, 4rem);
+    font-weight: 800;
+    line-height: 0.9;
+    text-align: left;
+    padding: 1rem;
+    text-transform: uppercase;
+  }
+
+  .grid-title.top-left {
+    top: 0;
+    left: 0;
+  }
+  .grid-title.bottom-left {
+    bottom: 0;
+    left: 0;
+  }
+
+  .grid-title .title-outline {
+    color: transparent;
+    -webkit-text-stroke: 1px black;
+    text-stroke: 1px black;
+    display: inline-block;
+  }
+
+  .grid-title .title-fill {
+    color: black;
+    display: inline-block;
+  }
+
+  @media screen and (max-width: 991px) {
+    .parent {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: auto;
+    }
+
+    .parent a {
+      grid-column: span 1 !important;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .parent {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .parent a {
+      all: unset;
+      display: block;
+      min-height: 360px;
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Featured Collections Grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Section Heading",
+      "default": "Shop Our Treats"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_block",
+      "name": "Collection Block",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "image_picker", "id": "image", "label": "Custom Image" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Collection Title" },
+        { "type": "text", "id": "bg_color", "label": "Background Colour (hex or class)", "default": "#fde9dd" },
+
+        { "type": "header", "content": "\ud83d\udcfa Desktop Image Settings" },
+        { "type": "range", "id": "image_z_index", "label": "Image Z-Index", "min": 0, "max": 10, "step": 1, "default": 0 },
+        { "type": "range", "id": "image_scale", "label": "Image Scale (%)", "min": 10, "max": 300, "step": 10, "default": 100 },
+        { "type": "range", "id": "image_x_offset", "label": "Image X Offset (px)", "min": -200, "max": 200, "step": 4, "default": 0 },
+        { "type": "range", "id": "image_y_offset", "label": "Image Y Offset (px)", "min": -200, "max": 200, "step": 4, "default": 0 },
+        { "type": "range", "id": "image_rotation", "label": "Image Rotation (degrees)", "min": -180, "max": 180, "step": 4, "default": 0 },
+
+        { "type": "header", "content": "\ud83d\udcf1 Mobile Overrides (optional)" },
+        { "type": "range", "id": "image_z_index_mobile", "label": "Image Z-Index (mobile)", "min": 0, "max": 10, "step": 1, "default": 0 },
+        { "type": "range", "id": "image_scale_mobile", "label": "Image Scale (%) (mobile)", "min": 10, "max": 300, "step": 10, "default": 100 },
+        { "type": "range", "id": "image_x_offset_mobile", "label": "Image X Offset (px) (mobile)", "min": -200, "max": 200, "step": 4, "default": 0 },
+        { "type": "range", "id": "image_y_offset_mobile", "label": "Image Y Offset (px) (mobile)", "min": -200, "max": 200, "step": 4, "default": 0 },
+        { "type": "range", "id": "image_rotation_mobile", "label": "Image Rotation (degrees) (mobile)", "min": -180, "max": 180, "step": 4, "default": 0 }
+      ]
+    },
+    {
+      "type": "shape_divider",
+      "name": "Shape Divider",
+      "settings": [
+        { "type": "select", "id": "target_section", "label": "Target Section", "default": "above", "options": [ { "value": "above", "label": "Above" }, { "value": "below", "label": "Below" } ] },
+        { "type": "color_scheme", "id": "target_section_color_scheme", "label": "Color Scheme", "default": "scheme1" },
+        { "type": "select", "id": "style", "label": "Style", "default": "waves-1-patterned_1200x20", "options": [ { "value": "waves-1-patterned_1200x20", "label": "Waves 1" }, { "value": "rhc-1-patterned_1200x20", "label": "RHC 1" }, { "value": "rhc-2-patterned_1200x20", "label": "RHC 2" } ] }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collections Grid",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
