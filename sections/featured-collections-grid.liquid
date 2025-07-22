@@ -48,7 +48,7 @@
             class="grid-img block-img-{{ block.id }}"
           >
           <style>
-            .block-img-{{ block.id }} {
+            .grid-img.block-img-{{ block.id }} {
               z-index: {{ block.settings.image_z_index }};
               top: 50%;
               left: 50%;
@@ -57,12 +57,12 @@
             }
 
             @media (max-width: 767px) {
-              .block-img-{{ block.id }} {
-                z-index: {{ block.settings.image_z_index_mobile }} !important;
-                top: 50% !important;
-                left: 50% !important;
-                transform: translate(-50%, -50%) translate({{ block.settings.image_x_offset_mobile }}px, {{ block.settings.image_y_offset_mobile }}px) rotate({{ block.settings.image_rotation_mobile }}deg) scale({{ block.settings.image_scale_mobile | divided_by: 100.0 }}) !important;
-                position: absolute !important;
+              .grid-img.block-img-{{ block.id }} {
+                z-index: {{ block.settings.image_z_index_mobile }};
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) translate({{ block.settings.image_x_offset_mobile }}px, {{ block.settings.image_y_offset_mobile }}px) rotate({{ block.settings.image_rotation_mobile }}deg) scale({{ block.settings.image_scale_mobile | divided_by: 100.0 }});
+                position: absolute;
               }
             }
           </style>
