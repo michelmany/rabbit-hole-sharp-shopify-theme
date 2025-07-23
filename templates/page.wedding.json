@@ -1,0 +1,169 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "rich_text_rhc_eYeGTx": {
+      "type": "rich-text-rhc",
+      "blocks": {
+        "shape_divider_bzwnj4": {
+          "type": "shape_divider",
+          "settings": {
+            "target_section": "below",
+            "target_section_color_scheme": "scheme3",
+            "style": "rhc-1-patterned_1200x20"
+          }
+        }
+      },
+      "block_order": [
+        "shape_divider_bzwnj4"
+      ],
+      "disabled": true,
+      "custom_css": [
+        ".push-btn__surface {background: #3b6d82 !important; color: #fff !important; font-weight: 600;}",
+        ".py-section-vertical-spacing {padding-top: 4rem !important; padding-bottom: 4rem !important;}",
+        "@media screen and (max-width: 767px) {.py-section-vertical-spacing {padding-top: 3rem !important; padding-bottom: 2rem !important; }}",
+        ".push-btn__surface {padding: 0.35rem 1rem;}",
+        ".section-content {flex-grow: 1; display: flex; flex-direction: column; justify-content: center;}"
+      ],
+      "name": "Rich Text RHC",
+      "settings": {
+        "title": "Heading",
+        "rabbit_text": "RABBIT",
+        "rabbit_color": "#d74112",
+        "hole_text": "HOLE",
+        "hole_color": "#d74112",
+        "cakes_text": "CAKES",
+        "cakes_color": "#ffffff",
+        "rich_text": "",
+        "display_on_card": false,
+        "content_width_desktop": "lg:w-1/2",
+        "button_link": "shopify://collections",
+        "button_label": "SHOP NOW",
+        "color_scheme": "scheme3",
+        "use_gradient_background": false,
+        "lovedby_text": "Loved by:",
+        "lovedby_text_color": "#000000",
+        "logo_apple": "shopify://shop_images/image_70.png",
+        "logo_apple_link": "",
+        "logo_three": "shopify://shop_images/image_71.png",
+        "logo_three_link": "",
+        "logo_sse": "shopify://shop_images/image_72.png",
+        "logo_sse_link": ""
+      }
+    },
+    "scrolling_images_HnAL9L": {
+      "type": "scrolling-images",
+      "blocks": {
+        "logo_gyyjnK": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/4_ff5fcc6f-385a-4282-99ba-b8e6e89a8733.png",
+            "link": ""
+          }
+        },
+        "logo_PFRCYy": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/1_4e44e04f-71c3-4bfa-a7e7-32c342bc6037.png",
+            "link": ""
+          }
+        },
+        "logo_tErQpn": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/2_cd684990-5b7a-47e0-b81b-a66b18104b30.png",
+            "link": ""
+          }
+        },
+        "logo_TBPEh6": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/6.png",
+            "link": ""
+          }
+        },
+        "logo_BwTLcy": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/5_dba3a427-5a12-4469-ae21-f449784027e4.png",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "logo_gyyjnK",
+        "logo_PFRCYy",
+        "logo_tErQpn",
+        "logo_TBPEh6",
+        "logo_BwTLcy"
+      ],
+      "custom_css": [
+        ".py-section-vertical-spacing {padding-top: 0;}"
+      ],
+      "name": "Scrolling Images",
+      "settings": {
+        "title": "",
+        "max_width": 100,
+        "speed": 20,
+        "direction": "normal",
+        "color_scheme": "",
+        "use_gradient_background": false
+      }
+    },
+    "tabs_rhc_8Ytkp7": {
+      "type": "tabs-RHC",
+      "blocks": {
+        "menu_group_qM6NtH": {
+          "type": "menu_group",
+          "settings": {
+            "tab": "tab_1",
+            "image": "shopify://shop_images/20250122_Traybake_Studio_Shoot_ii_Resized-196.jpg",
+            "richtext": "<p>The brownie stack, a perfect alternative to a celebration cake  Choose upto 2 flavours of brownie giving you 36 brownie pieces. These can be personalised for any occasion from a birthday to a wedding.</p><p>The brownie stack, a perfect alternative to a celebration cake  Choose upto 2 flavours of brownie giving you 36 brownie pieces. These can be personalised for any occasion from a birthday to a wedding.</p>",
+            "button_link": "shopify://pages/contact",
+            "button_label": "Contact US"
+          }
+        },
+        "menu_group_aTxXLQ": {
+          "type": "menu_group",
+          "settings": {
+            "tab": "tab_2",
+            "image": "shopify://shop_images/IMG_4261_f1c9592d-831d-453c-89d5-6c75d94af642.jpg",
+            "richtext": "<p>The brownie stack, a perfect alternative to a celebration cake  Choose upto 2 flavours of brownie giving you 36 brownie pieces. These can be personalised for any occasion from a birthday to a wedding.</p>",
+            "button_link": "shopify://pages/about-us",
+            "button_label": "About Us"
+          }
+        }
+      },
+      "block_order": [
+        "menu_group_qM6NtH",
+        "menu_group_aTxXLQ"
+      ],
+      "custom_css": [
+        "h2 {max-width: 730px; text-align: left; margin-right: auto;}",
+        ".tab-btn {background-color: transparent; border: 1px solid #000; border-radius: 50px; padding-inline: 80px; color: #000; font-family: var(--heading-font-stack); font-size: 16px; transition: 0.2s;}",
+        ".tab-btn:hover {background-color: #000; color: #fff;}",
+        ".tab-btn.active {background-color: #f6c67c; border: 4px solid #ef862a; color: #000;}",
+        "@media (min-width: 1200px) {h2 {font-size: 50px !important; margin-bottom: 80px; } img {max-width: 515px; }}",
+        "img {border: 10px solid #a6d6eb; border-radius: 0;}"
+      ],
+      "name": "Tabs RHC",
+      "settings": {
+        "title": "Traditional Wedding PAckages",
+        "tab_1": "DOUGHNUT TOWERS",
+        "tab_2": "BROWNIE STACKS"
+      }
+    }
+  },
+  "order": [
+    "rich_text_rhc_eYeGTx",
+    "scrolling_images_HnAL9L",
+    "tabs_rhc_8Ytkp7"
+  ]
+}

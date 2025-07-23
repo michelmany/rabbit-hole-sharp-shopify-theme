@@ -1,0 +1,470 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "rich_text_rhc_eYeGTx": {
+      "type": "rich-text-rhc",
+      "blocks": {
+        "shape_divider_bzwnj4": {
+          "type": "shape_divider",
+          "settings": {
+            "target_section": "below",
+            "target_section_color_scheme": "scheme3",
+            "style": "rhc-1-patterned_1200x20"
+          }
+        }
+      },
+      "block_order": [
+        "shape_divider_bzwnj4"
+      ],
+      "custom_css": [
+        ".push-btn__surface {background: #3b6d82 !important; color: #fff !important; font-weight: 600;}",
+        ".py-section-vertical-spacing {padding-top: 4rem !important; padding-bottom: 4rem !important;}",
+        "@media screen and (max-width: 767px) {.py-section-vertical-spacing {padding-top: 3rem !important; padding-bottom: 2rem !important; }}",
+        ".push-btn__surface {padding: 0.35rem 1rem;}",
+        ".section-content {flex-grow: 1; display: flex; flex-direction: column; justify-content: center;}"
+      ],
+      "name": "Rich Text RHC",
+      "settings": {
+        "title": "Heading",
+        "rabbit_text": "RABBIT",
+        "rabbit_color": "#d74112",
+        "hole_text": "HOLE",
+        "hole_color": "#d74112",
+        "cakes_text": "CAKES",
+        "cakes_color": "#ffffff",
+        "rich_text": "",
+        "display_on_card": false,
+        "content_width_desktop": "lg:w-1/2",
+        "button_link": "shopify://collections",
+        "button_label": "SHOP NOW",
+        "color_scheme": "scheme3",
+        "use_gradient_background": false,
+        "lovedby_text": "Loved by:",
+        "lovedby_text_color": "#000000",
+        "logo_apple": "shopify://shop_images/image_70.png",
+        "logo_apple_link": "",
+        "logo_three": "shopify://shop_images/image_71.png",
+        "logo_three_link": "",
+        "logo_sse": "shopify://shop_images/image_72.png",
+        "logo_sse_link": ""
+      }
+    },
+    "collection_focus_carousel_RGiEQz": {
+      "type": "collection-focus-carousel",
+      "custom_css": [
+        ".splide__arrows {display: none;}",
+        ".font-heading {font-family: Rubik, sans-serif; font-weight: 800; text-align: center; text-transform: uppercase; color: #3b6d82 !important;}"
+      ],
+      "name": "t:sections.collection_focus_carousel.name",
+      "settings": {
+        "title": "WHAT YOU LOVE",
+        "subheading": "A selection of our faves? Yes please!",
+        "collection": "featured-products",
+        "no_products": 4,
+        "enable_focused_quick_buy": false,
+        "focused_slide_source": "none",
+        "focused_slide_metafield": "",
+        "display_on_card": false,
+        "enlarge_active_slide": false,
+        "mobile_slide_width": "three_fifths",
+        "desktop_slide_width": 40,
+        "product_tiles_aspect_ratio": "",
+        "image_shape": "",
+        "color_scheme": "",
+        "use_gradient_background": false
+      }
+    },
+    "featured_collections_grid_zHcWFx": {
+      "type": "featured-collections-grid",
+      "blocks": {
+        "collection_block_NdXefG": {
+          "type": "collection_block",
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/rhc-products.png",
+            "title": "STUNNING BLONDIES",
+            "bg_color": "#F6C67C",
+            "image_z_index": 4,
+            "image_scale": 150,
+            "image_x_offset": 64,
+            "image_y_offset": -180,
+            "image_rotation": 120,
+            "image_z_index_mobile": 0,
+            "image_scale_mobile": 230,
+            "image_x_offset_mobile": 80,
+            "image_y_offset_mobile": -76,
+            "image_rotation_mobile": 24
+          }
+        },
+        "collection_block_gej3hX": {
+          "type": "collection_block",
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/Cookies_CreamBlondie_f06f0e29-de34-44b6-86b9-d535404d92b0.png",
+            "title": "GLUTEN FREE",
+            "bg_color": "#A6D6EB",
+            "image_z_index": 4,
+            "image_scale": 260,
+            "image_x_offset": 0,
+            "image_y_offset": -20,
+            "image_rotation": 68,
+            "image_z_index_mobile": 0,
+            "image_scale_mobile": 190,
+            "image_x_offset_mobile": 60,
+            "image_y_offset_mobile": 80,
+            "image_rotation_mobile": 28
+          }
+        },
+        "collection_block_HqHPa3": {
+          "type": "collection_block",
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/CherryBakewellCookie_12f4e979-3d32-447d-b938-e07a7ae9a777.png",
+            "title": "YUMMY COOKIES",
+            "bg_color": "#EF862A",
+            "image_z_index": 4,
+            "image_scale": 110,
+            "image_x_offset": -200,
+            "image_y_offset": -188,
+            "image_rotation": 12,
+            "image_z_index_mobile": 0,
+            "image_scale_mobile": 100,
+            "image_x_offset_mobile": 0,
+            "image_y_offset_mobile": 0,
+            "image_rotation_mobile": 0
+          }
+        },
+        "collection_block_zmCnaq": {
+          "type": "collection_block",
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/ChocolateOverloadSluttyBrownie_4632b9b8-0517-44f0-af2d-6abb6e91cfcd.png",
+            "title": "SLUTTY BROWNIES",
+            "bg_color": "#A6F1A9",
+            "image_z_index": 0,
+            "image_scale": 180,
+            "image_x_offset": -104,
+            "image_y_offset": -44,
+            "image_rotation": 8,
+            "image_z_index_mobile": 0,
+            "image_scale_mobile": 100,
+            "image_x_offset_mobile": 0,
+            "image_y_offset_mobile": 0,
+            "image_rotation_mobile": 0
+          }
+        },
+        "collection_block_DLbeje": {
+          "type": "collection_block",
+          "settings": {
+            "collection": "cake-klub",
+            "image": "shopify://shop_images/5_0ed7c0d9-a40e-4e69-8060-38d5ce8d66ca.png",
+            "title": "CAKE CLUB",
+            "bg_color": "#F2D8EE",
+            "image_z_index": 0,
+            "image_scale": 260,
+            "image_x_offset": -68,
+            "image_y_offset": 0,
+            "image_rotation": 76,
+            "image_z_index_mobile": 0,
+            "image_scale_mobile": 100,
+            "image_x_offset_mobile": 0,
+            "image_y_offset_mobile": 0,
+            "image_rotation_mobile": 0
+          }
+        },
+        "collection_block_LRDLRA": {
+          "type": "collection_block",
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/Cake6_32f92bab-709f-4d1a-bc54-f36de5f3f451.png",
+            "title": "CUSTOM CAKES",
+            "bg_color": "#F8BFBF",
+            "image_z_index": 0,
+            "image_scale": 170,
+            "image_x_offset": -168,
+            "image_y_offset": -124,
+            "image_rotation": 0,
+            "image_z_index_mobile": 0,
+            "image_scale_mobile": 100,
+            "image_x_offset_mobile": 0,
+            "image_y_offset_mobile": 0,
+            "image_rotation_mobile": 0
+          }
+        }
+      },
+      "block_order": [
+        "collection_block_NdXefG",
+        "collection_block_gej3hX",
+        "collection_block_HqHPa3",
+        "collection_block_zmCnaq",
+        "collection_block_DLbeje",
+        "collection_block_LRDLRA"
+      ],
+      "custom_css": [
+        ".section-content {padding-top: 0px !important;}"
+      ],
+      "name": "Featured Collections Grid",
+      "settings": {
+        "section_heading": "OUR COLLECTION"
+      }
+    },
+    "feature_text_with_image_MCWzRj": {
+      "type": "feature-text-with-image",
+      "blocks": {
+        "shape_divider_a3jHJ3": {
+          "type": "shape_divider",
+          "settings": {
+            "target_section": "above",
+            "target_section_color_scheme": "scheme1",
+            "style": "rhc-2-patterned_1200x20",
+            "flip_horizontal": false,
+            "enable_animation": true,
+            "animation_direction": ""
+          }
+        },
+        "rich_text_block_nz6JYV": {
+          "type": "rich_text_block",
+          "settings": {
+            "rich_text": "<p>Welcome to Rabbit Hole Cakes. Based in Perth, Scotland, we’re Lee and Emma, a cake obsessed duo serving up serious indulgence with a side of chaos (the good kind). <strong>Built on family, fuelled by sugar, and baked with boldness, </strong>we’re not just baking cakes, brownies, and cookies, we are crafting moments that taste as unforgettable as they look.</p><p>From wild wedding cakes that steal the show to celebration bakes for every excuse to party (birthdays, baby showers, you name it), we pour our heart, soul, and a whole lot of butter into everything we make.</p><p>Family-run. Passion-fuelled. And absolutely not afraid to go all in.</p>",
+            "button_label": "ABOUT US",
+            "button_link": "shopify://pages/contact"
+          }
+        }
+      },
+      "block_order": [
+        "shape_divider_a3jHJ3",
+        "rich_text_block_nz6JYV"
+      ],
+      "custom_css": [
+        ".py-section-vertical-spacing {padding-top: 4em; padding-bottom: 5em;}",
+        ".font-heading {color: #3b6d82;}"
+      ],
+      "name": "t:sections.feature_text_with_image.name",
+      "settings": {
+        "title": "MEET YOUR MAKERS",
+        "mobile_text_scale": 3,
+        "desktop_text_scale": 8,
+        "apply_effects": true,
+        "max_width_heading": "max-w-lg",
+        "button_link": "",
+        "button_label": "Shop Now",
+        "image": "shopify://shop_images/PinPep_RabbitHoleCakes_033.jpg",
+        "crop": "",
+        "image_shape": "default",
+        "blob_type": 1,
+        "rotate_image": 0,
+        "disable_media_style": false,
+        "max_width_image_mobile": 100,
+        "image_offset_mobile": 0.5,
+        "max_width_image_desktop": 90,
+        "image_offset_desktop": 0.5,
+        "color_scheme": "scheme2",
+        "use_gradient_background": false
+      }
+    },
+    "scrolling_logos_4ABp9w": {
+      "type": "scrolling-logos",
+      "blocks": {
+        "logo_EPc8aN": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/image_42.png",
+            "link": ""
+          }
+        },
+        "logo_tR7MXy": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Three_UK_ideFl78erR_0_1.png",
+            "link": ""
+          }
+        },
+        "logo_iVhnby": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/SSE_idFTdWnhpP_0.png",
+            "link": ""
+          }
+        },
+        "logo_8Md4mQ": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Apple_Logo_1.png",
+            "link": ""
+          }
+        },
+        "logo_BAWYbk": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/image_40.png",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "logo_EPc8aN",
+        "logo_tR7MXy",
+        "logo_iVhnby",
+        "logo_8Md4mQ",
+        "logo_BAWYbk"
+      ],
+      "custom_css": [
+        ".py-section-vertical-spacing {padding-top: 0; padding-bottom: 4em;}",
+        "img {max-height: 90px; width: auto;}"
+      ],
+      "name": "t:sections.scrolling_logos.name",
+      "settings": {
+        "title": "",
+        "max_width": 170,
+        "speed": 60,
+        "direction": "normal",
+        "color_scheme": "scheme2",
+        "use_gradient_background": false
+      }
+    },
+    "image_with_text_overlay_FMddET": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "shape_divider_XLGaka": {
+          "type": "shape_divider",
+          "settings": {
+            "target_section": "below",
+            "target_section_color_scheme": "scheme1",
+            "style": "rhc-1-patterned_1200x20",
+            "flip_horizontal": false,
+            "enable_animation": false,
+            "animation_direction": ""
+          }
+        }
+      },
+      "block_order": [
+        "shape_divider_XLGaka"
+      ],
+      "custom_css": [
+        ".section-content {max-width: 100vw;}",
+        ".flex.justify-center {background: #ffffff73; padding: 3em; border-radius: 30px;}"
+      ],
+      "name": "t:sections.image_with_text_overlay.name",
+      "settings": {
+        "image": "shopify://shop_images/8_40abc3de-0bc8-437f-a4b8-d0de2ac1a69f.png",
+        "display_on_card": false,
+        "display_content_below_image_on_mobile": false,
+        "style": "full",
+        "height": "pt-700",
+        "place_content": "place-content-center-center",
+        "text_align": "text-center",
+        "title": "WEDDINGS",
+        "heading_size": "heading-feature",
+        "richtext": "Going big on your big day? We’ve got just the thing. Our wedding cake builder lets you handpick your dream dessert lineup - from brownies that’ll steal the spotlight to blondies that are guaranteed to tempt, tease, and totally win over your guests",
+        "cta_url": "shopify://pages/contact",
+        "cta_text": "Build me!",
+        "color_scheme": "scheme6",
+        "use_gradient_background": false
+      }
+    },
+    "image_with_text_eKF6B4": {
+      "type": "image-with-text",
+      "custom_css": [
+        "h2 {color: #3b6d82; font-size: clamp(1.75rem, 5vw, 3.5rem);}",
+        ".font-heading {text-align: left;}"
+      ],
+      "name": "t:sections.image_with_text.name",
+      "settings": {
+        "display_on_card": false,
+        "image": "shopify://shop_images/IMG_20230220_152556_107afe05-af97-464c-ab6e-e0c58f7b8d11.jpg",
+        "crop": "aspect-w-1 aspect-h-1",
+        "image_shape": "default",
+        "blob_type": 1,
+        "rotate_image": 0,
+        "image_position": "left",
+        "image_size": "half",
+        "disable_media_style": false,
+        "title": "CAKE KLUB!",
+        "heading_size": "heading-standard",
+        "richtext": "<p><strong>Dessert on Demand or on Repeat. You Choose.</strong></p><p>Whether you’re after a one-time sugar hit or a regular indulgence you can count on, The Cake Klub has you covered. Pick your box, pick your moment, and get ready to unwrap some serious joy.</p><p>One-time treat or sweet subscription? Totally up to you. </p><p><strong>Just don’t expect to stop at one.</strong></p>",
+        "text_alignment": "text-left",
+        "button_link": "shopify://collections/cake-klub",
+        "button_label": "VIEW BOXES",
+        "color_scheme": "",
+        "use_gradient_background": false
+      }
+    },
+    "scrolling_images_HnAL9L": {
+      "type": "scrolling-images",
+      "blocks": {
+        "logo_gyyjnK": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/4_ff5fcc6f-385a-4282-99ba-b8e6e89a8733.png",
+            "link": ""
+          }
+        },
+        "logo_PFRCYy": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/1_4e44e04f-71c3-4bfa-a7e7-32c342bc6037.png",
+            "link": ""
+          }
+        },
+        "logo_tErQpn": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/2_cd684990-5b7a-47e0-b81b-a66b18104b30.png",
+            "link": ""
+          }
+        },
+        "logo_TBPEh6": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/6.png",
+            "link": ""
+          }
+        },
+        "logo_BwTLcy": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/5_dba3a427-5a12-4469-ae21-f449784027e4.png",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "logo_gyyjnK",
+        "logo_PFRCYy",
+        "logo_tErQpn",
+        "logo_TBPEh6",
+        "logo_BwTLcy"
+      ],
+      "custom_css": [
+        ".py-section-vertical-spacing {padding-top: 0;}"
+      ],
+      "name": "Scrolling Images",
+      "settings": {
+        "title": "",
+        "max_width": 100,
+        "speed": 20,
+        "direction": "normal",
+        "color_scheme": "",
+        "use_gradient_background": false
+      }
+    }
+  },
+  "order": [
+    "rich_text_rhc_eYeGTx",
+    "collection_focus_carousel_RGiEQz",
+    "featured_collections_grid_zHcWFx",
+    "feature_text_with_image_MCWzRj",
+    "scrolling_logos_4ABp9w",
+    "image_with_text_overlay_FMddET",
+    "image_with_text_eKF6B4",
+    "scrolling_images_HnAL9L"
+  ]
+}

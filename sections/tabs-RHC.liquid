@@ -1,0 +1,324 @@
+{%- liquid
+  assign use_gradient_background = section.settings.use_gradient_background
+  assign color_scheme = section.settings.color_scheme
+  assign title = section.settings.title
+  assign stickers = section.blocks | where: 'type', 'sticker'
+  assign shape_dividers = section.blocks | where: 'type', 'shape_divider'
+  for sticker in stickers
+    render 'block-sticker' with block: sticker, section: section
+  endfor
+  for shape_divider in shape_dividers
+    render 'block-shape-divider' with block: shape_divider, section: section
+  endfor
+-%}
+
+{%- for block in section.blocks -%}
+  {%- render 'shape-defs',
+    shape: block.settings.image_shape,
+    shape_id: block.id,
+    index: block.id,
+    blob_type: block.settings.blob_type,
+    index: forloop.index0
+  -%}
+{%- endfor -%}
+
+<style>
+  .max-1256px {
+    max-width: 1256px;
+  }
+
+  .tab-content-text {
+    line-height: 150%;
+  }
+
+  @media (min-width: 1200px) {
+    .tablist {
+      margin-bottom: 85px;
+    }
+  }
+</style>
+
+<section
+  class="bg-scheme-background text-scheme-text {% if use_gradient_background %}bg-scheme-gradient{% endif %} relative overflow-hidden"
+  data-color-scheme="{{ color_scheme }}"
+>
+  <div class="max-w-site mx-auto max-1256px">
+    <div
+      class="menu section-content relative z-10 py-section-vertical-spacing" x-data="{ tab: 'tab_1' }"
+        {% if request.design_mode %}
+          x-init="tab = $root.dataset.startTab; $root.removeAttribute('data-start-tab');"
+          data-start-tab="tab_1"
+        {% endif %}
+    >
+      <div class="mx-auto max-w-site px-section">
+        
+        {%- if title != '' -%}
+          <h2
+            class="font-heading heading-style text-left max-730px"
+            id="{{ section.id }}-tablist_menu"
+          >
+            {{ title }}
+          </h2>
+        {%- endif -%}
+  
+          <div
+            class="tablist section-content-top-margin flex flex-wrap justify-start gap-5 text-center text-scheme-text"
+            role="tablist"
+            aria-labelledby="{{ section.id }}-tablist_menu"
+          >
+            {% for i in (1..2) %}
+              {% assign tab_key = 'tab_' | append: i %}
+              {% assign tab_value = section.settings[tab_key] %}
+              {% assign tabpanel_key = section.id
+                | append: '-'
+                | append: 'tabpanel_'
+                | append: i
+              %}
+    
+              {% if tab_value != blank %}
+                <button
+                  @click="tab = '{{ tab_key }}'"
+                  :class="{ 'active bg-scheme-text text-scheme-text-contrast': tab === '{{ tab_key }}' }"
+                  class="tab-btn btn relative bg-scheme-secondary-background text-sm text-scheme-text after:hidden lg:text-base"
+                  id="{{ section.id }}-{{ tab_key }}"
+                  type="button"
+                  role="tab"
+                  :aria-selected="tab === '{{ tab_key }}' ? 'true' : 'false'"
+                  aria-controls="{{ tabpanel_key }}"
+                >
+                  {{- tab_value -}}
+                  {%- if request.design_mode -%}
+                    {%- for block in section.blocks -%}
+                      {%- if block.settings.tab == tab_key -%}
+                        <div
+                          {{ block.shopify_attributes }}
+                          data-menu-index="{{ tab_key }}"
+                          class="absolute inset-0 z-20"
+                          aria-hidden="true"
+                        ></div>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  {%- endif -%}
+                </button>
+              {%- endif -%}
+            {% endfor %}
+          </div>
+      </div>
+      
+      <div class="relative z-10">
+        <div class="section-content-top-margin mx-auto">
+          <div>
+            <div>
+              <div class="menu__content">
+                {% for block in section.blocks %}
+                  {% if block.type == 'menu_group' %}
+                    {% liquid
+                      assign heading = block.settings.heading
+                      assign tab = block.settings.tab
+                      assign tabpanel_id = section.id | append: '-' | append: block.settings.tab | replace: 'tab', 'tabpanel'
+                      assign rich_text = block.settings.richtext
+                      assign image = block.settings.image
+                      assign button_link = block.settings.button_link
+                      assign button_label = block.settings.button_label
+                    %}
+                    <div
+                      x-show="tab === '{{ tab }}'"
+                      id="{{ tabpanel_id }}"
+                      role="tabpanel"
+                      aria-labelledby="{{ section.id }}-{{ tab }}"
+                      data-menu-index="{{ tab }}"
+                      class="mb-4 flex flex-row flex-wrap items-end justify-between gap-4"
+                    >
+                    
+                      {% if heading != blank %}
+                        <div class="my-4 grow-[2] basis-full">
+                          <h3 class="font-heading heading-style text-center">
+                            {{ heading }}
+                          </h3>
+                        </div>
+                      {% endif %}
+
+                      <div class="relative z-10 mx-auto max-w-site px-section">
+                          <div class="section-content text_alignment relative z-10 mx-auto">
+                            <div class="grid grid-flow-row-dense grid-cols-1 gap-10 lg:grid-cols-2">
+                              <div class="{{ image_width_desktop }}">
+                                {%- if image != blank -%}
+                                  {%- render 'media-image',
+                                    media: image,
+                                    container_id: container_id,
+                                    disable_media_style: disable_media_style,
+                                    loading: loading,
+                                    preload: preload,
+                                    sizes: sizes
+                                  -%}
+                                {%- else -%}
+                                  {%- render 'media-image-placeholder',
+                                    shape_id: section_id,
+                                    container_id: section_id,
+                                    shape: image_shape,
+                                    crop: crop,
+                                    rotate: rotate_image,
+                                    is_card: display_on_card,
+                                    blob_type: blob_type,
+                                    disable_media_style: disable_media_style
+                                  -%}
+                                {%- endif -%}
+                              </div>
+                              <div class="flex items-center">
+                                <div class="w-full">
+                    
+                                  {% if rich_text != blank %}
+                                    <div class="rte tab-content-text">
+                                      {{ rich_text }}
+                                    </div>
+                                  {% endif %}                            
+                      
+                                  {%- if button_link != blank and button_label != '' -%}
+                                    <div class="mt-5">
+                                      <a href="{{ button_link }}" class="rhc-button">
+                                        <span class="rhc-button__text">{{ button_label }}</span>
+                                        <span class="rhc-button__icon">{% render 'icon-next' %}</span>
+                                      </a>
+                                    </div>
+                                  {%- endif -%}
+                                </div>
+                              </div>
+                            </div>        
+                          </div>
+                      </div>
+
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {%- liquid
+    for block in section.blocks
+      case block.type
+        when 'background_shape'
+          render 'block-background-shape' with block: block, section: section
+        when 'background_pattern'
+          render 'block-background-pattern' with block: block, section: section, scheme: section.settings.color_scheme
+      endcase
+    endfor
+  -%}
+</section>
+
+{% schema %}
+{
+  "name": "Tabs RHC",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "t:common.settings.title.label",
+      "default": "Menu"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.menu.settings.tabs.label"
+    },
+    {
+      "type": "text",
+      "id": "tab_1",
+      "label": "t:sections.menu.settings.tab_title_1.label",
+      "default": "Tab title 1"
+    },
+    {
+      "type": "text",
+      "id": "tab_2",
+      "label": "t:sections.menu.settings.tab_title_2.label",
+      "default": "Tab title 2"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.menu.blocks.menu_group.label"
+    },
+  ],
+  "blocks": [
+    {
+      "type": "menu_group",
+      "name": "t:sections.menu.blocks.menu_group.label",
+      "settings": [
+        {
+          "type": "select",
+          "id": "tab",
+          "label": "t:sections.menu.settings.tab.label",
+          "info": "t:sections.menu.settings.tab.info",
+          "options": [
+            {
+              "value": "tab_1",
+              "label": "t:sections.menu.settings.tab_1.label"
+            },
+            {
+              "value": "tab_2",
+              "label": "t:sections.menu.settings.tab_2.label"
+            },
+          ],
+          "default": "tab_1"
+        },
+        {
+          "type": "header",
+          "content": "Content"
+        },        
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:common.settings.image.label"
+        },          
+        {
+          "type": "richtext",
+          "id": "richtext",
+          "label": "t:common.settings.richtext.label"
+        },
+        {
+          "type": "header",
+          "content": "t:common.settings.header_link"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:common.settings.button_link.label"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "t:common.settings.button_label.label",
+          "default": "Shop Now"
+        },
+      ]
+    },
+  ],
+  "presets": [
+    {
+      "name": "Tabs RHC",
+      "blocks": [
+        {
+          "type": "menu_group",
+          "settings": {
+            "tab": "tab_1"
+          }
+        },
+        {
+          "type": "menu_group",
+          "settings": {
+            "tab": "tab_2"
+          }
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer",
+      "aside"
+    ]
+  }
+}
+{% endschema %}
