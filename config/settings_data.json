@@ -217,6 +217,20 @@
           "card_text": "#000000",
           "card": "#ffffff"
         }
+      },
+      "scheme-2a55a678-5be1-415f-983d-14d07040ce40": {
+        "settings": {
+          "text": "#fbe5d2",
+          "text_contrast": "#000000",
+          "background": "#d74112",
+          "gradient": "",
+          "accent_1": "#ef862a",
+          "accent_1_contrast": "#000000",
+          "accent_2": "#ffffff",
+          "accent_2_contrast": "#000000",
+          "card_text": "#000000",
+          "card": "#f6c67c"
+        }
       }
     }
   },

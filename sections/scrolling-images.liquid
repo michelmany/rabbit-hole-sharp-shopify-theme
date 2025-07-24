@@ -82,6 +82,14 @@
       </scrolling-items-container>
     </div>
   </div>
+
+  {%- liquid
+    assign shape_dividers = section.blocks | where: 'type', 'shape_divider'
+
+    for shape_divider in shape_dividers
+      render 'block-shape-divider', block: shape_divider
+    endfor
+  -%}
 </section>
 
 {% schema %}
@@ -153,6 +161,15 @@
           "id": "link",
           "label": "Link"
         }
+      ]
+    },
+    {
+      "type": "shape_divider",
+      "name": "Shape Divider",
+      "settings": [
+        { "type": "select", "id": "target_section", "label": "Target Section", "default": "above", "options": [ { "value": "above", "label": "Above" }, { "value": "below", "label": "Below" } ] },
+        { "type": "color_scheme", "id": "target_section_color_scheme", "label": "Color Scheme", "default": "scheme1" },
+        { "type": "select", "id": "style", "label": "Style", "default": "waves-1-patterned_1200x20", "options": [ { "value": "waves-1-patterned_1200x20", "label": "Waves 1" }, { "value": "rhc-1-patterned_1200x20", "label": "RHC 1" }, { "value": "rhc-2-patterned_1200x20", "label": "RHC 2" } ] }
       ]
     }
   ],

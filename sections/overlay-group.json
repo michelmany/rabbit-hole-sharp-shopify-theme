@@ -13,6 +13,7 @@
   "sections": {
     "call-to-action": {
       "type": "call-to-action",
+      "disabled": true,
       "settings": {
         "home_page_only": false,
         "animate_in": false,

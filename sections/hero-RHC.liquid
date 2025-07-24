@@ -1,0 +1,209 @@
+<style>
+  .hero-rhc-button {
+    font-family: var(--heading-font-stack);
+    font-size: 12px;
+    font-weight: 400;
+    border-radius: 50px;
+    border: 1px solid #fff;
+    padding: 10px 25px;
+  }
+
+  .hero-rhc-text {
+    font-family: Rubik;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 30px;
+    margin-bottom: 45px;
+  }
+
+  .hero-rhc-headline {
+    font-size: clamp(1.9rem, 4vw, 2.5rem);
+    line-height: 90%;
+    margin-bottom: 18px;
+    max-width: 642px;
+  }
+
+  @media (min-width: 768px) {
+    .hero-rhc-button {
+      font-size: 18px;
+    }
+
+    .hero-rhc-headline {
+      font-size: 100px;
+      margin-bottom: 38px;
+    }
+  }
+
+  .hero-rhc-image {
+    max-width: 723px;
+  }
+</style>
+
+{%- liquid
+  assign image = section.settings.image
+-%}
+
+<section
+  class="relative overflow-hidden bg-scheme-background text-scheme-text"
+  data-color-scheme="{{ section.settings.color_scheme }}"
+>
+  <div class="section-content mx-auto max-w-site px-section py-section-vertical-spacing section-content">
+    <div class="max-w-site mx-auto full">
+      <div class="z-shape-divider mx-auto hero-rhc-grid grid grid-cols-1 gap-10 lg:grid-cols-12">
+        <div class="col-span-full lg:col-span-6">
+          {%- if section.settings.headline != '' -%}
+            <h1 class="hero-rhc-headline feature-text inline-heading-rte font-heading heading-style break-words text-scale-n0 lg:text-scale-n0">
+              {{- section.settings.headline -}}
+            </h1>
+          {%- endif -%}
+
+          <div class="hero-rhc-text font-main {% if section.settings.title != '' %}mb-5{% endif %} rte leading-snug">
+            {{ section.settings.rich_text }}
+          </div>
+
+          {%- if section.settings.button_link != blank and section.settings.button_label != '' -%}
+            <a href="{{ section.settings.button_link }}" class="bg-transparent">
+              <span
+                class="hero-rhc-button bg-transparent text-white"
+                style="color: {{ section.settings.button_text_color }};"
+              >
+                {{- section.settings.button_label -}}
+              </span>
+            </a>
+          {%- endif -%}
+        </div>
+
+        <div class="hero-rhc-image col-span-full lg:col-span-6 lg:px-0 ">
+          {%- if image != blank -%}
+            {%- render 'media-image',
+              media: image,
+              container_id: container_id,
+              disable_media_style: true,
+              loading: loading,
+              preload: preload,
+              sizes: sizes
+            -%}
+          {%- else -%}
+            {%- render 'media-image-placeholder',
+              shape_id: section_id,
+              container_id: section_id,
+              shape: image_shape,
+              crop: crop,
+              disable_media_style: true
+            -%}
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- liquid
+    assign stickers = section.blocks | where: 'type', 'sticker'
+    assign shape_dividers = section.blocks | where: 'type', 'shape_divider'
+    for sticker in stickers
+      render 'block-sticker', block: sticker
+    endfor
+    for shape_divider in shape_dividers
+      render 'block-shape-divider', block: shape_divider
+    endfor
+  -%}
+</section>
+
+{% schema %}
+{
+  "name": "Hero RHC",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "scheme1",
+      "label": "t:common.settings.color_scheme.label"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "t:common.settings.title.label",
+      "default": "Lorem Ipsum"
+    },
+    {
+      "type": "color",
+      "id": "headline_color",
+      "label": "Headline Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "richtext",
+      "id": "rich_text",
+      "label": "t:sections.rich_text.settings.rich_text.label",
+      "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "t:common.settings.button_link.label"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "t:common.settings.button_label.label",
+      "default": "Product Information"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#FFFFFF"
+    },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:common.settings.image.label"
+        },
+  ],
+  "blocks": [
+    {
+      "type": "background_pattern",
+      "name": "Background Pattern",
+      "settings": [
+        { "type": "select", "id": "type", "label": "Type", "options": [ { "value": "diagonal_lines", "label": "Diagonal Lines" }, { "value": "grid", "label": "Grid" } ], "default": "grid" },
+        { "type": "select", "id": "color", "label": "Color", "default": "text", "options": [ { "value": "text", "label": "Text" }, { "value": "accent-1", "label": "Accent 1" } ] }
+      ]
+    },
+    {
+      "type": "background_shape",
+      "name": "Background Shape",
+      "settings": [
+        { "type": "select", "id": "shape", "label": "Shape", "default": "square", "options": [ { "value": "square", "label": "Square" }, { "value": "circle", "label": "Circle" } ] },
+        { "type": "color_scheme", "id": "color_scheme", "default": "scheme1", "label": "Color Scheme" }
+      ]
+    },
+    {
+      "type": "sticker",
+      "name": "Sticker",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "range", "id": "horizontal_position", "label": "Horizontal Position (%)", "min": 0, "max": 100, "default": 50 },
+        { "type": "range", "id": "vertical_position", "label": "Vertical Position (%)", "min": 0, "max": 100, "default": 50 }
+      ]
+    },
+    {
+      "type": "shape_divider",
+      "name": "Shape Divider",
+      "settings": [
+        { "type": "select", "id": "target_section", "label": "Target Section", "default": "above", "options": [ { "value": "above", "label": "Above" }, { "value": "below", "label": "Below" } ] },
+        { "type": "color_scheme", "id": "target_section_color_scheme", "label": "Color Scheme", "default": "scheme1" },
+        { "type": "select", "id": "style", "label": "Style", "default": "waves-1-patterned_1200x20", "options": [ { "value": "waves-1-patterned_1200x20", "label": "Waves 1" }, { "value": "rhc-1-patterned_1200x20", "label": "RHC 1" }, { "value": "rhc-2-patterned_1200x20", "label": "RHC 2" } ] }
+      ]
+    }
+  ],
+
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer",
+      "aside"
+    ]
+  }
+}
+{% endschema %}

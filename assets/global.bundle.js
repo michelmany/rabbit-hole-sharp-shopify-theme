@@ -2706,3 +2706,4 @@ setTimeout(() => {
   document.dispatchEvent(new CustomEvent("switch:alpine:started"));
 });
 console.log('Shapes theme (3.0.5) by SWITCH | Make the switch: https://switchthemes.co');
+

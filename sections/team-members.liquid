@@ -1,0 +1,64 @@
+{% schema %}
+{
+  "name": "Team Members",
+  "max_blocks": 10,
+  "blocks": [
+    {
+      "type": "member",
+      "name": "Team Member",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "photo",
+          "label": "Photo"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Team Members"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+  .team-members-headline {
+    color: #3b6d82;
+  }
+  .team-members-name {
+    font-family: var(--heading-font-stack);
+  }
+{% endstylesheet %}
+
+<section class="relative overflow-hidden bg-scheme-background text-scheme-text overflow-hidden px-section py-section-vertical-spacing">
+  <div class="section-content relative z-10 px-section w-full max-w-site mx-auto">
+    <h2 class="team-members-headline text-left font-heading heading-standard heading-style break-words">
+      Meet Our Team
+    </h2>
+
+    <div class="team-members-rhc-grid grid grid-cols-1 gap-10 lg:grid-cols-3 section-content-top-margin">
+      {% for block in section.blocks %}
+        <div class="team-member">
+          {%- if block.settings.photo != blank -%}
+            {%- render 'media-image', media: block.settings.photo -%}
+          {%- else -%}
+            {%- render 'media-image-placeholder' -%}
+          {%- endif -%}
+
+          {% if block.settings.name != '' %}
+            <h3 class="team-members-name rte mt-5 text-left">
+              {{ block.settings.name }}
+            </h3>
+          {%- endif -%}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

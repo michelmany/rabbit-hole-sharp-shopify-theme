@@ -1,0 +1,184 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "rich_text_rhc_eYeGTx": {
+      "type": "rich-text-rhc",
+      "blocks": {
+        "shape_divider_bzwnj4": {
+          "type": "shape_divider",
+          "settings": {
+            "target_section": "below",
+            "target_section_color_scheme": "scheme3",
+            "style": "rhc-1-patterned_1200x20"
+          }
+        }
+      },
+      "block_order": [
+        "shape_divider_bzwnj4"
+      ],
+      "disabled": true,
+      "custom_css": [
+        ".push-btn__surface {background: #3b6d82 !important; color: #fff !important; font-weight: 600;}",
+        ".py-section-vertical-spacing {padding-top: 4rem !important; padding-bottom: 4rem !important;}",
+        "@media screen and (max-width: 767px) {.py-section-vertical-spacing {padding-top: 3rem !important; padding-bottom: 2rem !important; }}",
+        ".push-btn__surface {padding: 0.35rem 1rem;}",
+        ".section-content {flex-grow: 1; display: flex; flex-direction: column; justify-content: center;}"
+      ],
+      "name": "Rich Text RHC",
+      "settings": {
+        "title": "Heading",
+        "rabbit_text": "RABBIT",
+        "rabbit_color": "#d74112",
+        "hole_text": "HOLE",
+        "hole_color": "#d74112",
+        "cakes_text": "CAKES",
+        "cakes_color": "#ffffff",
+        "rich_text": "",
+        "display_on_card": false,
+        "content_width_desktop": "lg:w-1/2",
+        "button_link": "shopify://collections",
+        "button_label": "SHOP NOW",
+        "color_scheme": "scheme3",
+        "use_gradient_background": false,
+        "lovedby_text": "Loved by:",
+        "lovedby_text_color": "#000000",
+        "logo_apple": "shopify://shop_images/image_70.png",
+        "logo_apple_link": "",
+        "logo_three": "shopify://shop_images/image_71.png",
+        "logo_three_link": "",
+        "logo_sse": "shopify://shop_images/image_72.png",
+        "logo_sse_link": ""
+      }
+    },
+    "hero_rhc_VignrU": {
+      "type": "hero-RHC",
+      "blocks": {
+        "shape_divider_3khPDr": {
+          "type": "shape_divider",
+          "settings": {
+            "target_section": "below",
+            "target_section_color_scheme": "scheme1",
+            "style": "rhc-1-patterned_1200x20"
+          }
+        }
+      },
+      "block_order": [
+        "shape_divider_3khPDr"
+      ],
+      "custom_css": [
+        ".hero-rhc-text {max-width: 605px;}"
+      ],
+      "name": "Hero RHC",
+      "settings": {
+        "color_scheme": "scheme-2a55a678-5be1-415f-983d-14d07040ce40",
+        "headline": "About Us",
+        "headline_color": "#ffffff",
+        "rich_text": "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the text.<br/><br/>Tax included. <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\"><strong>Shipping</strong></a> calculated at checkout. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the text.<br/><br/>Tax included. <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\"><strong>Shipping</strong></a> calculated at checkout. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the text.</p>",
+        "button_link": "shopify://products/bespoke-gift-box-with-toppers",
+        "button_label": "",
+        "button_text_color": "#ffffff",
+        "image": "shopify://shop_images/ebbit-hole-cakes-team.jpg"
+      }
+    },
+    "team_members_PxPytK": {
+      "type": "team-members",
+      "blocks": {
+        "member_NtbLfN": {
+          "type": "member",
+          "settings": {
+            "photo": "shopify://shop_images/TraybakeShoot1x12048x2048-16_cab9b38f-9671-4bc7-aae6-c1899ae602f5.jpg",
+            "name": "Team member 3"
+          }
+        },
+        "member_zBPK68": {
+          "type": "member",
+          "settings": {
+            "name": "Team Member 2"
+          }
+        },
+        "member_G4KTdX": {
+          "type": "member",
+          "settings": {
+            "name": "Team member 1"
+          }
+        }
+      },
+      "block_order": [
+        "member_NtbLfN",
+        "member_zBPK68",
+        "member_G4KTdX"
+      ],
+      "custom_css": [],
+      "name": "Team Members",
+      "settings": {}
+    },
+    "award_winning_3384CM": {
+      "type": "award-winning",
+      "blocks": {
+        "award_ry6rY4": {
+          "type": "award",
+          "settings": {
+            "name": "Award 1"
+          }
+        },
+        "award_artLc9": {
+          "type": "award",
+          "settings": {
+            "name": "Award 2"
+          }
+        },
+        "award_9pkMER": {
+          "type": "award",
+          "settings": {
+            "name": "Award 3"
+          }
+        },
+        "award_MWVEi9": {
+          "type": "award",
+          "settings": {
+            "name": "Award 4"
+          }
+        },
+        "award_gVMPwP": {
+          "type": "award",
+          "settings": {
+            "name": "Award 5"
+          }
+        },
+        "award_ELhYJy": {
+          "type": "award",
+          "settings": {
+            "name": "Award 6"
+          }
+        }
+      },
+      "block_order": [
+        "award_ry6rY4",
+        "award_artLc9",
+        "award_9pkMER",
+        "award_MWVEi9",
+        "award_gVMPwP",
+        "award_ELhYJy"
+      ],
+      "name": "Award Winning",
+      "settings": {
+        "headline": "Award Winning",
+        "rich_text": "<p>For allergens, including cereals containing gluten, see ingredients in bold. May also contain peanuts and other nuts. Please be aware we use gluten, dairy, eggs, soya, nuts and peanuts in our bakery. Suitable for vegetarians and does not contain alcohol.</p>"
+      }
+    }
+  },
+  "order": [
+    "rich_text_rhc_eYeGTx",
+    "hero_rhc_VignrU",
+    "team_members_PxPytK",
+    "award_winning_3384CM"
+  ]
+}

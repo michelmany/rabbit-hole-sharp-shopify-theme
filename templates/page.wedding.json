@@ -58,9 +58,35 @@
         "logo_sse_link": ""
       }
     },
+    "hero_rhc_VignrU": {
+      "type": "hero-RHC",
+      "custom_css": [
+        ".py-section-vertical-spacing {padding-bottom: 150px;}",
+        ".hero-rhc-text {max-width: 650px;}"
+      ],
+      "name": "Hero RHC",
+      "settings": {
+        "color_scheme": "scheme3",
+        "headline": "BESPOKE WEDDING CAKES",
+        "headline_color": "#ffffff",
+        "rich_text": "<p>At Rabbit hole cakes , We Specialise in creating beautifully bespoke, luxury artisan bakes for weddings & special occasions.<br/>Offering a tempting menu of deliciously indulgent flavours, sourcing locally wherever possible the finest & freshest of ingredients, our aim is that your cake will taste just as amazing as it looks.  With a passion for elegance & funk as well as flavour, we perfect every bake for each client, to ensure dream bakes for weddings, birthdays, christenings, or any other special occasion.</p>",
+        "button_link": "shopify://products/bespoke-gift-box-with-toppers",
+        "button_label": "Product Information",
+        "button_text_color": "#ffffff",
+        "image": "shopify://shop_images/bespoke-wedding-cake.png"
+      }
+    },
     "scrolling_images_HnAL9L": {
       "type": "scrolling-images",
       "blocks": {
+        "shape_divider_BnLyPy": {
+          "type": "shape_divider",
+          "settings": {
+            "target_section": "below",
+            "target_section_color_scheme": "scheme1",
+            "style": "rhc-1-patterned_1200x20"
+          }
+        },
         "logo_gyyjnK": {
           "type": "logo",
           "settings": {
@@ -98,6 +124,7 @@
         }
       },
       "block_order": [
+        "shape_divider_BnLyPy",
         "logo_gyyjnK",
         "logo_PFRCYy",
         "logo_tErQpn",
@@ -113,7 +140,7 @@
         "max_width": 100,
         "speed": 20,
         "direction": "normal",
-        "color_scheme": "",
+        "color_scheme": "scheme3",
         "use_gradient_background": false
       }
     },
@@ -163,6 +190,7 @@
   },
   "order": [
     "rich_text_rhc_eYeGTx",
+    "hero_rhc_VignrU",
     "scrolling_images_HnAL9L",
     "tabs_rhc_8Ytkp7"
   ]

@@ -1,0 +1,92 @@
+{% schema %}
+{
+  "name": "Award Winning",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Award Winning"
+    },
+    {
+      "type": "richtext",
+      "id": "rich_text",
+      "label": "t:sections.rich_text.settings.rich_text.label",
+      "default": "<p>For allergens, including cereals containing gluten, see ingredients in bold. May also contain peanuts and other nuts. Please be aware we use gluten, dairy, eggs, soya, nuts and peanuts in our bakery. Suitable for vegetarians and does not contain alcohol.</p>"
+    },
+  ],
+  "blocks": [
+    {
+      "type": "award",
+      "name": "Award",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "photo",
+          "label": "Photo"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Award Winning"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+  .award-rhc-headline {
+    color: #3b6d82;
+  }
+  .award-rhc-name {
+    font-family: var(--heading-font-stack);
+  }
+
+  .award-rhc-text {
+    max-width: 605px;
+  }
+
+  .award-rhc-grid {
+    max-width: 935px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+{% endstylesheet %}
+
+<section class="relative overflow-hidden bg-scheme-background text-scheme-text overflow-hidden px-section py-section-vertical-spacing">
+  <div class="section-content relative z-10 px-section w-full max-w-site mx-auto">
+    <h2 class="award-rhc-headline text-center font-heading heading-standard heading-style break-words mb-5 lg:mb-6">
+      {{ section.settings.headline }}
+    </h2>
+
+    <div class="award-rhc-text text-center mx-auto">
+      {{ section.settings.rich_text }}
+    </div>
+
+    <div class="award-rhc-grid grid grid-cols-1 gap-10 lg:grid-cols-3 section-content-top-margin">
+      {% for block in section.blocks %}
+        <div class="team-member">
+          {%- if block.settings.photo != blank -%}
+            {%- render 'media-image', media: block.settings.photo -%}
+          {%- else -%}
+            {%- render 'media-image-placeholder' -%}
+          {%- endif -%}
+
+          {% if block.settings.name != '' %}
+            <h3 class="award-rhc-name rte mt-5 text-left">
+              {{ block.settings.name }}
+            </h3>
+          {%- endif -%}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

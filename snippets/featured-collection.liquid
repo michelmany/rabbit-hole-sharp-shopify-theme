@@ -73,11 +73,7 @@
   endif
 -%}
 
-{%- render 'collection-shape-defs',
-  shape: image_shape,
-  section_id: item.id,
-  item_count: item.settings.no_products
--%}
+{%- render 'collection-shape-defs', shape: image_shape, section_id: item.id, item_count: item.settings.no_products -%}
 
 {%- capture view_all_button -%}
 <a href="{{ collection.url }}" class="push-btn inline-block">
@@ -92,9 +88,8 @@
 >
   <div class="{% if layout == 'carousel' %}splide__track overflow-visible {% if settings.product_tiles_scatter %}splide__track--scattered{% endif %} {% if item.settings.display_on_card %}{% if settings.card_shadow_direction contains 'top' %}with-top-card-shadow{% else %}with-bottom-card-shadow{% endif %}{% endif %}{% endif %}">
     <ul class="{% if layout == 'carousel' %}splide__list{% endif %} {% if layout == 'grid' %}grid gap-theme {% if mobile_grid_cols == '2' %}grid-cols-2{% else %}grid-cols-1{% endif %} {{ desktop_grid_cols }}{% endif %}">
-      {%- for product in collection.products
-        limit: item.settings.no_products
-      -%}
+      {%- assign recommended_products = collection.products | default: collection -%}
+      {%- for product in recommended_products limit: item.settings.no_products -%}
         <li class="{% if layout == 'carousel' %}splide__slide {{ mobile_slide_width }}{% endif %}">
           {%- liquid
             if settings.product_tiles_scatter
@@ -215,9 +210,7 @@
     <div class="splide__arrows mt-5 flex items-center justify-between px-section">
       {%- if collection != blank -%}
         <div>
-          {%- if collection.all_products_count > item.settings.no_products
-            and item.settings.show_view_all
-          -%}
+          {%- if collection.all_products_count > item.settings.no_products and item.settings.show_view_all -%}
             {{ view_all_button }}
           {%- endif -%}
         </div>
@@ -264,9 +257,7 @@
 </div>
 
 {%- if collection != blank and layout == 'grid' -%}
-  {%- if collection.all_products_count > item.settings.no_products
-    and item.settings.show_view_all
-  -%}
+  {%- if collection.all_products_count > item.settings.no_products and item.settings.show_view_all -%}
     <div class="mt-5 text-center lg:mt-10">
       {{ view_all_button }}
     </div>

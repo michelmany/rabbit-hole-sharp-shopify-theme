@@ -44,14 +44,14 @@
 >
   <div class="max-w-site mx-auto max-1256px">
     <div
-      class="menu section-content relative z-10 py-section-vertical-spacing" x-data="{ tab: 'tab_1' }"
-        {% if request.design_mode %}
-          x-init="tab = $root.dataset.startTab; $root.removeAttribute('data-start-tab');"
-          data-start-tab="tab_1"
-        {% endif %}
+      class="menu section-content relative z-10 py-section-vertical-spacing"
+      x-data="{ tab: 'tab_1' }"
+      {% if request.design_mode %}
+        x-init="tab = $root.dataset.startTab; $root.removeAttribute('data-start-tab');"
+        data-start-tab="tab_1"
+      {% endif %}
     >
       <div class="mx-auto max-w-site px-section">
-        
         {%- if title != '' -%}
           <h2
             class="font-heading heading-style text-left max-730px"
@@ -60,51 +60,47 @@
             {{ title }}
           </h2>
         {%- endif -%}
-  
-          <div
-            class="tablist section-content-top-margin flex flex-wrap justify-start gap-5 text-center text-scheme-text"
-            role="tablist"
-            aria-labelledby="{{ section.id }}-tablist_menu"
-          >
-            {% for i in (1..2) %}
-              {% assign tab_key = 'tab_' | append: i %}
-              {% assign tab_value = section.settings[tab_key] %}
-              {% assign tabpanel_key = section.id
-                | append: '-'
-                | append: 'tabpanel_'
-                | append: i
-              %}
-    
-              {% if tab_value != blank %}
-                <button
-                  @click="tab = '{{ tab_key }}'"
-                  :class="{ 'active bg-scheme-text text-scheme-text-contrast': tab === '{{ tab_key }}' }"
-                  class="tab-btn btn relative bg-scheme-secondary-background text-sm text-scheme-text after:hidden lg:text-base"
-                  id="{{ section.id }}-{{ tab_key }}"
-                  type="button"
-                  role="tab"
-                  :aria-selected="tab === '{{ tab_key }}' ? 'true' : 'false'"
-                  aria-controls="{{ tabpanel_key }}"
-                >
-                  {{- tab_value -}}
-                  {%- if request.design_mode -%}
-                    {%- for block in section.blocks -%}
-                      {%- if block.settings.tab == tab_key -%}
-                        <div
-                          {{ block.shopify_attributes }}
-                          data-menu-index="{{ tab_key }}"
-                          class="absolute inset-0 z-20"
-                          aria-hidden="true"
-                        ></div>
-                      {%- endif -%}
-                    {%- endfor -%}
-                  {%- endif -%}
-                </button>
-              {%- endif -%}
-            {% endfor %}
-          </div>
+
+        <div
+          class="tablist section-content-top-margin flex flex-wrap justify-start gap-5 text-center text-scheme-text"
+          role="tablist"
+          aria-labelledby="{{ section.id }}-tablist_menu"
+        >
+          {% for i in (1..2) %}
+            {% assign tab_key = 'tab_' | append: i %}
+            {% assign tab_value = section.settings[tab_key] %}
+            {% assign tabpanel_key = section.id | append: '-' | append: 'tabpanel_' | append: i %}
+
+            {% if tab_value != blank %}
+              <button
+                @click="tab = '{{ tab_key }}'"
+                :class="{ 'active bg-scheme-text text-scheme-text-contrast': tab === '{{ tab_key }}' }"
+                class="tab-btn btn relative bg-scheme-secondary-background text-sm text-scheme-text after:hidden lg:text-base"
+                id="{{ section.id }}-{{ tab_key }}"
+                type="button"
+                role="tab"
+                :aria-selected="tab === '{{ tab_key }}' ? 'true' : 'false'"
+                aria-controls="{{ tabpanel_key }}"
+              >
+                {{- tab_value -}}
+                {%- if request.design_mode -%}
+                  {%- for block in section.blocks -%}
+                    {%- if block.settings.tab == tab_key -%}
+                      <div
+                        {{ block.shopify_attributes }}
+                        data-menu-index="{{ tab_key }}"
+                        class="absolute inset-0 z-20"
+                        aria-hidden="true"
+                      ></div>
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endif -%}
+              </button>
+            {%- endif -%}
+          {% endfor %}
+        </div>
       </div>
-      
+
       <div class="relative z-10">
         <div class="section-content-top-margin mx-auto">
           <div>
@@ -129,7 +125,6 @@
                       data-menu-index="{{ tab }}"
                       class="mb-4 flex flex-row flex-wrap items-end justify-between gap-4"
                     >
-                    
                       {% if heading != blank %}
                         <div class="my-4 grow-[2] basis-full">
                           <h3 class="font-heading heading-style text-center">
@@ -139,54 +134,52 @@
                       {% endif %}
 
                       <div class="relative z-10 mx-auto max-w-site px-section">
-                          <div class="section-content text_alignment relative z-10 mx-auto">
-                            <div class="grid grid-flow-row-dense grid-cols-1 gap-10 lg:grid-cols-2">
-                              <div class="{{ image_width_desktop }}">
-                                {%- if image != blank -%}
-                                  {%- render 'media-image',
-                                    media: image,
-                                    container_id: container_id,
-                                    disable_media_style: disable_media_style,
-                                    loading: loading,
-                                    preload: preload,
-                                    sizes: sizes
-                                  -%}
-                                {%- else -%}
-                                  {%- render 'media-image-placeholder',
-                                    shape_id: section_id,
-                                    container_id: section_id,
-                                    shape: image_shape,
-                                    crop: crop,
-                                    rotate: rotate_image,
-                                    is_card: display_on_card,
-                                    blob_type: blob_type,
-                                    disable_media_style: disable_media_style
-                                  -%}
+                        <div class="section-content text_alignment relative z-10 mx-auto">
+                          <div class="grid grid-flow-row-dense grid-cols-1 gap-10 lg:grid-cols-2">
+                            <div class="{{ image_width_desktop }}">
+                              {%- if image != blank -%}
+                                {%- render 'media-image',
+                                  media: image,
+                                  container_id: container_id,
+                                  disable_media_style: disable_media_style,
+                                  loading: loading,
+                                  preload: preload,
+                                  sizes: sizes
+                                -%}
+                              {%- else -%}
+                                {%- render 'media-image-placeholder',
+                                  shape_id: section_id,
+                                  container_id: section_id,
+                                  shape: image_shape,
+                                  crop: crop,
+                                  rotate: rotate_image,
+                                  is_card: display_on_card,
+                                  blob_type: blob_type,
+                                  disable_media_style: disable_media_style
+                                -%}
+                              {%- endif -%}
+                            </div>
+                            <div class="flex items-center">
+                              <div class="w-full">
+                                {% if rich_text != blank %}
+                                  <div class="rte tab-content-text">
+                                    {{ rich_text }}
+                                  </div>
+                                {% endif %}
+
+                                {%- if button_link != blank and button_label != '' -%}
+                                  <div class="mt-5">
+                                    <a href="{{ button_link }}" class="rhc-button">
+                                      <span class="rhc-button__text">{{ button_label }}</span>
+                                      <span class="rhc-button__icon">{% render 'icon-next' %}</span>
+                                    </a>
+                                  </div>
                                 {%- endif -%}
                               </div>
-                              <div class="flex items-center">
-                                <div class="w-full">
-                    
-                                  {% if rich_text != blank %}
-                                    <div class="rte tab-content-text">
-                                      {{ rich_text }}
-                                    </div>
-                                  {% endif %}                            
-                      
-                                  {%- if button_link != blank and button_label != '' -%}
-                                    <div class="mt-5">
-                                      <a href="{{ button_link }}" class="rhc-button">
-                                        <span class="rhc-button__text">{{ button_label }}</span>
-                                        <span class="rhc-button__icon">{% render 'icon-next' %}</span>
-                                      </a>
-                                    </div>
-                                  {%- endif -%}
-                                </div>
-                              </div>
-                            </div>        
+                            </div>
                           </div>
+                        </div>
                       </div>
-
                     </div>
                   {% endif %}
                 {% endfor %}
@@ -265,12 +258,12 @@
         {
           "type": "header",
           "content": "Content"
-        },        
+        },
         {
           "type": "image_picker",
           "id": "image",
           "label": "t:common.settings.image.label"
-        },          
+        },
         {
           "type": "richtext",
           "id": "richtext",

@@ -121,42 +121,23 @@
         "use_gradient_background": false
       }
     },
-    "related-products": {
+    "related_products_TR94XF": {
       "type": "related-products",
-      "blocks": {
-        "shape_divider_LbcN99": {
-          "type": "shape_divider",
-          "settings": {
-            "target_section": "above",
-            "target_section_color_scheme": "scheme1",
-            "style": "rhc-1-patterned_1200x20",
-            "flip_horizontal": false,
-            "enable_animation": false,
-            "animation_direction": ""
-          }
-        }
-      },
-      "block_order": [
-        "shape_divider_LbcN99"
-      ],
-      "custom_css": [
-        "h2 {color: #3b6d82; max-width: 100%; margin-left: auto; margin-right: auto; text-align: center; word-break: break-word; width: 12ch;}",
-        ".heading-standard {display: block; margin-left: auto; margin-right: auto;}"
-      ],
+      "name": "t:sections.related_products.name",
       "settings": {
         "display_on_card": false,
         "enable_quick_buy": false,
-        "related_products_heading": "RELATED PRODUCTS",
+        "related_products_heading": "Related Products",
         "max_products": "4",
         "product_tiles_aspect_ratio": "",
         "image_shape": "",
-        "color_scheme": "scheme1",
+        "color_scheme": "",
         "use_gradient_background": false
       }
     }
   },
   "order": [
     "main",
-    "related-products"
+    "related_products_TR94XF"
   ]
 }
