@@ -1,24 +1,29 @@
 {%- assign limit = section.settings.product_limit | default: 6 -%}
 
 {% if recommendations.performed and recommendations.products_count > 0 %}
-    <section class="section">
-        <div class="section-header">
-            <h2 class="section-title">{{ section.settings.heading }}</h2>
-        </div>
+  <section class="section">
+    <div class="section-header">
+      <h2 class="section-title">{{ section.settings.heading }}</h2>
+    </div>
 
-        {%- assign carousel_id = 'slideshow-' | append: section.id | replace: '=', '--' | replace: '+', '--' | replace: '/', '--' -%}
-        <div class="splide" data-section-id="{{ section.id }}" id="{{ carousel_id }}">
-            <div class="splide__track">
-                <ul class="splide__list">
-                    {% for product in recommendations.products limit: limit %}
-                        <li class="splide__slide">
-                            {%- render 'product-tile', product: product -%}
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-    </section>
+    {%- assign carousel_id = 'slideshow-'
+      | append: section.id
+      | replace: '=', '--'
+      | replace: '+', '--'
+      | replace: '/', '--'
+    -%}
+    <div class="splide" data-section-id="{{ section.id }}" id="{{ carousel_id }}">
+      <div class="splide__track">
+        <ul class="splide__list">
+          {% for product in recommendations.products limit: limit %}
+            <li class="splide__slide">
+              {%- render 'product-tile', product: product -%}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </section>
 {% endif %}
 
 {% schema %}

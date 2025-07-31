@@ -35,10 +35,19 @@
   .team-members-name {
     font-family: var(--heading-font-stack);
   }
+  @media (max-width: 560px) {
+    .team-members-headline {
+      font-size: 34px !important;
+    }
+    .team-members-section.py-section-vertical-spacing {
+      padding-top: 60px !important;
+      padding-bottom: 60px !important;
+    }
+  }
 {% endstylesheet %}
 
-<section class="relative overflow-hidden bg-scheme-background text-scheme-text overflow-hidden px-section py-section-vertical-spacing">
-  <div class="section-content relative z-10 px-section w-full max-w-site mx-auto">
+<section class="team-members-section section-content mx-auto max-w-site px-section relative overflow-hidden bg-scheme-background text-scheme-text overflow-hidden py-section-vertical-spacing">
+
     <h2 class="team-members-headline text-left font-heading heading-standard heading-style break-words">
       Meet Our Team
     </h2>
@@ -60,5 +69,5 @@
         </div>
       {% endfor %}
     </div>
-  </div>
+
 </section>

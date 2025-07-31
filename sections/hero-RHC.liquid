@@ -38,6 +38,16 @@
   .hero-rhc-image {
     max-width: 723px;
   }
+  @media (max-width: 560px) {
+    .hero-rhc.py-section-vertical-spacing {
+      padding-bottom: 56px !important;
+      padding-top: 30px !important
+    }
+    .tab-btn {
+      padding-inline: 52px !important;
+      width: 100% !important;
+    }
+  }
 </style>
 
 {%- liquid
@@ -45,7 +55,7 @@
 -%}
 
 <section
-  class="relative overflow-hidden bg-scheme-background text-scheme-text"
+  class="hero-rhc relative overflow-hidden bg-scheme-background text-scheme-text"
   data-color-scheme="{{ section.settings.color_scheme }}"
 >
   <div class="section-content mx-auto max-w-site px-section py-section-vertical-spacing section-content">

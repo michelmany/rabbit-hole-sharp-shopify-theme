@@ -36,6 +36,11 @@
       margin-bottom: 85px;
     }
   }
+  @media (max-width: 560px) {
+    .tablist-heading {
+      font-size: 34px !important;
+    }
+  }
 </style>
 
 <section
@@ -54,7 +59,7 @@
       <div class="mx-auto max-w-site px-section">
         {%- if title != '' -%}
           <h2
-            class="font-heading heading-style text-left max-730px"
+            class="tablist-heading font-heading heading-style text-left max-730px"
             id="{{ section.id }}-tablist_menu"
           >
             {{ title }}

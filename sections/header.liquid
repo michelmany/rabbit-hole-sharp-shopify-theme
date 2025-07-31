@@ -174,6 +174,15 @@
   endif
   assign showcase_second_level_links = section.settings.showcase_second_level_links
   assign showcase_top_level_collections = section.settings.showcase_top_level_collections
+
+  # Custom navigation colors
+  if page.handle == 'about-us'
+    assign nav_default_color = '#EF862A'
+    assign nav_active_color = '#ffffff'
+  else
+    assign nav_default_color = '#D74112'
+    assign nav_active_color = '#ffffff'
+  endif
 -%}
 
 {% capture navigation %}
@@ -221,6 +230,7 @@
               x-bind:aria-expanded="menuOpen.menu{{ counter }}? true: 'false'"
               aria-controls="menu{{ counter | strip }}"
               data-dropdown-parent="menu{{ counter | strip }}"
+              :style="headerIsActive ? 'color: #ffffff !important;' : 'color: {% if link.active %}var(--nav-active-color, {{ nav_active_color }}){% else %}var(--nav-default-color, {{ nav_default_color }}){% endif %} !important;'"
               {% if nested_nav_style == 'dropdown' %}
                 x-effect="if (!navWrapped && menuOpen.menu{{ counter }} === true) activeWrappedMenuToggleEl = $el"
                 :class="
@@ -422,7 +432,7 @@
               {% endif %}
             </div>
           {% else %}
-            <a {% if link.active %}aria-current="page"{% endif %} href="{{ link.url }}" class="{{ link_classes }}">
+            <a {% if link.active %}aria-current="page"{% endif %} href="{{ link.url }}" class="{{ link_classes }}" :style="headerIsActive ? 'color: #ffffff !important;' : 'color: {% if link.active %}var(--nav-active-color, {{ nav_active_color }}){% else %}var(--nav-default-color, {{ nav_default_color }}){% endif %} !important;'">
               {{ link.title }}
             </a>
           {% endif %}
@@ -718,12 +728,22 @@
   style="
     --active-color-scheme-text: rgb(var(--color-scheme-{{ active_color_scheme.id }}-text));
     --active-color-scheme-background: rgb(var(--color-scheme-{{ active_color_scheme.id }}-background));
+    {% if page.handle == 'about-us' %}
+      --nav-default-color: #EF862A;
+      --nav-active-color: #ffffff;
+    {% else %}
+      --nav-default-color: #D74112;
+      --nav-active-color: #ffffff;
+    {% endif %}
   "
 >
   <div id="headerBorderWrap" class="headerBorderWrap">
     <div
       id="headerContainer"
       class="z-10"
+      {% if page.handle == 'about-us' %}
+        :class="{ 'bg-scheme-accent-1': !headerIsActive }"
+      {% endif %}
     >
       <div
         class="{% unless nested_nav_style == 'dropdown' %}overflow-hidden{% endunless %} px-section py-2 lg:py-0"

@@ -123,6 +123,9 @@
     },
     "related_products_TR94XF": {
       "type": "related-products",
+      "custom_css": [
+        "h2 {color: #3B6D82;}"
+      ],
       "name": "t:sections.related_products.name",
       "settings": {
         "display_on_card": false,
@@ -134,10 +137,19 @@
         "color_scheme": "",
         "use_gradient_background": false
       }
+    },
+    "recommended_carousel_rhc_3ENNKa": {
+      "type": "recommended-carousel-RHC",
+      "name": "Recommended Carousel",
+      "settings": {
+        "heading": "Related Products",
+        "product_limit": 6
+      }
     }
   },
   "order": [
     "main",
-    "related_products_TR94XF"
+    "related_products_TR94XF",
+    "recommended_carousel_rhc_3ENNKa"
   ]
 }
