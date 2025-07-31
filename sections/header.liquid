@@ -176,7 +176,10 @@
   assign showcase_top_level_collections = section.settings.showcase_top_level_collections
 
   # Custom navigation colors
-  if page.handle == 'about-us'
+  if template == 'index'
+    assign nav_default_color = '#ffffff'
+    assign nav_active_color = '#ffffff'
+  elsif page.handle == 'about-us'
     assign nav_default_color = '#EF862A'
     assign nav_active_color = '#ffffff'
   else
@@ -230,7 +233,7 @@
               x-bind:aria-expanded="menuOpen.menu{{ counter }}? true: 'false'"
               aria-controls="menu{{ counter | strip }}"
               data-dropdown-parent="menu{{ counter | strip }}"
-              :style="headerIsActive ? 'color: #ffffff !important;' : 'color: {% if link.active %}var(--nav-active-color, {{ nav_active_color }}){% else %}var(--nav-default-color, {{ nav_default_color }}){% endif %} !important;'"
+              :style="headerIsActive || '{{ template }}' === 'index' ? 'color: #ffffff !important;' : 'color: {% if link.active %}var(--nav-active-color, {{ nav_active_color }}){% else %}var(--nav-default-color, {{ nav_default_color }}){% endif %} !important;'"
               {% if nested_nav_style == 'dropdown' %}
                 x-effect="if (!navWrapped && menuOpen.menu{{ counter }} === true) activeWrappedMenuToggleEl = $el"
                 :class="
@@ -432,7 +435,7 @@
               {% endif %}
             </div>
           {% else %}
-            <a {% if link.active %}aria-current="page"{% endif %} href="{{ link.url }}" class="{{ link_classes }}" :style="headerIsActive ? 'color: #ffffff !important;' : 'color: {% if link.active %}var(--nav-active-color, {{ nav_active_color }}){% else %}var(--nav-default-color, {{ nav_default_color }}){% endif %} !important;'">
+            <a {% if link.active %}aria-current="page"{% endif %} href="{{ link.url }}" class="{{ link_classes }}" :style="headerIsActive || '{{ template }}' === 'index' ? 'color: #ffffff !important;' : 'color: {% if link.active %}var(--nav-active-color, {{ nav_active_color }}){% else %}var(--nav-default-color, {{ nav_default_color }}){% endif %} !important;'">
               {{ link.title }}
             </a>
           {% endif %}
