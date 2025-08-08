@@ -44,7 +44,7 @@
     "sticker_border_width": 0,
     "sticker_border_color": "color-scheme-text",
     "sticker_drop_shadow_size": 0,
-    "sticker_shadow_color": "color-scheme-text",
+    "sticker_shadow_color": "transparent",
     "card_border_radius": "0.375rem",
     "card_border_width": 0,
     "card_border_color": "color-scheme-text",

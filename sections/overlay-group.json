@@ -14,14 +14,15 @@
     "call-to-action": {
       "type": "call-to-action",
       "disabled": true,
+      "custom_css": [],
       "settings": {
-        "home_page_only": false,
+        "home_page_only": true,
         "animate_in": false,
         "hide_when_scrolling_up": false,
         "text": "Sticker",
         "url": "",
-        "shape": "uneven_star_wide",
-        "width": 150,
+        "shape": "circle",
+        "width": 100,
         "half_width_on_mobile": false,
         "sticker_position": "right",
         "sticker_font_size": "1.563rem",

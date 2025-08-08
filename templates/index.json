@@ -12,6 +12,14 @@
     "rich_text_rhc_eYeGTx": {
       "type": "rich-text-rhc",
       "blocks": {
+        "sticker_xrriEF": {
+          "type": "sticker",
+          "settings": {
+            "image": "shopify://shop_images/Brownie_stack_and_individuals_-_Styled_-_Resized-2_-_Edited.png",
+            "horizontal_position": 50,
+            "vertical_position": 50
+          }
+        },
         "shape_divider_bzwnj4": {
           "type": "shape_divider",
           "settings": {
@@ -22,12 +30,13 @@
         }
       },
       "block_order": [
+        "sticker_xrriEF",
         "shape_divider_bzwnj4"
       ],
       "custom_css": [
         ".push-btn__surface {background: #3b6d82 !important; color: #fff !important; font-weight: 600;}",
-        ".py-section-vertical-spacing {padding-top: 4rem !important; padding-bottom: 4rem !important;}",
-        "@media screen and (max-width: 767px) {.py-section-vertical-spacing {padding-top: 3rem !important; padding-bottom: 2rem !important; }}",
+        ".py-section-vertical-spacing {padding-top: 10rem !important; padding-bottom: 4rem !important;}",
+        "@media screen and (max-width: 767px) {.py-section-vertical-spacing {padding-top: 10rem !important; padding-bottom: 2rem !important; }}",
         ".push-btn__surface {padding: 0.35rem 1rem;}",
         ".section-content {flex-grow: 1; display: flex; flex-direction: column; justify-content: center;}"
       ],
@@ -47,7 +56,7 @@
         "button_label": "SHOP NOW",
         "color_scheme": "scheme3",
         "use_gradient_background": false,
-        "lovedby_text": "Loved by:",
+        "lovedby_text": "Trusted by:",
         "lovedby_text_color": "#000000",
         "logo_apple": "shopify://shop_images/image_70.png",
         "logo_apple_link": "",
@@ -88,18 +97,18 @@
         "collection_block_NdXefG": {
           "type": "collection_block",
           "settings": {
-            "collection": "",
-            "image": "shopify://shop_images/rhc-products.png",
+            "collection": "blondie",
+            "image": "shopify://shop_images/imgi_7_TraybakeShoot1-107_800x800-removebg-preview.png",
             "title": "STUNNING BLONDIES",
             "bg_color": "#F6C67C",
-            "image_z_index": 4,
+            "image_z_index": 2,
             "image_scale": 150,
-            "image_x_offset": 64,
-            "image_y_offset": -180,
-            "image_rotation": 120,
+            "image_x_offset": 176,
+            "image_y_offset": -92,
+            "image_rotation": -16,
             "image_z_index_mobile": 0,
-            "image_scale_mobile": 230,
-            "image_x_offset_mobile": 80,
+            "image_scale_mobile": 160,
+            "image_x_offset_mobile": 56,
             "image_y_offset_mobile": -76,
             "image_rotation_mobile": 24
           }
@@ -107,17 +116,17 @@
         "collection_block_tp4TY7": {
           "type": "collection_block",
           "settings": {
-            "collection": "",
-            "image": "shopify://shop_images/20250122_Traybake_Studio_Shoot_ii_Resized-192_-_Edited-2.png",
+            "collection": "classics",
+            "image": "shopify://shop_images/imgi_7_20250122TraybakeStudioShootiiResized-191_4e63c2b0-9877-4a31-ab86-a6f9747b532f_800x800-removebg-preview.png",
             "title": "Classics",
             "bg_color": "#7EB4ED",
             "image_z_index": 0,
-            "image_scale": 100,
-            "image_x_offset": 0,
-            "image_y_offset": 0,
+            "image_scale": 230,
+            "image_x_offset": 16,
+            "image_y_offset": 20,
             "image_rotation": 0,
             "image_z_index_mobile": 0,
-            "image_scale_mobile": 100,
+            "image_scale_mobile": 240,
             "image_x_offset_mobile": 0,
             "image_y_offset_mobile": 0,
             "image_rotation_mobile": 0
@@ -126,38 +135,38 @@
         "collection_block_HqHPa3": {
           "type": "collection_block",
           "settings": {
-            "collection": "",
-            "image": "shopify://shop_images/20250122_Traybake_Studio_Shoot_ii_Full_Res-40_-_Edited.png",
+            "collection": "cookies",
+            "image": "shopify://shop_images/imgi_9_20250122TraybakeStudioShootiiResized-44_6f00b941-820a-4316-bd40-046863afd8bd_800x800-removebg-preview.png",
             "title": "YUMMY COOKIES",
             "bg_color": "#FFC75B",
             "image_z_index": 4,
-            "image_scale": 170,
-            "image_x_offset": -164,
-            "image_y_offset": -188,
-            "image_rotation": 12,
+            "image_scale": 120,
+            "image_x_offset": -120,
+            "image_y_offset": -92,
+            "image_rotation": -48,
             "image_z_index_mobile": 2,
-            "image_scale_mobile": 100,
-            "image_x_offset_mobile": 0,
-            "image_y_offset_mobile": 0,
+            "image_scale_mobile": 210,
+            "image_x_offset_mobile": 12,
+            "image_y_offset_mobile": -60,
             "image_rotation_mobile": 0
           }
         },
         "collection_block_zmCnaq": {
           "type": "collection_block",
           "settings": {
-            "collection": "",
-            "image": "shopify://shop_images/20250122_Traybake_Studio_Shoot_ii_Full_Res-174_-_Edited.png",
+            "collection": "brownie",
+            "image": "shopify://shop_images/imgi_10_20250122_Traybake_Studio_Shoot_ii_Resized-99_739eb3d6-5668-4417-a556-de312c042607_800x800-removebg-preview.png",
             "title": "SLUTTY BROWNIES",
             "bg_color": "#A6F1A9",
             "image_z_index": 0,
-            "image_scale": 180,
-            "image_x_offset": -104,
-            "image_y_offset": -44,
-            "image_rotation": 8,
+            "image_scale": 150,
+            "image_x_offset": 48,
+            "image_y_offset": -8,
+            "image_rotation": -16,
             "image_z_index_mobile": 0,
-            "image_scale_mobile": 100,
-            "image_x_offset_mobile": 0,
-            "image_y_offset_mobile": 0,
+            "image_scale_mobile": 200,
+            "image_x_offset_mobile": 16,
+            "image_y_offset_mobile": -16,
             "image_rotation_mobile": 0
           }
         },
@@ -165,37 +174,37 @@
           "type": "collection_block",
           "settings": {
             "collection": "cake-klub",
-            "image": "shopify://shop_images/20250122_Traybake_Studio_Shoot_ii_Full_Res-205_-_Edited.png",
+            "image": "shopify://shop_images/imgi_10_20250122TraybakeStudioShootiiResized-196_a555137c-5bd1-4d8f-a3a0-a967b3e6e227_800x800-removebg-preview.png",
             "title": "CAKE CLUB",
             "bg_color": "#F2D8EE",
             "image_z_index": 0,
-            "image_scale": 260,
-            "image_x_offset": -68,
-            "image_y_offset": 0,
-            "image_rotation": 76,
+            "image_scale": 140,
+            "image_x_offset": -12,
+            "image_y_offset": 84,
+            "image_rotation": -4,
             "image_z_index_mobile": 0,
-            "image_scale_mobile": 100,
-            "image_x_offset_mobile": 0,
-            "image_y_offset_mobile": 0,
-            "image_rotation_mobile": 0
+            "image_scale_mobile": 150,
+            "image_x_offset_mobile": -20,
+            "image_y_offset_mobile": 44,
+            "image_rotation_mobile": 4
           }
         },
         "collection_block_LRDLRA": {
           "type": "collection_block",
           "settings": {
-            "collection": "",
+            "collection": "custom-cakes",
             "image": "shopify://shop_images/Brownie_stack_and_individuals_-_Styled_-_Resized-2_-_Edited.png",
             "title": "CUSTOM CAKES",
             "bg_color": "#F8BFBF",
             "image_z_index": 0,
-            "image_scale": 170,
-            "image_x_offset": -168,
-            "image_y_offset": -124,
+            "image_scale": 120,
+            "image_x_offset": 164,
+            "image_y_offset": -16,
             "image_rotation": 0,
             "image_z_index_mobile": 0,
-            "image_scale_mobile": 100,
-            "image_x_offset_mobile": 0,
-            "image_y_offset_mobile": 0,
+            "image_scale_mobile": 130,
+            "image_x_offset_mobile": -4,
+            "image_y_offset_mobile": -48,
             "image_rotation_mobile": 0
           }
         }
