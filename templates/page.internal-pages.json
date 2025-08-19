@@ -79,10 +79,10 @@
       "name": "Hero RHC",
       "settings": {
         "color_scheme": "scheme-2a55a678-5be1-415f-983d-14d07040ce40",
-        "headline": "About Us",
+        "headline": "our story",
         "headline_color": "#ffffff",
-        "rich_text": "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the text.<br/><br/>Tax included. <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\"><strong>Shipping</strong></a> calculated at checkout. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the text.<br/><br/>Tax included. <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\"><strong>Shipping</strong></a> calculated at checkout. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the text.</p>",
-        "button_link": "shopify://products/bespoke-gift-box-with-toppers",
+        "rich_text": "<p>Rabbit Hole Cakes is run by Lee and Emma, a family team based in Perth with a passion for creating bakes that stand out. From wedding cakes that take centre stage to brownies, cookies and traybakes that elevate everyday moments, everything we make is crafted with care, creativity and bold flavour.</p><p>Our dedication to quality has been recognised with a number of industry awards, reflecting the creativity and craftsmanship behind every recipe.</p><p>We’re proud to have worked with leading companies including Three, Apple, SSE and Miller Homes, as well as showcasing our bakes at major events such as the Royal Highland Show, Ideal Home Show, Scottish Game Fair, Blair Horse Trials and Perth Show.</p><p>Behind every product is a commitment to sourcing with integrity. We use the highest quality ingredients, choosing local suppliers wherever possible. Our chocolate and cocoa are Fairtrade, our eggs are free range, and every bake is made with real butter. In our shop, you’ll also find speciality coffee from Unorthodox Roasters in Kinross, teas from The Wee Tea Company in Dunfermline, and bubble tea from Tempo Tea in Glasgow.</p><p>At heart, Rabbit Hole Cakes is about more than baking. It’s about creating memorable moments, celebrating life’s milestones, and sharing joy, one slice at a time.</p>",
+        "button_link": "",
         "button_label": "",
         "button_text_color": "#ffffff",
         "image": "shopify://shop_images/ebbit-hole-cakes-team.jpg"
@@ -116,62 +116,71 @@
         "member_zBPK68",
         "member_G4KTdX"
       ],
-      "custom_css": [],
+      "disabled": true,
       "name": "Team Members",
       "settings": {}
     },
     "award_winning_3384CM": {
       "type": "award-winning",
       "blocks": {
-        "award_ry6rY4": {
-          "type": "award",
-          "settings": {
-            "name": "Award 1"
-          }
-        },
-        "award_artLc9": {
-          "type": "award",
-          "settings": {
-            "name": "Award 2"
-          }
-        },
         "award_9pkMER": {
           "type": "award",
           "settings": {
-            "name": "Award 3"
+            "photo": "shopify://shop_images/Untitled_design_23.png",
+            "name": "salted caramel brownie  1 great taste star 2024"
+          }
+        },
+        "award_ry6rY4": {
+          "type": "award",
+          "settings": {
+            "photo": "shopify://shop_images/Untitled_design_24.png",
+            "name": "Kinderella Millionaire cookie <br><i> Regional bronze award 2024</i>"
           }
         },
         "award_MWVEi9": {
           "type": "award",
           "settings": {
-            "name": "Award 4"
+            "photo": "shopify://shop_images/418981924_1185292479347065_7288680153268156794_n.jpg",
+            "name": "vegan pistachio, lime & ginger empire biscuit <br> <i> regional bronze award 2024</i>"
           }
         },
-        "award_gVMPwP": {
+        "award_jjiejK": {
           "type": "award",
           "settings": {
-            "name": "Award 5"
+            "photo": "shopify://shop_images/Untitled_design_25.png",
+            "name": "gluten free salted caramel millionaire brownie <br><i> Best in Scotland Gold 2024</i>"
           }
         },
-        "award_ELhYJy": {
+        "award_BP4aK4": {
           "type": "award",
           "settings": {
-            "name": "Award 6"
+            "photo": "shopify://shop_images/Untitled_design_26.png",
+            "name": "most promising new business runner up <br> <i> perthshire chamber of commerce star awards</i>"
+          }
+        },
+        "award_artLc9": {
+          "type": "award",
+          "settings": {
+            "photo": "shopify://shop_images/Untitled_design_26.png",
+            "name": "Excellence in food and drink produce award 2024 <br> <i> perthshire chamber of commerce star awards</i>"
           }
         }
       },
       "block_order": [
-        "award_ry6rY4",
-        "award_artLc9",
         "award_9pkMER",
+        "award_ry6rY4",
         "award_MWVEi9",
-        "award_gVMPwP",
-        "award_ELhYJy"
+        "award_jjiejK",
+        "award_BP4aK4",
+        "award_artLc9"
+      ],
+      "custom_css": [
+        ".rte {font-size: 16px; line-height: var(--base-line-height); font-family: \"Rubik\"; font-weight: 700; text-transform: uppercase;}"
       ],
       "name": "Award Winning",
       "settings": {
-        "headline": "Award Winning",
-        "rich_text": "<p>For allergens, including cereals containing gluten, see ingredients in bold. May also contain peanuts and other nuts. Please be aware we use gluten, dairy, eggs, soya, nuts and peanuts in our bakery. Suitable for vegetarians and does not contain alcohol.</p>"
+        "headline": "Award-Winning Bakes",
+        "rich_text": "<p>Recognised by The Guild of Fine Food and Scottish Baker of the Year, our award-winning bakes are a celebration of flavour, creativity and craftsmanship.</p>"
       }
     }
   },

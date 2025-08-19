@@ -67,11 +67,11 @@
       "name": "Hero RHC",
       "settings": {
         "color_scheme": "scheme3",
-        "headline": "BESPOKE WEDDING CAKES",
+        "headline": "design your dream cake",
         "headline_color": "#ffffff",
-        "rich_text": "<p>At Rabbit hole cakes , We Specialise in creating beautifully bespoke, luxury artisan bakes for weddings & special occasions.<br/>Offering a tempting menu of deliciously indulgent flavours, sourcing locally wherever possible the finest & freshest of ingredients, our aim is that your cake will taste just as amazing as it looks.  With a passion for elegance & funk as well as flavour, we perfect every bake for each client, to ensure dream bakes for weddings, birthdays, christenings, or any other special occasion.</p>",
-        "button_link": "shopify://products/bespoke-gift-box-with-toppers",
-        "button_label": "Product Information",
+        "rich_text": "<p>At Rabbit Hole Cakes, we believe your wedding cake should be every bit as unforgettable as the day itself. Whether you are dreaming of a show-stopping centrepiece or something a little different, we are here to bring your vision to life.</p><p>Our bespoke wedding cakes are crafted with precision, creativity and a deep attention to detail. From elegant tiers with timeless finishes to bold, modern designs, each cake is tailored to reflect your style and story. Using only the finest ingredients, sourced locally wherever possible, we ensure your cake tastes every bit as exceptional as it looks.</p><p>For couples looking for something less traditional, we also create indulgent brownie towers and doughnut stacks. These playful alternatives make a stunning display and are perfect for sharing with your guests while still keeping that all-important wow factor.</p><p>Based in Perth, we supply across Tayside, Fife and further afield upon request. Whatever your choice, our aim is simple: to create a centrepiece that celebrates your love and leaves a lasting impression.</p>",
+        "button_link": "",
+        "button_label": "",
         "button_text_color": "#ffffff",
         "image": "shopify://shop_images/bespoke-wedding-cake.png"
       }
@@ -90,35 +90,56 @@
         "logo_gyyjnK": {
           "type": "logo",
           "settings": {
-            "image": "shopify://shop_images/4_ff5fcc6f-385a-4282-99ba-b8e6e89a8733.png",
+            "image": "shopify://shop_images/Untitled_design_27.png",
             "link": ""
           }
         },
         "logo_PFRCYy": {
           "type": "logo",
           "settings": {
-            "image": "shopify://shop_images/1_4e44e04f-71c3-4bfa-a7e7-32c342bc6037.png",
+            "image": "shopify://shop_images/Untitled_design_28.png",
             "link": ""
           }
         },
         "logo_tErQpn": {
           "type": "logo",
           "settings": {
-            "image": "shopify://shop_images/2_cd684990-5b7a-47e0-b81b-a66b18104b30.png",
+            "image": "shopify://shop_images/Untitled_design_29.png",
             "link": ""
           }
         },
         "logo_TBPEh6": {
           "type": "logo",
           "settings": {
-            "image": "shopify://shop_images/6.png",
+            "image": "shopify://shop_images/Untitled_design_30.png",
             "link": ""
           }
         },
         "logo_BwTLcy": {
           "type": "logo",
           "settings": {
-            "image": "shopify://shop_images/5_dba3a427-5a12-4469-ae21-f449784027e4.png",
+            "image": "shopify://shop_images/Untitled_design_31.png",
+            "link": ""
+          }
+        },
+        "logo_GtUKMW": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Untitled_design_32.png",
+            "link": ""
+          }
+        },
+        "logo_hRUVpk": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Untitled_design_33.png",
+            "link": ""
+          }
+        },
+        "logo_76dV6w": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Untitled_design_34.png",
             "link": ""
           }
         }
@@ -129,7 +150,10 @@
         "logo_PFRCYy",
         "logo_tErQpn",
         "logo_TBPEh6",
-        "logo_BwTLcy"
+        "logo_BwTLcy",
+        "logo_GtUKMW",
+        "logo_hRUVpk",
+        "logo_76dV6w"
       ],
       "custom_css": [
         ".py-section-vertical-spacing {padding-top: 0;}"
@@ -147,42 +171,23 @@
     "tabs_rhc_8Ytkp7": {
       "type": "tabs-RHC",
       "blocks": {
-        "menu_group_qM6NtH": {
-          "type": "menu_group",
-          "settings": {
-            "tab": "tab_1",
-            "image": "shopify://shop_images/20250122_Traybake_Studio_Shoot_ii_Resized-196.jpg",
-            "richtext": "<p>The brownie stack, a perfect alternative to a celebration cake  Choose upto 2 flavours of brownie giving you 36 brownie pieces. These can be personalised for any occasion from a birthday to a wedding.</p><p>The brownie stack, a perfect alternative to a celebration cake  Choose upto 2 flavours of brownie giving you 36 brownie pieces. These can be personalised for any occasion from a birthday to a wedding.</p>",
-            "button_link": "shopify://pages/contact",
-            "button_label": "Contact US"
-          }
-        },
         "menu_group_aTxXLQ": {
           "type": "menu_group",
           "settings": {
             "tab": "tab_2",
-            "image": "shopify://shop_images/IMG_4261_f1c9592d-831d-453c-89d5-6c75d94af642.jpg",
-            "richtext": "<p>The brownie stack, a perfect alternative to a celebration cake  Choose upto 2 flavours of brownie giving you 36 brownie pieces. These can be personalised for any occasion from a birthday to a wedding.</p>",
-            "button_link": "shopify://pages/about-us",
-            "button_label": "About Us"
+            "image": "shopify://shop_images/Untitled_design_35.png",
+            "richtext": "<p>Our Brownie Stacks are the perfect alternative to a traditional celebration cake. Choose up to two flavours, with 36 indulgent brownie pieces arranged into a stunning centrepiece.</p><p>Ideal for weddings, birthdays and special occasions, each tower can be personalised to suit your event.</p><p>Please note: Brownie Stacks are available for collection only and require 48-72 hours notice.</p>",
+            "button_link": "shopify://products/custom-cupcakes-12-pack",
+            "button_label": "Choose your stack"
           }
         }
       },
       "block_order": [
-        "menu_group_qM6NtH",
         "menu_group_aTxXLQ"
-      ],
-      "custom_css": [
-        "h2 {max-width: 730px; text-align: left; margin-right: auto;}",
-        ".tab-btn {background-color: transparent; border: 1px solid #000; border-radius: 50px; padding-inline: 80px; color: #000; font-family: var(--heading-font-stack); font-size: 16px; transition: 0.2s;}",
-        ".tab-btn:hover {background-color: #000; color: #fff;}",
-        ".tab-btn.active {background-color: #f6c67c; border: 4px solid #ef862a; color: #000;}",
-        "@media (min-width: 1200px) {h2 {font-size: 50px !important; margin-bottom: 80px; } img {max-width: 515px; }}",
-        "img {border: 10px solid #a6d6eb; border-radius: 0;}"
       ],
       "name": "Tabs RHC",
       "settings": {
-        "title": "Traditional Wedding PAckages",
+        "title": "Celebration Stacks",
         "tab_1": "DOUGHNUT TOWERS",
         "tab_2": "BROWNIE STACKS"
       }

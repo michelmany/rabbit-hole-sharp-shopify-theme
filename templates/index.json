@@ -75,7 +75,7 @@
       "name": "t:sections.collection_focus_carousel.name",
       "settings": {
         "title": "WHAT YOU LOVE",
-        "subheading": "A selection of our faves? Yes please!",
+        "subheading": "Handpicked by you, enjoyed by everyone. Discover our most-loved bakes, chosen time and again by happy customers.",
         "collection": "featured-products",
         "no_products": 4,
         "enable_focused_quick_buy": false,
@@ -222,7 +222,7 @@
       ],
       "name": "Featured Collections Grid",
       "settings": {
-        "section_heading": "OUR COLLECTION"
+        "section_heading": "SHOP THE RANGE"
       }
     },
     "feature_text_with_image_MCWzRj": {
@@ -242,7 +242,7 @@
         "rich_text_block_nz6JYV": {
           "type": "rich_text_block",
           "settings": {
-            "rich_text": "<p>Welcome to Rabbit Hole Cakes. Based in Perth, Scotland, we’re Lee and Emma, a cake obsessed duo serving up serious indulgence with a side of chaos (the good kind). <strong>Built on family, fuelled by sugar, and baked with boldness, </strong>we’re not just baking cakes, brownies, and cookies, we are crafting moments that taste as unforgettable as they look.</p><p>From wild wedding cakes that steal the show to celebration bakes for every excuse to party (birthdays, baby showers, you name it), we pour our heart, soul, and a whole lot of butter into everything we make.</p><p>Family-run. Passion-fuelled. And absolutely not afraid to go all in.</p>",
+            "rich_text": "<p>Founded by Lee and Emma, Rabbit Hole Cakes is a family-run bakery based in Perth, specialising in cakes, brownies and cookies with a distinctive twist. </p><p>With a number of award-winning products recognised by The Guild of Fine Food and Scottish Baker of the Year, our bakes have been celebrated for their quality as well as their creativity.</p><p>Whether it’s a show-stopping wedding centrepiece or a treat for a special celebration, we bake with precision, passion and a commitment to making every bite unforgettable.</p>",
             "button_label": "ABOUT US",
             "button_link": "shopify://pages/contact"
           }
@@ -258,7 +258,7 @@
       ],
       "name": "t:sections.feature_text_with_image.name",
       "settings": {
-        "title": "MEET YOUR MAKERS",
+        "title": "BEHIND THE BAKES",
         "mobile_text_scale": 3,
         "desktop_text_scale": 8,
         "apply_effects": true,
@@ -285,7 +285,7 @@
         "logo_EPc8aN": {
           "type": "logo",
           "settings": {
-            "image": "shopify://shop_images/image_42.png",
+            "image": "shopify://shop_images/rshga-logo.png",
             "link": ""
           }
         },
@@ -313,7 +313,7 @@
         "logo_BAWYbk": {
           "type": "logo",
           "settings": {
-            "image": "shopify://shop_images/image_40.png",
+            "image": "shopify://shop_images/SPIHT_logo_full_bl_tr.png",
             "link": ""
           }
         }
@@ -370,11 +370,11 @@
         "height": "pt-700",
         "place_content": "place-content-center-center",
         "text_align": "text-center",
-        "title": "WEDDINGS",
+        "title": "WEDDING CAKES",
         "heading_size": "heading-feature",
-        "richtext": "Going big on your big day? We’ve got just the thing. Our wedding cake builder lets you handpick your dream dessert lineup - from brownies that’ll steal the spotlight to blondies that are guaranteed to tempt, tease, and totally win over your guests",
+        "richtext": "Your wedding cake should be every bit as memorable as the day itself. Crafted with care and attention to detail, our designs combine timeless elegance with unforgettable flavour. From delicate finishes to bold statement pieces, we’ll work with you to create a centrepiece that reflects your style and celebrates your story.",
         "cta_url": "shopify://pages/contact",
-        "cta_text": "Build me!",
+        "cta_text": "DESIGN YOUR CAKE",
         "color_scheme": "scheme6",
         "use_gradient_background": false
       }
@@ -396,12 +396,12 @@
         "image_position": "left",
         "image_size": "half",
         "disable_media_style": false,
-        "title": "CAKE KLUB!",
+        "title": "join the cake klub",
         "heading_size": "heading-standard",
-        "richtext": "<p><strong>Dessert on Demand or on Repeat. You Choose.</strong></p><p>Whether you’re after a one-time sugar hit or a regular indulgence you can count on, The Cake Klub has you covered. Pick your box, pick your moment, and get ready to unwrap some serious joy.</p><p>One-time treat or sweet subscription? Totally up to you. </p><p><strong>Just don’t expect to stop at one.</strong></p>",
+        "richtext": "<p>A monthly box of indulgence, delivered straight to your door. With Cake Klub, you’ll enjoy a curated selection of our award-winning brownies, blondies and traybakes. Perfect as a treat for yourself or a thoughtful gift for someone special.</p><p>Choose from flexible plans: monthly, six-monthly or annual. Look forward to unwrapping something new, delicious and beautifully crafted with every delivery.</p>",
         "text_alignment": "text-left",
         "button_link": "shopify://collections/cake-klub",
-        "button_label": "VIEW BOXES",
+        "button_label": "choose your box",
         "color_scheme": "",
         "use_gradient_background": false
       }

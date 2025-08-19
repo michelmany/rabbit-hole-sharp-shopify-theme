@@ -33,14 +33,14 @@
         "tagline-and-social-links-0": {
           "type": "tagline_and_social_links",
           "settings": {
-            "tagline": "<strong>Rabbit Hole Cakes Limited</strong>, 50 High Street, Perth and Kinross,Perth, PH1 5TQ, United Kingdom",
+            "tagline": "<strong>Rabbit Hole Cakes Limited</strong>, 50 High Street, Perth & Kinross, Perth, PH1 5TQ",
             "show_social_icons": true
           }
         },
         "newsletter-0": {
           "type": "newsletter",
           "settings": {
-            "newsletter_heading": "Sign up to our newsletter"
+            "newsletter_heading": "News from the Rabbit Hole"
           }
         }
       },

@@ -32,9 +32,9 @@
       "type": "header",
       "custom_css": [
         ".font-main {font-family: \"Rubik\", sans-serif !important; font-weight: 900 !important; font-size: 20px !important; line-height: 30px !important; letter-spacing: 0 !important; color: #ffffff !important;}",
-        "@media (max-width: 1126px) {ul[x-ref=\"navigation\"] {column-gap: 5px !important; } .logo-image {max-width: 130px !important; }}",
-        "@media (max-width: 1065px) {ul[x-ref=\"navigation\"] {column-gap: 0px !important; }}",
-        "@media (max-width: 1065px) {.font-main {font-size: 18px !important; }}"
+        "@media (max-width: 1126px) {ul[x-ref=\"navigation\"] {column-gap: 5px !important; } .logo-image {max-width: 90px !important; }}",
+        "@media (max-width: 1065px) {ul[x-ref=\"navigation\"] {column-gap: 0px !important; } .font-main {font-size: 18px !important; }}",
+        ".mt-2\\.5.text-center {font-family: \"Rubik Mono One\"; font-size: 17px; color: #FCE6D2;}"
       ],
       "settings": {
         "logo": "shopify://shop_images/RHC-logo-inverted_1.png",
@@ -52,13 +52,13 @@
         "enable_overlay_on_homepage": true,
         "enable_overlay_on_collection_pages": true,
         "enable_overlay_on_product_pages": true,
-        "overlay_color_scheme": "scheme4",
+        "overlay_color_scheme": "scheme1",
         "transparent_when_overlaid_and_stuck": false,
         "overlay_show_separator_border": false,
         "overlay_first_section_padding_top_desktop": 6,
         "overlay_first_section_padding_top_mobile": 7,
         "color_scheme": "scheme3",
-        "active_color_scheme": "scheme4",
+        "active_color_scheme": "scheme-2a55a678-5be1-415f-983d-14d07040ce40",
         "mobile_main_linklist": "",
         "sidebar_menu_font_size": "heading-secondary",
         "sidebar_show_footer_menu": true,
