@@ -26,7 +26,7 @@
       ],
       "custom_css": [
         ".push-btn__surface {background: #3b6d82 !important; color: #fff !important; font-weight: 600;}",
-        ".py-section-vertical-spacing {padding-top: 10rem !important; padding-bottom: 4rem !important;}",
+        ".py-section-vertical-spacing {padding-top: 10rem !important; padding-bottom: 6rem !important;}",
         "@media screen and (max-width: 767px) {.py-section-vertical-spacing {padding-top: 10rem !important; padding-bottom: 2rem !important; }}",
         ".push-btn__surface {padding: 0.35rem 1rem;}",
         ".section-content {flex-grow: 1; display: flex; flex-direction: column; justify-content: center;}"
@@ -35,9 +35,9 @@
       "settings": {
         "title": "Heading",
         "rabbit_text": "RABBIT",
-        "rabbit_color": "#d74112",
+        "rabbit_color": "#ffffff",
         "hole_text": "HOLE",
-        "hole_color": "#d74112",
+        "hole_color": "#ffffff",
         "cakes_text": "CAKES",
         "cakes_color": "#ffffff",
         "rich_text": "",
@@ -48,13 +48,16 @@
         "color_scheme": "scheme3",
         "use_gradient_background": false,
         "lovedby_text": "Trusted by:",
-        "lovedby_text_color": "#000000",
+        "lovedby_text_color": "#ffffff",
         "logo_apple": "shopify://shop_images/image_70.png",
         "logo_apple_link": "",
         "logo_three": "shopify://shop_images/image_71.png",
         "logo_three_link": "",
         "logo_sse": "shopify://shop_images/image_72.png",
-        "logo_sse_link": ""
+        "logo_sse_link": "",
+        "bg_image_desktop": "shopify://shop_images/20250408_Cookie_Ooze_-_Resized-22.jpg",
+        "bg_size": "cover",
+        "bg_position": "center center"
       }
     },
     "collection_focus_carousel_RGiEQz": {
@@ -113,13 +116,13 @@
             "bg_color": "#F6C67C",
             "image_z_index": 2,
             "image_scale": 150,
-            "image_x_offset": 176,
-            "image_y_offset": -92,
+            "image_x_offset": 148,
+            "image_y_offset": 8,
             "image_rotation": -16,
             "image_z_index_mobile": 0,
             "image_scale_mobile": 160,
             "image_x_offset_mobile": 56,
-            "image_y_offset_mobile": -76,
+            "image_y_offset_mobile": 8,
             "image_rotation_mobile": 24
           }
         },
@@ -138,7 +141,7 @@
             "image_z_index_mobile": 0,
             "image_scale_mobile": 240,
             "image_x_offset_mobile": 0,
-            "image_y_offset_mobile": 0,
+            "image_y_offset_mobile": -60,
             "image_rotation_mobile": 0
           }
         },
@@ -149,15 +152,15 @@
             "image": "shopify://shop_images/imgi_9_20250122TraybakeStudioShootiiResized-44_6f00b941-820a-4316-bd40-046863afd8bd_800x800-removebg-preview.png",
             "title": "YUMMY COOKIES",
             "bg_color": "#FFC75B",
-            "image_z_index": 4,
+            "image_z_index": 1,
             "image_scale": 170,
-            "image_x_offset": -100,
+            "image_x_offset": 28,
             "image_y_offset": 80,
             "image_rotation": -48,
             "image_z_index_mobile": 2,
             "image_scale_mobile": 210,
             "image_x_offset_mobile": 12,
-            "image_y_offset_mobile": -60,
+            "image_y_offset_mobile": 20,
             "image_rotation_mobile": 0
           }
         },
@@ -188,15 +191,15 @@
             "title": "CAKE CLUB",
             "bg_color": "#F2D8EE",
             "image_z_index": 0,
-            "image_scale": 140,
-            "image_x_offset": -12,
-            "image_y_offset": 84,
+            "image_scale": 160,
+            "image_x_offset": 144,
+            "image_y_offset": -40,
             "image_rotation": -4,
             "image_z_index_mobile": 0,
             "image_scale_mobile": 150,
-            "image_x_offset_mobile": -20,
-            "image_y_offset_mobile": 44,
-            "image_rotation_mobile": 4
+            "image_x_offset_mobile": -64,
+            "image_y_offset_mobile": -100,
+            "image_rotation_mobile": 64
           }
         },
         "collection_block_7hbUai": {
@@ -214,7 +217,7 @@
             "image_z_index_mobile": 0,
             "image_scale_mobile": 130,
             "image_x_offset_mobile": -4,
-            "image_y_offset_mobile": -48,
+            "image_y_offset_mobile": 24,
             "image_rotation_mobile": 0
           }
         }
@@ -392,6 +395,31 @@
     },
     "image_with_text_eKF6B4": {
       "type": "image-with-text",
+      "blocks": {
+        "sticker_JWMT4e": {
+          "type": "sticker",
+          "settings": {
+            "width": 150,
+            "half_width_on_mobile": false,
+            "text": "Sticker",
+            "shape": "star_1",
+            "sticker_font_size": "1.563rem",
+            "horizontal_position": 80,
+            "vertical_position": 80,
+            "rotate": 0,
+            "show_sticker_on_mobile": true,
+            "show_sticker_on_desktop": true,
+            "rotation_animation": "none",
+            "enable_parallax": false,
+            "parallax_speed": 3,
+            "color_scheme": "scheme1",
+            "color": "bg-scheme-accent-1 text-scheme-accent-1-contrast"
+          }
+        }
+      },
+      "block_order": [
+        "sticker_JWMT4e"
+      ],
       "custom_css": [
         "h2 {color: #3b6d82; font-size: clamp(1.75rem, 5vw, 3.5rem);}",
         ".font-heading {text-align: left;}"
