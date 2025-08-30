@@ -1,0 +1,17 @@
+# Development files - exclude from Shopify theme
+WEDDING_BUILDER_SETUP.md
+*_SETUP.md
+*_GUIDE.md
+*.development.md
+*.md
+!README.md
+
+# Development tools
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db

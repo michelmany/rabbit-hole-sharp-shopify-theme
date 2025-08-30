@@ -1,0 +1,517 @@
+{% comment %}
+  Wedding Box Builder - Multi-step Form Wizard
+  Step 1: Party Size Selection (50-150 guests)
+  Step 2: Cake Selection from Collection (with tag filtering and premium surcharges)
+  Step 3: Summary with costs and shipping
+  Step 4: Delivery information
+  Step 5: Payment options
+{% endcomment %}
+
+{%- liquid
+  assign party_size_options = '50,75,100,125,150' | split: ','
+  assign cake_collection = collections[section.settings.cake_collection]
+  assign excluded_tags = 'slutty-brownies,premium-selection' | split: ','
+  assign max_cake_selections = section.settings.max_cake_selections | default: 6
+  assign premium_surcharge = 3.00
+  assign shipping_fee = 45.00
+  assign local_delivery_fee = 25.00
+  
+  # Calculate number of cakes based on party size
+  assign cakes_per_party_size = blank
+  assign party_to_cakes = '50:5,75:8,100:10,125:13,150:15' | split: ','
+-%}
+
+<div class="wedding-form-wizard" data-section-id="{{ section.id }}">
+  <div class="wizard-container max-w-4xl mx-auto px-4 py-8">
+    
+    <!-- Progress Bar -->
+    <div class="wizard-progress mb-8">
+      <div class="flex items-center justify-between">
+        <div class="step-indicator active" data-step="1">
+          <div class="step-circle">1</div>
+          <span class="step-label">Party Size</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-indicator" data-step="2">
+          <div class="step-circle">2</div>
+          <span class="step-label">Cake Selection</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 1: Party Size Selection -->
+    <div class="wizard-step" data-step="1">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold mb-4">{{ section.settings.step1_title | default: 'How many guests are you expecting?' }}</h2>
+        <p class="text-lg text-gray-600">{{ section.settings.step1_description | default: 'This helps us recommend the perfect cake size for your celebration.' }}</p>
+      </div>
+
+      <div class="party-size-options grid grid-cols-2 md:grid-cols-5 gap-4 max-w-2xl mx-auto mb-8">
+        {% for size in party_size_options %}
+          <button 
+            type="button" 
+            class="party-size-btn bg-white border-2 border-gray-200 rounded-lg p-4 text-center hover:border-blue-500 hover:bg-blue-50 transition-all duration-200"
+            data-party-size="{{ size }}"
+          >
+            <div class="text-2xl font-bold">{{ size }}</div>
+            <div class="text-sm text-gray-600">guests</div>
+          </button>
+        {% endfor %}
+      </div>
+
+      <div class="text-center">
+        <button 
+          type="button" 
+          class="next-step-btn bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed" 
+          disabled
+        >
+          Continue to Cake Selection
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 2: Cake Selection -->
+    <div class="wizard-step hidden" data-step="2">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold mb-4">{{ section.settings.step2_title | default: 'Choose Your Perfect Cake' }}</h2>
+        <p class="text-lg text-gray-600">
+          <span class="selected-party-size-text">For your party of <strong class="party-size-display">0</strong> guests</span>, 
+          here are our recommended cakes.
+        </p>
+      </div>
+
+      <div class="cake-selection-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        {% if cake_collection and cake_collection.products.size > 0 %}
+          {% assign filtered_products = blank %}
+          {% assign product_count = 0 %}
+          
+          {% for product in cake_collection.products %}
+            {% unless product_count >= max_cake_selections %}
+              {% assign should_exclude = false %}
+              
+              {% for excluded_tag in excluded_tags %}
+                {% assign trimmed_tag = excluded_tag | strip %}
+                {% if product.tags contains trimmed_tag %}
+                  {% assign should_exclude = true %}
+                  {% break %}
+                {% endif %}
+              {% endfor %}
+              
+              {% unless should_exclude %}
+                {% assign product_count = product_count | plus: 1 %}
+                <div class="cake-option bg-white border-2 border-gray-200 rounded-lg overflow-hidden hover:border-blue-500 hover:shadow-lg transition-all duration-200 cursor-pointer" 
+                     data-product-id="{{ product.id }}"
+                     data-product-handle="{{ product.handle }}"
+                     data-product-title="{{ product.title }}"
+                     data-product-price="{{ product.price }}">
+                  
+                  {% if product.featured_media %}
+                    <div class="cake-image aspect-square overflow-hidden">
+                      <img 
+                        src="{{ product.featured_media | image_url: width: 400 }}" 
+                        alt="{{ product.title }}"
+                        class="w-full h-full object-cover"
+                        width="400"
+                        height="400"
+                        loading="lazy"
+                      >
+                    </div>
+                  {% endif %}
+                  
+                  <div class="p-4">
+                    <h3 class="font-semibold text-lg mb-2">{{ product.title }}</h3>
+                    <div class="text-blue-600 font-bold text-xl mb-2">
+                      {{ product.price | money }}
+                    </div>
+                    {% if product.description != blank %}
+                      <p class="text-gray-600 text-sm line-clamp-2">
+                        {{ product.description | strip_html | truncate: 100 }}
+                      </p>
+                    {% endif %}
+                    
+                    <!-- Serves indicator based on party size -->
+                    <div class="mt-3 party-size-indicator hidden">
+                      <span class="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">
+                        Perfect for your party size
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div class="selected-overlay hidden absolute inset-0 bg-blue-600 bg-opacity-20 flex items-center justify-center">
+                    <div class="bg-blue-600 text-white rounded-full p-2">
+                      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              {% endunless %}
+            {% endunless %}
+          {% endfor %}
+        {% else %}
+          <div class="col-span-full text-center py-8">
+            <p class="text-gray-500">No cakes available. Please configure the cake collection in the section settings.</p>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="flex justify-between items-center">
+        <button 
+          type="button" 
+          class="prev-step-btn bg-gray-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-600 transition-colors"
+        >
+          ← Back to Party Size
+        </button>
+        
+        <button 
+          type="button" 
+          class="submit-form-btn bg-green-600 text-white px-8 py-3 rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-green-700 transition-colors" 
+          disabled
+        >
+          Add to Cart
+        </button>
+      </div>
+    </div>
+
+    <!-- Hidden form data -->
+    <form id="wedding-form-data" class="hidden">
+      <input type="hidden" name="party_size" id="selected-party-size">
+      <input type="hidden" name="selected_product_id" id="selected-product-id">
+      <input type="hidden" name="selected_product_handle" id="selected-product-handle">
+    </form>
+  </div>
+</div>
+
+<style>
+  .wedding-form-wizard {
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+
+  .wizard-progress {
+    position: relative;
+  }
+
+  .step-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .step-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #e5e7eb;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .step-indicator.active .step-circle {
+    background-color: #2563eb;
+    color: white;
+  }
+
+  .step-indicator.completed .step-circle {
+    background-color: #10b981;
+    color: white;
+  }
+
+  .step-label {
+    font-size: 14px;
+    color: #6b7280;
+    font-weight: 500;
+  }
+
+  .step-indicator.active .step-label {
+    color: #2563eb;
+  }
+
+  .step-line {
+    flex: 1;
+    height: 2px;
+    background-color: #e5e7eb;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    right: 0;
+    z-index: 1;
+  }
+
+  .party-size-btn.selected {
+    border-color: #2563eb;
+    background-color: #eff6ff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+  }
+
+  .cake-option {
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .cake-option.selected {
+    border-color: #2563eb;
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.15);
+    transform: translateY(-2px);
+  }
+
+  .cake-option.selected .selected-overlay {
+    display: flex !important;
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  @media (max-width: 768px) {
+    .wizard-container {
+      padding: 1rem;
+    }
+    
+    .cake-selection-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const wizard = document.querySelector('[data-section-id="{{ section.id }}"]');
+  if (!wizard) return;
+
+  const steps = wizard.querySelectorAll('.wizard-step');
+  const stepIndicators = wizard.querySelectorAll('.step-indicator');
+  const partySizeBtns = wizard.querySelectorAll('.party-size-btn');
+  const cakeOptions = wizard.querySelectorAll('.cake-option');
+  const nextStepBtn = wizard.querySelector('.next-step-btn');
+  const prevStepBtn = wizard.querySelector('.prev-step-btn');
+  const submitBtn = wizard.querySelector('.submit-form-btn');
+  const partySizeDisplay = wizard.querySelector('.party-size-display');
+  
+  let selectedPartySize = null;
+  let selectedProduct = null;
+
+  // Party size selection
+  partySizeBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      // Remove previous selection
+      partySizeBtns.forEach(b => b.classList.remove('selected'));
+      
+      // Add selection to current button
+      this.classList.add('selected');
+      selectedPartySize = this.dataset.partySize;
+      
+      // Update hidden form
+      document.getElementById('selected-party-size').value = selectedPartySize;
+      
+      // Enable next button
+      nextStepBtn.disabled = false;
+    });
+  });
+
+  // Next step button
+  nextStepBtn.addEventListener('click', function() {
+    if (selectedPartySize) {
+      showStep(2);
+      partySizeDisplay.textContent = selectedPartySize;
+      
+      // Show party size indicators for appropriate cakes
+      showPartySizeIndicators();
+    }
+  });
+
+  // Previous step button
+  prevStepBtn.addEventListener('click', function() {
+    showStep(1);
+  });
+
+  // Cake selection
+  cakeOptions.forEach(option => {
+    option.addEventListener('click', function() {
+      // Remove previous selection
+      cakeOptions.forEach(opt => opt.classList.remove('selected'));
+      
+      // Add selection to current option
+      this.classList.add('selected');
+      
+      selectedProduct = {
+        id: this.dataset.productId,
+        handle: this.dataset.productHandle,
+        title: this.dataset.productTitle,
+        price: this.dataset.productPrice
+      };
+      
+      // Update hidden form
+      document.getElementById('selected-product-id').value = selectedProduct.id;
+      document.getElementById('selected-product-handle').value = selectedProduct.handle;
+      
+      // Enable submit button
+      submitBtn.disabled = false;
+    });
+  });
+
+  // Submit form
+  submitBtn.addEventListener('click', function() {
+    if (selectedProduct && selectedPartySize) {
+      // Here you can customize what happens when form is submitted
+      // For example, add to cart, redirect to product page, etc.
+      
+      // Example: Add to cart via AJAX
+      addToCart(selectedProduct.id, selectedPartySize);
+    }
+  });
+
+  function showStep(stepNumber) {
+    // Hide all steps
+    steps.forEach(step => step.classList.add('hidden'));
+    
+    // Show target step
+    const targetStep = wizard.querySelector(`[data-step="${stepNumber}"]`);
+    if (targetStep) {
+      targetStep.classList.remove('hidden');
+    }
+    
+    // Update step indicators
+    stepIndicators.forEach((indicator, index) => {
+      indicator.classList.remove('active', 'completed');
+      
+      if (index + 1 === stepNumber) {
+        indicator.classList.add('active');
+      } else if (index + 1 < stepNumber) {
+        indicator.classList.add('completed');
+      }
+    });
+  }
+
+  function showPartySizeIndicators() {
+    // This is where you could add logic to show which cakes are best for the selected party size
+    // For now, we'll show the indicator on all cakes, but you could customize this based on product metafields or tags
+    const indicators = wizard.querySelectorAll('.party-size-indicator');
+    indicators.forEach(indicator => {
+      indicator.classList.remove('hidden');
+    });
+  }
+
+  function addToCart(productId, partySize) {
+    // Show loading state
+    submitBtn.textContent = 'Adding to Cart...';
+    submitBtn.disabled = true;
+
+    // Prepare cart data
+    const formData = {
+      'items': [{
+        'id': productId,
+        'quantity': 1,
+        'properties': {
+          'Party Size': partySize + ' guests'
+        }
+      }]
+    };
+
+    // Add to cart via Shopify AJAX API
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Success - redirect to cart or show success message
+      window.location.href = '/cart';
+    })
+    .catch(error => {
+      console.error('Error adding to cart:', error);
+      alert('There was an error adding the item to your cart. Please try again.');
+      
+      // Reset button
+      submitBtn.textContent = 'Add to Cart';
+      submitBtn.disabled = false;
+    });
+  }
+});
+</script>
+
+{% schema %}
+{
+  "name": "Wedding Form Wizard",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Step 1 - Party Size"
+    },
+    {
+      "type": "text",
+      "id": "step1_title",
+      "label": "Step 1 Title",
+      "default": "How many guests are you expecting?"
+    },
+    {
+      "type": "textarea",
+      "id": "step1_description",
+      "label": "Step 1 Description",
+      "default": "This helps us recommend the perfect cake size for your celebration."
+    },
+    {
+      "type": "header",
+      "content": "Step 2 - Cake Selection"
+    },
+    {
+      "type": "text",
+      "id": "step2_title",
+      "label": "Step 2 Title",
+      "default": "Choose Your Perfect Cake"
+    },
+    {
+      "type": "collection",
+      "id": "cake_collection",
+      "label": "Cake Collection",
+      "info": "Select the collection containing your cake products"
+    },
+    {
+      "type": "text",
+      "id": "excluded_tags",
+      "label": "Excluded Product Tags",
+      "info": "Comma-separated list of tags. Products with these tags will be excluded from the selection.",
+      "default": "sold-out, discontinued"
+    },
+    {
+      "type": "range",
+      "id": "max_cake_selections",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "label": "Maximum Cake Options",
+      "info": "Number of cake products to display",
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Styling"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Wedding Form Wizard"
+    }
+  ]
+}
+{% endschema %}

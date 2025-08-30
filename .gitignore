@@ -1,1 +1,23 @@
+# Development setup guides and documentation (for developer use only)
+WEDDING_BUILDER_SETUP.md
+*_SETUP.md
+*_GUIDE.md
+*.development.md
 
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Shopify CLI
+.shopify/

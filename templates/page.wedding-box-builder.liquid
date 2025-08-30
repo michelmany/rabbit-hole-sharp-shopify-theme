@@ -1,0 +1,105 @@
+{% comment %}
+  Template for Wedding Box Builder
+  This template creates a dedicated page for the wedding box builder wizard
+{% endcomment %}
+
+{{ 'section-wedding-form-wizard.css' | asset_url | stylesheet_tag }}
+
+<div class="page-wedding-builder">
+  {% comment %} Page Header {% endcomment %}
+  <div class="page-header bg-gradient-to-r from-pink-50 to-purple-50 py-12">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+        {{ page.title | default: 'Wedding Box Builder' }}
+      </h1>
+      {% if page.content != blank %}
+        <div class="text-lg text-gray-600 max-w-2xl mx-auto">
+          {{ page.content }}
+        </div>
+      {% else %}
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          Create the perfect wedding celebration with our custom cake selection. 
+          Choose your party size and let us help you find the ideal cakes for your special day.
+        </p>
+      {% endif %}
+    </div>
+  </div>
+
+  {% comment %} Wedding Form Wizard Section {% endcomment %}
+  <div class="wedding-builder-section py-8">
+    {% section 'wedding-form-wizard' %}
+  </div>
+
+  {% comment %} Additional Information Section {% endcomment %}
+  <div class="additional-info bg-gray-50 py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-3 gap-8 text-center">
+        <div class="info-card">
+          <div class="icon mb-4">
+            <svg class="w-12 h-12 mx-auto text-pink-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Quality Guaranteed</h3>
+          <p class="text-gray-600">All our cakes are freshly made with premium ingredients for your special day.</p>
+        </div>
+        
+        <div class="info-card">
+          <div class="icon mb-4">
+            <svg class="w-12 h-12 mx-auto text-pink-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Expert Delivery</h3>
+          <p class="text-gray-600">Professional delivery and setup service available for your venue.</p>
+        </div>
+        
+        <div class="info-card">
+          <div class="icon mb-4">
+            <svg class="w-12 h-12 mx-auto text-pink-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Custom Support</h3>
+          <p class="text-gray-600">Dietary requirements and special requests accommodated with care.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .page-wedding-builder {
+    min-height: 100vh;
+  }
+
+  .page-header {
+    background: linear-gradient(135deg, #fdf2f8 0%, #faf5ff 100%);
+  }
+
+  .container {
+    max-width: 1200px;
+  }
+
+  .info-card {
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .info-card:hover {
+    transform: translateY(-4px);
+  }
+
+  @media (max-width: 768px) {
+    .page-header {
+      padding: 3rem 0;
+    }
+    
+    .page-header h1 {
+      font-size: 2.5rem;
+    }
+  }
+</style>
