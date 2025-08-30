@@ -12,14 +12,6 @@
     "rich_text_rhc_eYeGTx": {
       "type": "rich-text-rhc",
       "blocks": {
-        "sticker_xrriEF": {
-          "type": "sticker",
-          "settings": {
-            "image": "shopify://shop_images/Brownie_stack_and_individuals_-_Styled_-_Resized-2_-_Edited.png",
-            "horizontal_position": 50,
-            "vertical_position": 50
-          }
-        },
         "shape_divider_bzwnj4": {
           "type": "shape_divider",
           "settings": {
@@ -30,7 +22,6 @@
         }
       },
       "block_order": [
-        "sticker_xrriEF",
         "shape_divider_bzwnj4"
       ],
       "custom_css": [
@@ -94,6 +85,25 @@
     "featured_collections_grid_zHcWFx": {
       "type": "featured-collections-grid",
       "blocks": {
+        "collection_block_76ipRk": {
+          "type": "collection_block",
+          "settings": {
+            "collection": "custom-cakes",
+            "image": "shopify://shop_images/Brownie_stack_and_individuals_-_Styled_-_Resized-2_-_Edited.png",
+            "title": "CUSTOM CAKES",
+            "bg_color": "#F8BFBF",
+            "image_z_index": 0,
+            "image_scale": 120,
+            "image_x_offset": 164,
+            "image_y_offset": -16,
+            "image_rotation": 0,
+            "image_z_index_mobile": 0,
+            "image_scale_mobile": 130,
+            "image_x_offset_mobile": -4,
+            "image_y_offset_mobile": -48,
+            "image_rotation_mobile": 0
+          }
+        },
         "collection_block_NdXefG": {
           "type": "collection_block",
           "settings": {
@@ -118,10 +128,10 @@
           "settings": {
             "collection": "classics",
             "image": "shopify://shop_images/imgi_7_20250122TraybakeStudioShootiiResized-191_4e63c2b0-9877-4a31-ab86-a6f9747b532f_800x800-removebg-preview.png",
-            "title": "Classics",
+            "title": "THE Classics",
             "bg_color": "#7EB4ED",
             "image_z_index": 0,
-            "image_scale": 230,
+            "image_scale": 170,
             "image_x_offset": 16,
             "image_y_offset": 20,
             "image_rotation": 0,
@@ -140,9 +150,9 @@
             "title": "YUMMY COOKIES",
             "bg_color": "#FFC75B",
             "image_z_index": 4,
-            "image_scale": 120,
-            "image_x_offset": -120,
-            "image_y_offset": -92,
+            "image_scale": 170,
+            "image_x_offset": -100,
+            "image_y_offset": 80,
             "image_rotation": -48,
             "image_z_index_mobile": 2,
             "image_scale_mobile": 210,
@@ -156,7 +166,7 @@
           "settings": {
             "collection": "brownie",
             "image": "shopify://shop_images/imgi_10_20250122_Traybake_Studio_Shoot_ii_Resized-99_739eb3d6-5668-4417-a556-de312c042607_800x800-removebg-preview.png",
-            "title": "SLUTTY BROWNIES",
+            "title": "DELICIOUS BROWNIES",
             "bg_color": "#A6F1A9",
             "image_z_index": 0,
             "image_scale": 150,
@@ -189,18 +199,18 @@
             "image_rotation_mobile": 4
           }
         },
-        "collection_block_LRDLRA": {
+        "collection_block_7hbUai": {
           "type": "collection_block",
           "settings": {
-            "collection": "custom-cakes",
-            "image": "shopify://shop_images/Brownie_stack_and_individuals_-_Styled_-_Resized-2_-_Edited.png",
-            "title": "CUSTOM CAKES",
-            "bg_color": "#F8BFBF",
+            "collection": "gluten-free",
+            "image": "shopify://shop_images/TraybakeShoot1x12048x2048-87_5248789d-962d-4fb3-b45e-529bf8a23e4b-removebg-preview.png",
+            "title": "GLUTEN FREE",
+            "bg_color": "#B3AFCC",
             "image_z_index": 0,
-            "image_scale": 120,
+            "image_scale": 160,
             "image_x_offset": 164,
             "image_y_offset": -16,
-            "image_rotation": 0,
+            "image_rotation": -16,
             "image_z_index_mobile": 0,
             "image_scale_mobile": 130,
             "image_x_offset_mobile": -4,
@@ -210,12 +220,13 @@
         }
       },
       "block_order": [
+        "collection_block_76ipRk",
         "collection_block_NdXefG",
         "collection_block_tp4TY7",
         "collection_block_HqHPa3",
         "collection_block_zmCnaq",
         "collection_block_DLbeje",
-        "collection_block_LRDLRA"
+        "collection_block_7hbUai"
       ],
       "custom_css": [
         ".section-content {padding-top: 0px !important;}"
@@ -244,7 +255,7 @@
           "settings": {
             "rich_text": "<p>Founded by Lee and Emma, Rabbit Hole Cakes is a family-run bakery based in Perth, specialising in cakes, brownies and cookies with a distinctive twist. </p><p>With a number of award-winning products recognised by The Guild of Fine Food and Scottish Baker of the Year, our bakes have been celebrated for their quality as well as their creativity.</p><p>Whether it’s a show-stopping wedding centrepiece or a treat for a special celebration, we bake with precision, passion and a commitment to making every bite unforgettable.</p>",
             "button_label": "ABOUT US",
-            "button_link": "shopify://pages/contact"
+            "button_link": "shopify://pages/about-us"
           }
         }
       },
@@ -373,7 +384,7 @@
         "title": "WEDDING CAKES",
         "heading_size": "heading-feature",
         "richtext": "Your wedding cake should be every bit as memorable as the day itself. Crafted with care and attention to detail, our designs combine timeless elegance with unforgettable flavour. From delicate finishes to bold statement pieces, we’ll work with you to create a centrepiece that reflects your style and celebrates your story.",
-        "cta_url": "shopify://pages/contact",
+        "cta_url": "shopify://pages/bespoke-wedding-cakes",
         "cta_text": "DESIGN YOUR CAKE",
         "color_scheme": "scheme6",
         "use_gradient_background": false

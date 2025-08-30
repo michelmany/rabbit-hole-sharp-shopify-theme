@@ -180,10 +180,21 @@
             "button_link": "shopify://products/custom-cupcakes-12-pack",
             "button_label": "Choose your stack"
           }
+        },
+        "menu_group_GGCDhV": {
+          "type": "menu_group",
+          "settings": {
+            "tab": "tab_1",
+            "image": "shopify://shop_images/Untitled_design_36.png",
+            "richtext": "<p><strong>Text for doughnut stack to be added here.</strong> Choose up to two flavours, with 36 indulgent brownie pieces arranged into a stunning centrepiece.</p><p>Ideal for weddings, birthdays and special occasions, each tower can be personalised to suit your event.</p><p>Please note: Brownie Stacks are available for collection only and require 48-72 hours notice. </p>",
+            "button_link": "shopify://products/cookie-dough-blondie",
+            "button_label": "Shop Now"
+          }
         }
       },
       "block_order": [
-        "menu_group_aTxXLQ"
+        "menu_group_aTxXLQ",
+        "menu_group_GGCDhV"
       ],
       "name": "Tabs RHC",
       "settings": {
