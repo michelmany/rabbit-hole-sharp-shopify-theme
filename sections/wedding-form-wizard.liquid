@@ -1,21 +1,46 @@
-{% comment %}
-  Wedding Box Builder - Multi-step Form Wizard
-  Step 1: Party Size Selection (50-150 guests)
-  Step 2: Cake Selection from Collection (with tag filtering and premium surcharges)
-  Step 3: Summary with costs and shipping
-  Step 4: Delivery information
-  Step 5: Payment options
-{% endcomment %}
+{%- comment -%}
+🧠 Wedding Box Builder – GitHub Copilot Prompt
+
+Goal: Build a multi-step Wedding Box Builder in Shopify (Online Store 2.0).
+
+Overview:
+1. Step 1: Let the user select party size (options: 50, 75, 100, 125, 150).
+2. Step 2: Show cake selection based on party size (e.g. 50 guests = 5 cakes).
+3. Step 3: Restrict selection from a product collection:
+   - Exclude cakes tagged with "slutty-brownies" and "premium-selection"
+   - If a cake has tag "premium", apply a surcharge (e.g. +£3 per item)
+4. Step 4: Show a summary of selected items, party size, surcharges, and a flat £45 UK shipping fee.
+5. Step 5: Collect delivery info:
+   - Delivery date (min 28 days in advance)
+   - Optional venue contact
+   - Allergy/dietary notes
+   - Optional toggle for "local delivery & setup" (adds extra fee)
+6. Step 6: Payment options:
+   - Toggle: pay full price or deposit
+   - If deposit: add a separate "deposit product" to cart
+   - Store all user selections using line item properties
+
+Technical Requirements:
+- Use Shopify Liquid to create a custom section: `wedding-box-builder.liquid`
+- Use JavaScript (or Alpine.js) to manage wizard logic between steps
+- Use Shopify's cart form with line item properties to pass custom data
+- Calculate and show total cost, including surcharges and delivery fees
+- Validate delivery date and enforce cake selection limits
+
+Start by building the HTML structure for Step 1 (party size selector), then update state and show Step 2 dynamically.
+
+{%- endcomment -%}
 
 {%- liquid
   assign party_size_options = '50,75,100,125,150' | split: ','
-  assign cake_collection = collections[section.settings.cake_collection]
-  assign excluded_tags = 'slutty-brownies,premium-selection' | split: ','
+  assign cake_collection_handle = section.settings.cake_collection | default: 'wedding-cakes'
+  assign cake_collection = collections[cake_collection_handle]
+  assign excluded_tags = section.settings.excluded_tags | default: 'slutty-brownies,premium-selection' | split: ','
   assign max_cake_selections = section.settings.max_cake_selections | default: 6
   assign premium_surcharge = 3.00
   assign shipping_fee = 45.00
   assign local_delivery_fee = 25.00
-  
+
   # Calculate number of cakes based on party size
   assign cakes_per_party_size = blank
   assign party_to_cakes = '50:5,75:8,100:10,125:13,150:15' | split: ','
@@ -23,7 +48,7 @@
 
 <div class="wedding-form-wizard" data-section-id="{{ section.id }}">
   <div class="wizard-container max-w-4xl mx-auto px-4 py-8">
-    
+
     <!-- Progress Bar -->
     <div class="wizard-progress mb-8">
       <div class="flex items-center justify-between">
@@ -35,6 +60,26 @@
         <div class="step-indicator" data-step="2">
           <div class="step-circle">2</div>
           <span class="step-label">Cake Selection</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-indicator" data-step="3">
+          <div class="step-circle">3</div>
+          <span class="step-label">Restrictions</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-indicator" data-step="4">
+          <div class="step-circle">4</div>
+          <span class="step-label">Summary</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-indicator" data-step="5">
+          <div class="step-circle">5</div>
+          <span class="step-label">Delivery</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-indicator" data-step="6">
+          <div class="step-circle">6</div>
+          <span class="step-label">Payment</span>
         </div>
       </div>
     </div>
@@ -48,8 +93,8 @@
 
       <div class="party-size-options grid grid-cols-2 md:grid-cols-5 gap-4 max-w-2xl mx-auto mb-8">
         {% for size in party_size_options %}
-          <button 
-            type="button" 
+          <button
+            type="button"
             class="party-size-btn bg-white border-2 border-gray-200 rounded-lg p-4 text-center hover:border-blue-500 hover:bg-blue-50 transition-all duration-200"
             data-party-size="{{ size }}"
           >
@@ -60,9 +105,9 @@
       </div>
 
       <div class="text-center">
-        <button 
-          type="button" 
-          class="next-step-btn bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed" 
+        <button
+          type="button"
+          class="next-step-btn bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
           disabled
         >
           Continue to Cake Selection
@@ -75,20 +120,38 @@
       <div class="text-center mb-8">
         <h2 class="text-3xl font-bold mb-4">{{ section.settings.step2_title | default: 'Choose Your Perfect Cake' }}</h2>
         <p class="text-lg text-gray-600">
-          <span class="selected-party-size-text">For your party of <strong class="party-size-display">0</strong> guests</span>, 
+          <span class="selected-party-size-text">For your party of <strong class="party-size-display">0</strong> guests</span>,
           here are our recommended cakes.
         </p>
       </div>
 
       <div class="cake-selection-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <!-- Debug Information (remove after testing) -->
+        <div class="col-span-full bg-yellow-100 p-4 rounded mb-4 text-sm">
+          <strong>Debug Info:</strong><br>
+          Collection Handle: {{ cake_collection_handle }}<br>
+          Collection Found: {% if cake_collection %}Yes{% else %}No{% endif %}<br>
+          Collection Products Count: {{ cake_collection.products.size | default: 0 }}<br>
+          Max Selections: {{ max_cake_selections }}<br>
+          Excluded Tags: {{ excluded_tags | join: ', ' }}
+        </div>
+
         {% if cake_collection and cake_collection.products.size > 0 %}
           {% assign filtered_products = blank %}
           {% assign product_count = 0 %}
-          
+
+          <!-- Debug: Show all products in collection -->
+          <div class="col-span-full bg-blue-100 p-4 rounded mb-4 text-sm">
+            <strong>All Products in Collection:</strong><br>
+            {% for product in cake_collection.products limit: 10 %}
+              {{ forloop.index }}. {{ product.title }} - Tags: {{ product.tags | join: ', ' }}<br>
+            {% endfor %}
+          </div>
+
           {% for product in cake_collection.products %}
             {% unless product_count >= max_cake_selections %}
               {% assign should_exclude = false %}
-              
+
               {% for excluded_tag in excluded_tags %}
                 {% assign trimmed_tag = excluded_tag | strip %}
                 {% if product.tags contains trimmed_tag %}
@@ -96,19 +159,17 @@
                   {% break %}
                 {% endif %}
               {% endfor %}
-              
+
               {% unless should_exclude %}
                 {% assign product_count = product_count | plus: 1 %}
-                <div class="cake-option bg-white border-2 border-gray-200 rounded-lg overflow-hidden hover:border-blue-500 hover:shadow-lg transition-all duration-200 cursor-pointer" 
-                     data-product-id="{{ product.id }}"
-                     data-product-handle="{{ product.handle }}"
-                     data-product-title="{{ product.title }}"
-                     data-product-price="{{ product.price }}">
-                  
-                  {% if product.featured_media %}
+                    <div class="cake-option bg-white border-2 border-gray-200 rounded-lg overflow-hidden hover:border-blue-500 hover:shadow-lg transition-all duration-200 cursor-pointer"
+                         data-product-id="{{ product.selected_or_first_available_variant.id }}"
+                         data-product-handle="{{ product.handle }}"
+                         data-product-title="{{ product.title }}"
+                         data-product-price="{{ product.selected_or_first_available_variant.price }}">                  {% if product.featured_media %}
                     <div class="cake-image aspect-square overflow-hidden">
-                      <img 
-                        src="{{ product.featured_media | image_url: width: 400 }}" 
+                      <img
+                        src="{{ product.featured_media | image_url: width: 400 }}"
                         alt="{{ product.title }}"
                         class="w-full h-full object-cover"
                         width="400"
@@ -117,18 +178,18 @@
                       >
                     </div>
                   {% endif %}
-                  
+
                   <div class="p-4">
                     <h3 class="font-semibold text-lg mb-2">{{ product.title }}</h3>
                     <div class="text-blue-600 font-bold text-xl mb-2">
-                      {{ product.price | money }}
+                      {{ product.selected_or_first_available_variant.price | money }}
                     </div>
                     {% if product.description != blank %}
                       <p class="text-gray-600 text-sm line-clamp-2">
                         {{ product.description | strip_html | truncate: 100 }}
                       </p>
                     {% endif %}
-                    
+
                     <!-- Serves indicator based on party size -->
                     <div class="mt-3 party-size-indicator hidden">
                       <span class="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">
@@ -136,7 +197,7 @@
                       </span>
                     </div>
                   </div>
-                  
+
                   <div class="selected-overlay hidden absolute inset-0 bg-blue-600 bg-opacity-20 flex items-center justify-center">
                     <div class="bg-blue-600 text-white rounded-full p-2">
                       <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
@@ -150,25 +211,341 @@
           {% endfor %}
         {% else %}
           <div class="col-span-full text-center py-8">
-            <p class="text-gray-500">No cakes available. Please configure the cake collection in the section settings.</p>
+            <div class="bg-red-100 p-6 rounded-lg">
+              <h3 class="text-lg font-semibold mb-2">No cakes available</h3>
+              {% if section.settings.cake_collection == blank %}
+                <p class="text-red-600">Please configure the cake collection in the section settings.</p>
+                <p class="text-sm mt-2">Go to Customize → Wedding Form Wizard → Cake Collection</p>
+              {% elsif cake_collection == blank %}
+                <p class="text-red-600">Collection "{{ section.settings.cake_collection }}" not found.</p>
+              {% elsif cake_collection.products.size == 0 %}
+                <p class="text-red-600">Collection "{{ cake_collection.title }}" has no products.</p>
+              {% endif %}
+            </div>
           </div>
         {% endif %}
       </div>
 
       <div class="flex justify-between items-center">
-        <button 
-          type="button" 
+        <button
+          type="button"
           class="prev-step-btn bg-gray-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-600 transition-colors"
         >
           ← Back to Party Size
         </button>
-        
-        <button 
-          type="button" 
-          class="submit-form-btn bg-green-600 text-white px-8 py-3 rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-green-700 transition-colors" 
+
+        <button
+          type="button"
+          class="next-step-2-btn bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-700 transition-colors"
           disabled
         >
-          Add to Cart
+          Continue to Restrictions →
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 3: Restrictions & Premium Selection -->
+    <div class="wizard-step hidden" data-step="3">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold mb-4">Additional Options & Restrictions</h2>
+        <p class="text-lg text-gray-600">
+          Review your selection and add any premium upgrades.
+        </p>
+      </div>
+
+      <div class="restrictions-content max-w-2xl mx-auto">
+        <!-- Selected Cake Display -->
+        <div class="selected-cake-display bg-white border-2 border-blue-200 rounded-lg p-6 mb-6">
+          <h3 class="text-xl font-semibold mb-4">Your Selected Cake</h3>
+          <div class="flex items-center space-x-4">
+            <div class="selected-cake-image w-20 h-20 bg-gray-200 rounded-lg"></div>
+            <div>
+              <div class="selected-cake-title font-semibold text-lg">No cake selected</div>
+              <div class="selected-cake-price text-blue-600 font-bold">£0.00</div>
+              <div class="text-sm text-gray-600">Party size: <span class="party-size-display">0</span> guests</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Premium Options -->
+        <div class="premium-options mb-6">
+          <h3 class="text-lg font-semibold mb-4">Premium Upgrades Available</h3>
+          <div class="premium-option bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
+            <label class="flex items-center cursor-pointer">
+              <input type="checkbox" class="premium-upgrade-checkbox mr-3" data-surcharge="3.00">
+              <div>
+                <div class="font-medium">Premium Decoration Upgrade</div>
+                <div class="text-sm text-gray-600">Hand-crafted decorations and premium ingredients</div>
+                <div class="text-sm font-semibold text-yellow-700">+£3.00 per cake</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Excluded Items Notice -->
+        <div class="excluded-notice bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+          <h4 class="font-semibold text-red-800 mb-2">Please Note:</h4>
+          <p class="text-sm text-red-700">
+            Some items are excluded from this selection (specialty items and premium collections).
+            These can be ordered separately or added as custom requests.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center">
+        <button
+          type="button"
+          class="prev-step-2-btn bg-gray-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-600 transition-colors"
+        >
+          ← Back to Cake Selection
+        </button>
+
+        <button
+          type="button"
+          class="next-step-3-btn bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+        >
+          Continue to Summary →
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 4: Summary -->
+    <div class="wizard-step hidden" data-step="4">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold mb-4">Order Summary</h2>
+        <p class="text-lg text-gray-600">
+          Review your wedding box details before proceeding to delivery information.
+        </p>
+      </div>
+
+      <div class="summary-content max-w-2xl mx-auto">
+        <!-- Order Details -->
+        <div class="order-summary bg-white border rounded-lg p-6 mb-6">
+          <h3 class="text-xl font-semibold mb-4">Your Wedding Box</h3>
+
+          <!-- Party Size -->
+          <div class="summary-row flex justify-between items-center py-2 border-b">
+            <span>Party Size</span>
+            <span class="font-medium"><span class="party-size-display">0</span> guests</span>
+          </div>
+
+          <!-- Selected Cake -->
+          <div class="summary-row flex justify-between items-center py-2 border-b">
+            <div>
+              <div class="selected-cake-title font-medium">No cake selected</div>
+              <div class="text-sm text-gray-600">Wedding cake</div>
+            </div>
+            <span class="selected-cake-price font-bold">£0.00</span>
+          </div>
+
+          <!-- Premium Surcharge -->
+          <div class="premium-surcharge-row hidden flex justify-between items-center py-2 border-b">
+            <div>
+              <div class="font-medium">Premium Upgrade</div>
+              <div class="text-sm text-gray-600">Hand-crafted decorations</div>
+            </div>
+            <span class="premium-surcharge-amount font-bold text-yellow-600">+£0.00</span>
+          </div>
+
+          <!-- Shipping -->
+          <div class="summary-row flex justify-between items-center py-2 border-b">
+            <span>UK Shipping</span>
+            <span class="font-bold">£45.00</span>
+          </div>
+
+          <!-- Total -->
+          <div class="summary-total flex justify-between items-center py-4 text-xl font-bold">
+            <span>Total</span>
+            <span class="total-amount">£45.00</span>
+          </div>
+        </div>
+
+        <!-- Additional Info -->
+        <div class="additional-info bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+          <h4 class="font-semibold text-blue-800 mb-2">What's Included:</h4>
+          <ul class="text-sm text-blue-700 space-y-1">
+            <li>• Professional packaging and presentation</li>
+            <li>• UK-wide delivery (28+ days advance notice)</li>
+            <li>• Care instructions and serving suggestions</li>
+            <li>• Customer support for your special day</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center">
+        <button
+          type="button"
+          class="prev-step-3-btn bg-gray-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-600 transition-colors"
+        >
+          ← Back to Restrictions
+        </button>
+
+        <button
+          type="button"
+          class="next-step-4-btn bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+        >
+          Continue to Delivery →
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 5: Delivery Information -->
+    <div class="wizard-step hidden" data-step="5">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold mb-4">Delivery Information</h2>
+        <p class="text-lg text-gray-600">
+          Please provide delivery details for your special day.
+        </p>
+      </div>
+
+      <div class="delivery-form max-w-2xl mx-auto">
+        <!-- Delivery Date -->
+        <div class="form-group mb-6">
+          <label class="block text-lg font-semibold mb-2">Delivery Date *</label>
+          <input
+            type="date"
+            class="delivery-date w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
+            required
+          >
+          <p class="text-sm text-gray-600 mt-1">Minimum 28 days advance notice required</p>
+        </div>
+
+        <!-- Venue Information -->
+        <div class="form-group mb-6">
+          <label class="block text-lg font-semibold mb-2">Venue Contact (Optional)</label>
+          <input
+            type="text"
+            class="venue-contact w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
+            placeholder="Venue name or contact person"
+          >
+        </div>
+
+        <!-- Allergy/Dietary Notes -->
+        <div class="form-group mb-6">
+          <label class="block text-lg font-semibold mb-2">Allergy & Dietary Notes</label>
+          <textarea
+            class="dietary-notes w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none h-24"
+            placeholder="Please specify any allergies, dietary requirements, or special instructions..."
+          ></textarea>
+        </div>
+
+        <!-- Local Delivery & Setup -->
+        <div class="form-group mb-6">
+          <div class="local-delivery-option bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+            <label class="flex items-center cursor-pointer">
+              <input type="checkbox" class="local-delivery-checkbox mr-3" data-fee="25.00">
+              <div>
+                <div class="font-medium">Local Delivery & Setup Service</div>
+                <div class="text-sm text-gray-600">Professional delivery and presentation setup at your venue</div>
+                <div class="text-sm font-semibold text-yellow-700">+£25.00</div>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center">
+        <button
+          type="button"
+          class="prev-step-4-btn bg-gray-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-600 transition-colors"
+        >
+          ← Back to Summary
+        </button>
+
+        <button
+          type="button"
+          class="next-step-5-btn bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-700 transition-colors"
+          disabled
+        >
+          Continue to Payment →
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 6: Payment Options -->
+    <div class="wizard-step hidden" data-step="6">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold mb-4">Payment Options</h2>
+        <p class="text-lg text-gray-600">
+          Choose how you'd like to pay for your wedding box.
+        </p>
+      </div>
+
+      <div class="payment-options max-w-2xl mx-auto">
+        <!-- Final Summary -->
+        <div class="final-summary bg-white border rounded-lg p-6 mb-6">
+          <h3 class="text-xl font-semibold mb-4">Final Order Summary</h3>
+
+          <!-- All order details will be populated here by JavaScript -->
+          <div class="final-order-details">
+            <!-- This will be populated dynamically -->
+          </div>
+
+          <!-- Final Total -->
+          <div class="final-total flex justify-between items-center py-4 text-xl font-bold border-t-2">
+            <span>Final Total</span>
+            <span class="final-total-amount">£45.00</span>
+          </div>
+        </div>
+
+        <!-- Payment Type Selection -->
+        <div class="payment-type-selection mb-6">
+          <h3 class="text-lg font-semibold mb-4">Payment Method</h3>
+
+          <div class="payment-option mb-4">
+            <label class="flex items-center cursor-pointer bg-white border-2 border-gray-300 rounded-lg p-4 hover:border-blue-500">
+              <input type="radio" name="payment_type" value="full" class="mr-3" checked>
+              <div>
+                <div class="font-medium">Pay Full Amount</div>
+                <div class="text-sm text-gray-600">Complete payment now</div>
+                <div class="text-lg font-bold text-green-600 mt-1">
+                  <span class="final-total-amount">£45.00</span>
+                </div>
+              </div>
+            </label>
+          </div>
+
+          <div class="payment-option">
+            <label class="flex items-center cursor-pointer bg-white border-2 border-gray-300 rounded-lg p-4 hover:border-blue-500">
+              <input type="radio" name="payment_type" value="deposit" class="mr-3">
+              <div>
+                <div class="font-medium">Pay Deposit (50%)</div>
+                <div class="text-sm text-gray-600">Pay remaining balance closer to delivery</div>
+                <div class="text-lg font-bold text-blue-600 mt-1">
+                  <span class="deposit-amount">£22.50</span> <span class="text-sm text-gray-500">now</span>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Terms and Conditions -->
+        <div class="terms-conditions mb-6">
+          <label class="flex items-start cursor-pointer">
+            <input type="checkbox" class="terms-checkbox mr-3 mt-1" required>
+            <div class="text-sm text-gray-700">
+              I agree to the <a href="#" class="text-blue-600 underline">Terms and Conditions</a>
+              and <a href="#" class="text-blue-600 underline">Privacy Policy</a>.
+              I understand that all orders require 28+ days advance notice and are subject to availability.
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center">
+        <button
+          type="button"
+          class="prev-step-5-btn bg-gray-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-600 transition-colors"
+        >
+          ← Back to Delivery
+        </button>
+
+        <button
+          type="button"
+          class="final-submit-btn bg-green-600 text-white px-8 py-3 rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-green-700 transition-colors text-lg"
+          disabled
+        >
+          🛒 Add to Cart & Checkout
         </button>
       </div>
     </div>
@@ -184,7 +561,7 @@
 
 <style>
   .wedding-form-wizard {
-    font-family: system-ui, -apple-system, sans-serif;
+    /* Inherit theme fonts instead of forcing system fonts */
   }
 
   .wizard-progress {
@@ -277,7 +654,7 @@
     .wizard-container {
       padding: 1rem;
     }
-    
+
     .cake-selection-grid {
       grid-template-columns: 1fr;
     }
@@ -289,136 +666,414 @@ document.addEventListener('DOMContentLoaded', function() {
   const wizard = document.querySelector('[data-section-id="{{ section.id }}"]');
   if (!wizard) return;
 
+  // DOM Elements
   const steps = wizard.querySelectorAll('.wizard-step');
   const stepIndicators = wizard.querySelectorAll('.step-indicator');
   const partySizeBtns = wizard.querySelectorAll('.party-size-btn');
   const cakeOptions = wizard.querySelectorAll('.cake-option');
+
+  // Button Elements
   const nextStepBtn = wizard.querySelector('.next-step-btn');
+  const nextStep2Btn = wizard.querySelector('.next-step-2-btn');
+  const nextStep3Btn = wizard.querySelector('.next-step-3-btn');
+  const nextStep4Btn = wizard.querySelector('.next-step-4-btn');
+  const nextStep5Btn = wizard.querySelector('.next-step-5-btn');
+  const finalSubmitBtn = wizard.querySelector('.final-submit-btn');
+
   const prevStepBtn = wizard.querySelector('.prev-step-btn');
-  const submitBtn = wizard.querySelector('.submit-form-btn');
-  const partySizeDisplay = wizard.querySelector('.party-size-display');
-  
+  const prevStep2Btn = wizard.querySelector('.prev-step-2-btn');
+  const prevStep3Btn = wizard.querySelector('.prev-step-3-btn');
+  const prevStep4Btn = wizard.querySelector('.prev-step-4-btn');
+  const prevStep5Btn = wizard.querySelector('.prev-step-5-btn');
+
+  // Form Elements
+  const deliveryDate = wizard.querySelector('.delivery-date');
+  const venueContact = wizard.querySelector('.venue-contact');
+  const dietaryNotes = wizard.querySelector('.dietary-notes');
+  const premiumCheckbox = wizard.querySelector('.premium-upgrade-checkbox');
+  const localDeliveryCheckbox = wizard.querySelector('.local-delivery-checkbox');
+  const termsCheckbox = wizard.querySelector('.terms-checkbox');
+  const paymentTypeRadios = wizard.querySelectorAll('input[name="payment_type"]');
+
+  // State Variables
   let selectedPartySize = null;
   let selectedProduct = null;
+  let premiumUpgrade = false;
+  let localDelivery = false;
+  let paymentType = 'full';
 
-  // Party size selection
+  // Constants
+  const PREMIUM_SURCHARGE = 3.00;
+  const SHIPPING_FEE = 45.00;
+  const LOCAL_DELIVERY_FEE = 25.00;
+
+  // Step 1: Party Size Selection
   partySizeBtns.forEach(btn => {
     btn.addEventListener('click', function() {
-      // Remove previous selection
       partySizeBtns.forEach(b => b.classList.remove('selected'));
-      
-      // Add selection to current button
       this.classList.add('selected');
       selectedPartySize = this.dataset.partySize;
-      
-      // Update hidden form
-      document.getElementById('selected-party-size').value = selectedPartySize;
-      
-      // Enable next button
       nextStepBtn.disabled = false;
+      updateAllDisplays();
     });
   });
 
-  // Next step button
-  nextStepBtn.addEventListener('click', function() {
-    if (selectedPartySize) {
-      showStep(2);
-      partySizeDisplay.textContent = selectedPartySize;
-      
-      // Show party size indicators for appropriate cakes
-      showPartySizeIndicators();
-    }
-  });
+  // Step 1 -> 2: Next step button
+  if (nextStepBtn) {
+    nextStepBtn.addEventListener('click', function() {
+      if (selectedPartySize) {
+        showStep(2);
+      }
+    });
+  }
 
-  // Previous step button
-  prevStepBtn.addEventListener('click', function() {
-    showStep(1);
-  });
-
-  // Cake selection
+  // Step 2: Cake Selection
   cakeOptions.forEach(option => {
     option.addEventListener('click', function() {
-      // Remove previous selection
       cakeOptions.forEach(opt => opt.classList.remove('selected'));
-      
-      // Add selection to current option
       this.classList.add('selected');
-      
+
       selectedProduct = {
         id: this.dataset.productId,
         handle: this.dataset.productHandle,
         title: this.dataset.productTitle,
-        price: this.dataset.productPrice
+        price: parseFloat(this.dataset.productPrice) / 100, // Convert from cents
+        variantId: this.dataset.productVariantId || this.dataset.productId
       };
-      
-      // Update hidden form
-      document.getElementById('selected-product-id').value = selectedProduct.id;
-      document.getElementById('selected-product-handle').value = selectedProduct.handle;
-      
-      // Enable submit button
-      submitBtn.disabled = false;
+
+      nextStep2Btn.disabled = false;
+      updateAllDisplays();
     });
   });
 
-  // Submit form
-  submitBtn.addEventListener('click', function() {
-    if (selectedProduct && selectedPartySize) {
-      // Here you can customize what happens when form is submitted
-      // For example, add to cart, redirect to product page, etc.
-      
-      // Example: Add to cart via AJAX
-      addToCart(selectedProduct.id, selectedPartySize);
-    }
+  // Step 2 -> 3: Next step button
+  if (nextStep2Btn) {
+    nextStep2Btn.addEventListener('click', function() {
+      if (selectedProduct) {
+        showStep(3);
+      }
+    });
+  }
+
+  // Step 3: Premium Upgrades
+  if (premiumCheckbox) {
+    premiumCheckbox.addEventListener('change', function() {
+      premiumUpgrade = this.checked;
+      updateAllDisplays();
+    });
+  }
+
+  // Step 3 -> 4: Next step button
+  if (nextStep3Btn) {
+    nextStep3Btn.addEventListener('click', function() {
+      showStep(4);
+    });
+  }
+
+  // Step 4 -> 5: Next step button
+  if (nextStep4Btn) {
+    nextStep4Btn.addEventListener('click', function() {
+      showStep(5);
+    });
+  }
+
+  // Step 5: Delivery Information
+  if (deliveryDate) {
+    deliveryDate.addEventListener('change', function() {
+      validateDeliveryDate();
+    });
+  }
+
+  if (localDeliveryCheckbox) {
+    localDeliveryCheckbox.addEventListener('change', function() {
+      localDelivery = this.checked;
+      updateAllDisplays();
+    });
+  }
+
+  // Step 5 -> 6: Next step button
+  if (nextStep5Btn) {
+    nextStep5Btn.addEventListener('click', function() {
+      if (validateStep5()) {
+        showStep(6);
+      }
+    });
+  }
+
+  // Step 6: Payment Options
+  paymentTypeRadios.forEach(radio => {
+    radio.addEventListener('change', function() {
+      if (this.checked) {
+        paymentType = this.value;
+        updatePaymentDisplay();
+      }
+    });
   });
 
+  if (termsCheckbox) {
+    termsCheckbox.addEventListener('change', function() {
+      finalSubmitBtn.disabled = !this.checked;
+    });
+  }
+
+  // Previous step buttons
+  if (prevStepBtn) prevStepBtn.addEventListener('click', () => showStep(1));
+  if (prevStep2Btn) prevStep2Btn.addEventListener('click', () => showStep(2));
+  if (prevStep3Btn) prevStep3Btn.addEventListener('click', () => showStep(3));
+  if (prevStep4Btn) prevStep4Btn.addEventListener('click', () => showStep(4));
+  if (prevStep5Btn) prevStep5Btn.addEventListener('click', () => showStep(5));
+
+  // Final Submit
+  if (finalSubmitBtn) {
+    finalSubmitBtn.addEventListener('click', function() {
+      if (validateFinalSubmit()) {
+        addToCart();
+      }
+    });
+  }
+
+  // Helper Functions
   function showStep(stepNumber) {
-    // Hide all steps
     steps.forEach(step => step.classList.add('hidden'));
-    
-    // Show target step
-    const targetStep = wizard.querySelector(`[data-step="${stepNumber}"]`);
+
+    const targetStep = wizard.querySelector(`.wizard-step[data-step="${stepNumber}"]`);
     if (targetStep) {
       targetStep.classList.remove('hidden');
     }
-    
-    // Update step indicators
+
     stepIndicators.forEach((indicator, index) => {
       indicator.classList.remove('active', 'completed');
-      
+
       if (index + 1 === stepNumber) {
         indicator.classList.add('active');
       } else if (index + 1 < stepNumber) {
         indicator.classList.add('completed');
       }
     });
+
+    updateAllDisplays();
   }
 
-  function showPartySizeIndicators() {
-    // This is where you could add logic to show which cakes are best for the selected party size
-    // For now, we'll show the indicator on all cakes, but you could customize this based on product metafields or tags
-    const indicators = wizard.querySelectorAll('.party-size-indicator');
-    indicators.forEach(indicator => {
-      indicator.classList.remove('hidden');
+  function updateAllDisplays() {
+    // Update party size displays
+    const partySizeDisplays = wizard.querySelectorAll('.party-size-display');
+    partySizeDisplays.forEach(display => {
+      display.textContent = selectedPartySize || '0';
     });
+
+    // Update selected cake displays
+    if (selectedProduct) {
+      const cakeTitles = wizard.querySelectorAll('.selected-cake-title');
+      const cakePrices = wizard.querySelectorAll('.selected-cake-price');
+
+      cakeTitles.forEach(title => {
+        title.textContent = selectedProduct.title;
+      });
+
+      cakePrices.forEach(price => {
+        price.textContent = '£' + selectedProduct.price.toFixed(2);
+      });
+
+      // Update cake image in Step 3
+      const cakeImage = wizard.querySelector('.selected-cake-image');
+      if (cakeImage) {
+        const selectedCakeOption = wizard.querySelector('.cake-option.selected');
+        if (selectedCakeOption) {
+          const imgSrc = selectedCakeOption.querySelector('img')?.src;
+          if (imgSrc) {
+            cakeImage.innerHTML = `<img src="${imgSrc}" alt="${selectedProduct.title}" class="w-full h-full object-cover rounded-lg">`;
+          }
+        }
+      }
+    }
+
+    // Update premium surcharge
+    const premiumRows = wizard.querySelectorAll('.premium-surcharge-row');
+    const premiumAmounts = wizard.querySelectorAll('.premium-surcharge-amount');
+
+    if (premiumUpgrade) {
+      premiumRows.forEach(row => row.classList.remove('hidden'));
+      premiumAmounts.forEach(amount => {
+        amount.textContent = '+£' + PREMIUM_SURCHARGE.toFixed(2);
+      });
+    } else {
+      premiumRows.forEach(row => row.classList.add('hidden'));
+    }
+
+    // Update totals
+    updateTotalCalculations();
   }
 
-  function addToCart(productId, partySize) {
-    // Show loading state
-    submitBtn.textContent = 'Adding to Cart...';
-    submitBtn.disabled = true;
+  function updateTotalCalculations() {
+    let total = SHIPPING_FEE;
 
-    // Prepare cart data
+    if (selectedProduct) {
+      total += selectedProduct.price;
+    }
+
+    if (premiumUpgrade) {
+      total += PREMIUM_SURCHARGE;
+    }
+
+    if (localDelivery) {
+      total += LOCAL_DELIVERY_FEE;
+    }
+
+    // Update total displays
+    const totalAmounts = wizard.querySelectorAll('.total-amount, .final-total-amount');
+    totalAmounts.forEach(amount => {
+      amount.textContent = '£' + total.toFixed(2);
+    });
+
+    updatePaymentDisplay();
+  }
+
+  function updatePaymentDisplay() {
+    const total = calculateTotal();
+    const depositAmount = total * 0.5;
+
+    const depositAmounts = wizard.querySelectorAll('.deposit-amount');
+    depositAmounts.forEach(amount => {
+      amount.textContent = '£' + depositAmount.toFixed(2);
+    });
+
+    // Update final order details in step 6
+    updateFinalOrderSummary();
+  }
+
+  function updateFinalOrderSummary() {
+    const finalOrderDetails = wizard.querySelector('.final-order-details');
+    if (!finalOrderDetails) return;
+
+    let html = '';
+
+    if (selectedProduct) {
+      html += `
+        <div class="flex justify-between py-2 border-b">
+          <div>
+            <div class="font-medium">${selectedProduct.title}</div>
+            <div class="text-sm text-gray-600">Party size: ${selectedPartySize} guests</div>
+          </div>
+          <span class="font-bold">£${selectedProduct.price.toFixed(2)}</span>
+        </div>
+      `;
+    }
+
+    if (premiumUpgrade) {
+      html += `
+        <div class="flex justify-between py-2 border-b">
+          <span>Premium Upgrade</span>
+          <span class="font-bold text-yellow-600">+£${PREMIUM_SURCHARGE.toFixed(2)}</span>
+        </div>
+      `;
+    }
+
+    html += `
+      <div class="flex justify-between py-2 border-b">
+        <span>UK Shipping</span>
+        <span class="font-bold">£${SHIPPING_FEE.toFixed(2)}</span>
+      </div>
+    `;
+
+    if (localDelivery) {
+      html += `
+        <div class="flex justify-between py-2 border-b">
+          <span>Local Delivery & Setup</span>
+          <span class="font-bold">+£${LOCAL_DELIVERY_FEE.toFixed(2)}</span>
+        </div>
+      `;
+    }
+
+    finalOrderDetails.innerHTML = html;
+  }
+
+  function calculateTotal() {
+    let total = SHIPPING_FEE;
+
+    if (selectedProduct) {
+      total += selectedProduct.price;
+    }
+
+    if (premiumUpgrade) {
+      total += PREMIUM_SURCHARGE;
+    }
+
+    if (localDelivery) {
+      total += LOCAL_DELIVERY_FEE;
+    }
+
+    return total;
+  }
+
+  function validateDeliveryDate() {
+    if (!deliveryDate.value) {
+      nextStep5Btn.disabled = true;
+      return false;
+    }
+
+    const selectedDate = new Date(deliveryDate.value);
+    const today = new Date();
+    const minDate = new Date(today.getTime() + (28 * 24 * 60 * 60 * 1000)); // 28 days from now
+
+    if (selectedDate < minDate) {
+      alert('Delivery date must be at least 28 days in advance.');
+      nextStep5Btn.disabled = true;
+      return false;
+    }
+
+    nextStep5Btn.disabled = false;
+    return true;
+  }
+
+  function validateStep5() {
+    return validateDeliveryDate();
+  }
+
+  function validateFinalSubmit() {
+    return selectedProduct && selectedPartySize && deliveryDate.value && termsCheckbox.checked;
+  }
+
+  function addToCart() {
+    finalSubmitBtn.textContent = 'Adding to Cart...';
+    finalSubmitBtn.disabled = true;
+
+    const total = calculateTotal();
+    const isDeposit = paymentType === 'deposit';
+
+    // Prepare line item properties
+    const properties = {
+      'Party Size': selectedPartySize + ' guests',
+      'Delivery Date': deliveryDate.value,
+      'Payment Type': isDeposit ? 'Deposit (50%)' : 'Full Payment'
+    };
+
+    if (venueContact.value) {
+      properties['Venue Contact'] = venueContact.value;
+    }
+
+    if (dietaryNotes.value) {
+      properties['Dietary Notes'] = dietaryNotes.value;
+    }
+
+    if (premiumUpgrade) {
+      properties['Premium Upgrade'] = 'Yes (+£' + PREMIUM_SURCHARGE.toFixed(2) + ')';
+    }
+
+    if (localDelivery) {
+      properties['Local Delivery & Setup'] = 'Yes (+£' + LOCAL_DELIVERY_FEE.toFixed(2) + ')';
+    }
+
+    // Add main product to cart
     const formData = {
       'items': [{
-        'id': productId,
+        'id': selectedProduct.id, // This should be the variant ID
         'quantity': 1,
-        'properties': {
-          'Party Size': partySize + ' guests'
-        }
+        'properties': properties
       }]
     };
 
-    // Add to cart via Shopify AJAX API
+    console.log('Adding to cart:', formData);
+
     fetch('/cart/add.js', {
       method: 'POST',
       headers: {
@@ -426,19 +1081,30 @@ document.addEventListener('DOMContentLoaded', function() {
       },
       body: JSON.stringify(formData)
     })
-    .then(response => response.json())
+    .then(response => {
+      console.log('Cart response status:', response.status);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
     .then(data => {
-      // Success - redirect to cart or show success message
+      console.log('Cart response data:', data);
+      // Success - redirect to cart
       window.location.href = '/cart';
     })
     .catch(error => {
       console.error('Error adding to cart:', error);
-      alert('There was an error adding the item to your cart. Please try again.');
+      alert('There was an error adding the item to your cart. Please try again. Error: ' + error.message);
       
-      // Reset button
-      submitBtn.textContent = 'Add to Cart';
-      submitBtn.disabled = false;
+      finalSubmitBtn.textContent = '🛒 Add to Cart & Checkout';
+      finalSubmitBtn.disabled = false;
     });
+  }  // Set minimum date for delivery date input
+  if (deliveryDate) {
+    const today = new Date();
+    const minDate = new Date(today.getTime() + (28 * 24 * 60 * 60 * 1000));
+    deliveryDate.min = minDate.toISOString().split('T')[0];
   }
 });
 </script>

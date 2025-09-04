@@ -34,14 +34,14 @@
     endif
   -%}
 
-  {%- render 'collection-banner',
+  {% comment %} {%- render 'collection-banner',
     display_on_card: section.settings.display_on_card,
     show_collection_title: section.settings.show_collection_title,
     show_collection_description: section.settings.show_collection_description,
     linklist: section.settings.linklist,
     loading: loading,
     preload: preload
-  -%}
+  -%} {% endcomment %}
 
   {%- liquid
     for block in section.blocks

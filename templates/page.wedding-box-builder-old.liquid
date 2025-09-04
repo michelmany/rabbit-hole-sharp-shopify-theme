@@ -1,0 +1,484 @@
+{% comment %}
+  Template for Wedding Box Builder
+  This template creates a dedicated page for the wedding box builder wizard
+{% endcomment %}
+
+<div class="page-wedding-builder">
+  {% comment %} Page Header {% endcomment %}
+  <div class="page-header bg-gradient-to-r from-pink-50 to-purple-50 py-12">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+        {{ page.title | default: 'Wedding Box Builder' }}
+      </h1>
+      {% if page.content != blank %}
+        <div class="text-lg text-gray-600 max-w-2xl mx-auto">
+          {{ page.content }}
+        </div>
+      {% else %}
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          Create the perfect wedding celebration with our custom cake selection.
+          Choose your party size and let us help you find the ideal cakes for your special day.
+        </p>
+      {% endif %}
+    </div>
+  </div>
+
+  {% comment %} Wedding Form Wizard Section {% endcomment %}
+  <div class="wedding-builder-section py-8">
+    {% section 'wedding-form-wizard' %}
+  </div>
+      assign excluded_tags = 'slutty-brownies,premium-selection' | split: ','
+      assign max_cake_selections = 6
+    %}
+
+    <div class="wedding-form-wizard" data-section-id="embedded">
+      <!-- SECTION LOADED DEBUG -->
+      <div style="background-color: #d1fae5; border: 2px solid #10b981; padding: 1rem; text-align: center; margin-bottom: 1rem; border-radius: 8px;">
+        <strong style="color: #065f46; font-size: 18px;">✅ Wedding Form Wizard Section Loaded Successfully!</strong><br>
+        <small style="color: #047857;">Collection: {{ cake_collection.title | default: 'Not found' }} ({{ cake_collection.products.size | default: 0 }} products)</small>
+      </div>
+
+      <div class="wizard-container max-w-4xl mx-auto px-4 py-8">
+        <!-- Progress Bar -->
+        <div class="wizard-progress mb-8">
+          <div class="flex items-center justify-between">
+            <div class="step-indicator active" data-step="1">
+              <div class="step-circle">1</div>
+              <span class="step-label">Party Size</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step-indicator" data-step="2">
+              <div class="step-circle">2</div>
+              <span class="step-label">Cake Selection</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 1: Party Size Selection -->
+        <div class="wizard-step" data-step="1">
+          <!-- Debug Information for Step 1 -->
+          <div style="background-color: #dbeafe; border: 2px solid #3b82f6; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 14px;">
+            <strong style="color: #1e40af;">🔧 Step 1 Debug:</strong><br>
+            Party Size Options: {{ party_size_options | join: ', ' }}<br>
+            Current Step: 1 (Party Size Selection)
+          </div>
+
+          <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold mb-4">How many guests are you expecting?</h2>
+            <p class="text-lg text-gray-600">This helps us recommend the perfect cake size for your celebration.</p>
+          </div>
+
+          <div class="party-size-options grid grid-cols-2 md:grid-cols-5 gap-4 max-w-2xl mx-auto mb-8">
+            {% for size in party_size_options %}
+              <button
+                type="button"
+                class="party-size-btn bg-white border-2 border-gray-200 rounded-lg p-4 text-center hover:border-blue-500 hover:bg-blue-50 transition-all duration-200"
+                data-party-size="{{ size }}"
+              >
+                <div class="text-2xl font-bold">{{ size }}</div>
+                <div class="text-sm text-gray-600">guests</div>
+              </button>
+            {% endfor %}
+          </div>
+
+          <div class="text-center">
+            <button
+              type="button"
+              class="next-step-btn bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled
+            >
+              Continue to Cake Selection
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2: Cake Selection -->
+        <div class="wizard-step hidden" data-step="2">
+          <!-- Debug Information for Step 2 -->
+          <div style="background-color: #f3e8ff; border: 2px solid #8b5cf6; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 14px;">
+            <strong style="color: #6b21a8;">🔧 Step 2 Debug:</strong><br>
+            Selected Party Size: <span class="party-size-display" style="font-weight: bold; color: #6b21a8;">Not selected</span><br>
+            Current Step: 2 (Cake Selection)<br>
+            Products Available: {{ cake_collection.products.size | default: 0 }}
+          </div>
+
+          <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold mb-4">Choose Your Perfect Cake</h2>
+            <p class="text-lg text-gray-600">
+              <span class="selected-party-size-text">For your party of <strong class="party-size-display">0</strong> guests</span>,
+              here are our recommended cakes.
+            </p>
+          </div>
+
+          <div class="cake-selection-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Debug Information -->
+            <div class="col-span-full bg-yellow-100 p-4 rounded mb-4 text-sm">
+              <strong>Debug Info:</strong><br>
+              Collection Handle: wedding-cakes<br>
+              Collection Found: {% if cake_collection %}Yes{% else %}No{% endif %}<br>
+              Collection Products Count: {{ cake_collection.products.size | default: 0 }}<br>
+              Max Selections: {{ max_cake_selections }}<br>
+              Excluded Tags: {{ excluded_tags | join: ', ' }}
+            </div>
+
+            {% if cake_collection and cake_collection.products.size > 0 %}
+              <!-- Debug: Show all products in collection -->
+              <div class="col-span-full bg-blue-100 p-4 rounded mb-4 text-sm">
+                <strong>All Products in Collection:</strong><br>
+                {% for product in cake_collection.products limit: 10 %}
+                  {{ forloop.index }}. {{ product.title }} - Tags: {{ product.tags | join: ', ' }}<br>
+                {% endfor %}
+              </div>
+
+              {% assign product_count = 0 %}
+              {% for product in cake_collection.products %}
+                {% unless product_count >= max_cake_selections %}
+                  {% assign should_exclude = false %}
+
+                  {% for excluded_tag in excluded_tags %}
+                    {% assign trimmed_tag = excluded_tag | strip %}
+                    {% if product.tags contains trimmed_tag %}
+                      {% assign should_exclude = true %}
+                      {% break %}
+                    {% endif %}
+                  {% endfor %}
+
+                  {% unless should_exclude %}
+                    {% assign product_count = product_count | plus: 1 %}
+                    <div class="cake-option bg-white border-2 border-gray-200 rounded-lg overflow-hidden hover:border-blue-500 hover:shadow-lg transition-all duration-200 cursor-pointer"
+                         data-product-id="{{ product.id }}"
+                         data-product-handle="{{ product.handle }}"
+                         data-product-title="{{ product.title }}"
+                         data-product-price="{{ product.price }}">
+
+                      {% if product.featured_media %}
+                        <div class="cake-image aspect-square overflow-hidden">
+                          <img
+                            src="{{ product.featured_media | image_url: width: 400 }}"
+                            alt="{{ product.title }}"
+                            class="w-full h-full object-cover"
+                            width="400"
+                            height="400"
+                            loading="lazy"
+                          >
+                        </div>
+                      {% endif %}
+
+                      <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-2">{{ product.title }}</h3>
+                        <div class="text-blue-600 font-bold text-xl mb-2">
+                          {{ product.price | money }}
+                        </div>
+                        {% if product.description != blank %}
+                          <p class="text-gray-600 text-sm line-clamp-2">
+                            {{ product.description | strip_html | truncate: 100 }}
+                          </p>
+                        {% endif %}
+                      </div>
+                    </div>
+                  {% endunless %}
+                {% endunless %}
+              {% endfor %}
+            {% else %}
+              <div class="col-span-full text-center py-8">
+                <div class="bg-red-100 p-6 rounded-lg">
+                  <h3 class="text-lg font-semibold mb-2">No cakes available</h3>
+                  <p class="text-red-600">Please create a collection called "wedding-cakes" and add some products to it.</p>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="flex justify-between items-center">
+            <button
+              type="button"
+              class="prev-step-btn bg-gray-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-600 transition-colors"
+            >
+              ← Back to Party Size
+            </button>
+
+            <button
+              type="button"
+              class="submit-form-btn bg-green-600 text-white px-8 py-3 rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-green-700 transition-colors"
+              disabled
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Include page content if any -->
+    {{ content_for_layout }}
+  </div>
+
+  {% comment %} Additional Information Section {% endcomment %}
+  <div class="additional-info bg-gray-50 py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-3 gap-8 text-center">
+        <div class="info-card">
+          <div class="icon mb-4">
+            <svg class="w-12 h-12 mx-auto text-pink-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Quality Guaranteed</h3>
+          <p class="text-gray-600">All our cakes are freshly made with premium ingredients for your special day.</p>
+        </div>
+
+        <div class="info-card">
+          <div class="icon mb-4">
+            <svg class="w-12 h-12 mx-auto text-pink-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Expert Delivery</h3>
+          <p class="text-gray-600">Professional delivery and setup service available for your venue.</p>
+        </div>
+
+        <div class="info-card">
+          <div class="icon mb-4">
+            <svg class="w-12 h-12 mx-auto text-pink-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Custom Support</h3>
+          <p class="text-gray-600">Dietary requirements and special requests accommodated with care.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .page-wedding-builder {
+    min-height: 100vh;
+  }
+
+  .page-header {
+    background: linear-gradient(135deg, #fdf2f8 0%, #faf5ff 100%);
+  }
+
+  .container {
+    max-width: 1200px;
+  }
+
+  .info-card {
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .info-card:hover {
+    transform: translateY(-4px);
+  }
+
+  /* Wedding Wizard Styles */
+  .hidden {
+    display: none !important;
+  }
+
+  .wizard-progress {
+    position: relative;
+  }
+
+  .step-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .step-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #e5e7eb;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .step-indicator.active .step-circle {
+    background-color: #2563eb;
+    color: white;
+  }
+
+  .step-indicator.completed .step-circle {
+    background-color: #10b981;
+    color: white;
+  }
+
+  .step-label {
+    font-size: 14px;
+    color: #6b7280;
+    font-weight: 500;
+  }
+
+  .step-indicator.active .step-label {
+    color: #2563eb;
+  }
+
+  .step-line {
+    flex: 1;
+    height: 2px;
+    background-color: #e5e7eb;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    right: 0;
+    z-index: 1;
+  }
+
+  .party-size-btn.selected {
+    border-color: #2563eb;
+    background-color: #eff6ff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+  }
+
+  .cake-option {
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .cake-option.selected {
+    border-color: #2563eb;
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.15);
+    transform: translateY(-2px);
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  @media (max-width: 768px) {
+    .page-header {
+      padding: 3rem 0;
+    }
+
+    .page-header h1 {
+      font-size: 2.5rem;
+    }
+
+    .wizard-container {
+      padding: 1rem;
+    }
+
+    .cake-selection-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const wizard = document.querySelector('.wedding-form-wizard');
+  if (!wizard) return;
+
+  const steps = wizard.querySelectorAll('.wizard-step');
+  const stepIndicators = wizard.querySelectorAll('.step-indicator');
+  const partySizeBtns = wizard.querySelectorAll('.party-size-btn');
+  const cakeOptions = wizard.querySelectorAll('.cake-option');
+  const nextStepBtn = wizard.querySelector('.next-step-btn');
+  const prevStepBtn = wizard.querySelector('.prev-step-btn');
+  const submitBtn = wizard.querySelector('.submit-form-btn');
+  const partySizeDisplay = wizard.querySelector('.party-size-display');
+
+  let selectedPartySize = null;
+  let selectedProduct = null;
+
+  // Party size selection
+  partySizeBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      console.log('Party size button clicked:', this.dataset.partySize);
+      partySizeBtns.forEach(b => b.classList.remove('selected'));
+      this.classList.add('selected');
+      selectedPartySize = this.dataset.partySize;
+      nextStepBtn.disabled = false;
+      console.log('Selected party size:', selectedPartySize);
+    });
+  });
+
+  // Next step button
+  nextStepBtn.addEventListener('click', function() {
+    console.log('Next step button clicked. Selected party size:', selectedPartySize);
+    if (selectedPartySize) {
+      console.log('Calling showStep(2)');
+      showStep(2);
+      const partySizeDisplays = wizard.querySelectorAll('.party-size-display');
+      partySizeDisplays.forEach(display => {
+        display.textContent = selectedPartySize;
+      });
+    }
+  });
+
+  // Previous step button
+  prevStepBtn.addEventListener('click', function() {
+    showStep(1);
+  });
+
+  // Cake selection
+  cakeOptions.forEach(option => {
+    option.addEventListener('click', function() {
+      cakeOptions.forEach(opt => opt.classList.remove('selected'));
+      this.classList.add('selected');
+
+      selectedProduct = {
+        id: this.dataset.productId,
+        handle: this.dataset.productHandle,
+        title: this.dataset.productTitle,
+        price: this.dataset.productPrice
+      };
+
+      submitBtn.disabled = false;
+    });
+  });
+
+  // Submit form
+  submitBtn.addEventListener('click', function() {
+    if (selectedProduct && selectedPartySize) {
+      console.log('Selected:', selectedProduct, selectedPartySize);
+      alert('Demo: Would add ' + selectedProduct.title + ' for ' + selectedPartySize + ' guests to cart');
+    }
+  });
+
+  function showStep(stepNumber) {
+    console.log('showStep called with:', stepNumber);
+    console.log('All steps found:', steps.length);
+    
+    steps.forEach(step => {
+      console.log('Adding hidden to step:', step.dataset.step);
+      step.classList.add('hidden');
+    });
+
+    const targetStep = wizard.querySelector(`.wizard-step[data-step="${stepNumber}"]`);
+    console.log('Target step found:', targetStep);
+    if (targetStep) {
+      console.log('Removing hidden from step:', stepNumber);
+      targetStep.classList.remove('hidden');
+    }
+
+    stepIndicators.forEach((indicator, index) => {
+      indicator.classList.remove('active', 'completed');
+
+      if (index + 1 === stepNumber) {
+        indicator.classList.add('active');
+      } else if (index + 1 < stepNumber) {
+        indicator.classList.add('completed');
+      }
+    });
+  }
+});
+</script>

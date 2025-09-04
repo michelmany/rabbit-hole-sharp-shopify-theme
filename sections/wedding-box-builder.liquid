@@ -1,0 +1,32 @@
+{%- comment -%}
+🧠 Wedding Box Builder – GitHub Copilot Prompt
+
+Goal: Build a multi-step Wedding Box Builder in Shopify (Online Store 2.0).
+
+Overview:
+1. Step 1: Let the user select party size (options: 50, 75, 100, 125, 150).
+2. Step 2: Show cake selection based on party size (e.g. 50 guests = 5 cakes).
+3. Step 3: Restrict selection from a product collection:
+   - Exclude cakes tagged with "slutty-brownies" and "premium-selection"
+   - If a cake has tag "premium", apply a surcharge (e.g. +£3 per item)
+4. Step 4: Show a summary of selected items, party size, surcharges, and a flat £45 UK shipping fee.
+5. Step 5: Collect delivery info:
+   - Delivery date (min 28 days in advance)
+   - Optional venue contact
+   - Allergy/dietary notes
+   - Optional toggle for "local delivery & setup" (adds extra fee)
+6. Step 6: Payment options:
+   - Toggle: pay full price or deposit
+   - If deposit: add a separate "deposit product" to cart
+   - Store all user selections using line item properties
+
+Technical Requirements:
+- Use Shopify Liquid to create a custom section: `wedding-box-builder.liquid`
+- Use JavaScript (or Alpine.js) to manage wizard logic between steps
+- Use Shopify's cart form with line item properties to pass custom data
+- Calculate and show total cost, including surcharges and delivery fees
+- Validate delivery date and enforce cake selection limits
+
+Start by building the HTML structure for Step 1 (party size selector), then update state and show Step 2 dynamically.
+
+{%- endcomment -%}
