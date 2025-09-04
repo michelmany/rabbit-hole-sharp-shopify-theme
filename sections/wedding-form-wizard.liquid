@@ -107,7 +107,7 @@ Start by building the HTML structure for Step 1 (party size selector), then upda
       <div class="text-center">
         <button
           type="button"
-          class="next-step-btn bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+          class="steps-btn next-step-btn px-8 py-3 rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
           disabled
         >
           Continue to Cake Selection
@@ -127,26 +127,26 @@ Start by building the HTML structure for Step 1 (party size selector), then upda
 
       <div class="cake-selection-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         <!-- Debug Information (remove after testing) -->
-        <div class="col-span-full bg-yellow-100 p-4 rounded mb-4 text-sm">
+        {% comment %} <div class="col-span-full bg-yellow-100 p-4 rounded mb-4 text-sm">
           <strong>Debug Info:</strong><br>
           Collection Handle: {{ cake_collection_handle }}<br>
           Collection Found: {% if cake_collection %}Yes{% else %}No{% endif %}<br>
           Collection Products Count: {{ cake_collection.products.size | default: 0 }}<br>
           Max Selections: {{ max_cake_selections }}<br>
           Excluded Tags: {{ excluded_tags | join: ', ' }}
-        </div>
+        </div> {% endcomment %}
 
         {% if cake_collection and cake_collection.products.size > 0 %}
           {% assign filtered_products = blank %}
           {% assign product_count = 0 %}
 
           <!-- Debug: Show all products in collection -->
-          <div class="col-span-full bg-blue-100 p-4 rounded mb-4 text-sm">
+          {% comment %} <div class="col-span-full bg-blue-100 p-4 rounded mb-4 text-sm">
             <strong>All Products in Collection:</strong><br>
             {% for product in cake_collection.products limit: 10 %}
               {{ forloop.index }}. {{ product.title }} - Tags: {{ product.tags | join: ', ' }}<br>
             {% endfor %}
-          </div>
+          </div> {% endcomment %}
 
           {% for product in cake_collection.products %}
             {% unless product_count >= max_cake_selections %}
@@ -198,8 +198,8 @@ Start by building the HTML structure for Step 1 (party size selector), then upda
                     </div>
                   </div>
 
-                  <div class="selected-overlay hidden absolute inset-0 bg-blue-600 bg-opacity-20 flex items-center justify-center">
-                    <div class="bg-blue-600 text-white rounded-full p-2">
+                  <div class="selected-overlay hidden absolute inset-0 bg-opacity-20 flex items-center justify-center bg-black">
+                    <div class="text-white rounded-full p-2">
                       <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                       </svg>
@@ -229,14 +229,14 @@ Start by building the HTML structure for Step 1 (party size selector), then upda
       <div class="flex justify-between items-center">
         <button
           type="button"
-          class="prev-step-btn bg-gray-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-600 transition-colors"
+          class="steps-btn prev-step-btn bg-gray-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-600 transition-colors"
         >
           ← Back to Party Size
         </button>
 
         <button
           type="button"
-          class="next-step-2-btn bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-700 transition-colors"
+          class="steps-btn next-step-2-btn text-white px-8 py-3 rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-700 transition-colors"
           disabled
         >
           Continue to Restrictions →
@@ -253,13 +253,13 @@ Start by building the HTML structure for Step 1 (party size selector), then upda
         </p>
       </div>
 
-      <div class="restrictions-content max-w-2xl mx-auto">
+      <div class="restrictions-content">
         <!-- Selected Cake Display -->
-        <div class="selected-cake-display bg-white border-2 border-blue-200 rounded-lg p-6 mb-6">
+        <div class="selected-cake-display bg-white border-2 border-blue-200 rounded-lg p-5 mb-5">
           <h3 class="text-xl font-semibold mb-4">Your Selected Cake</h3>
           <div class="flex items-center space-x-4">
             <div class="selected-cake-image w-20 h-20 bg-gray-200 rounded-lg"></div>
-            <div>
+            <div style="padding-left: 1rem;">
               <div class="selected-cake-title font-semibold text-lg">No cake selected</div>
               <div class="selected-cake-price text-blue-600 font-bold">£0.00</div>
               <div class="text-sm text-gray-600">Party size: <span class="party-size-display">0</span> guests</div>
@@ -273,7 +273,7 @@ Start by building the HTML structure for Step 1 (party size selector), then upda
           <div class="premium-option bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
             <label class="flex items-center cursor-pointer">
               <input type="checkbox" class="premium-upgrade-checkbox mr-3" data-surcharge="3.00">
-              <div>
+              <div style="padding-left: 1rem;">
                 <div class="font-medium">Premium Decoration Upgrade</div>
                 <div class="text-sm text-gray-600">Hand-crafted decorations and premium ingredients</div>
                 <div class="text-sm font-semibold text-yellow-700">+£3.00 per cake</div>
@@ -286,7 +286,7 @@ Start by building the HTML structure for Step 1 (party size selector), then upda
         <div class="excluded-notice bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
           <h4 class="font-semibold text-red-800 mb-2">Please Note:</h4>
           <p class="text-sm text-red-700">
-            Some items are excluded from this selection (specialty items and premium collections).
+            Some items are excluded from this selection (specialty items and premium collections).<br>
             These can be ordered separately or added as custom requests.
           </p>
         </div>
@@ -295,14 +295,14 @@ Start by building the HTML structure for Step 1 (party size selector), then upda
       <div class="flex justify-between items-center">
         <button
           type="button"
-          class="prev-step-2-btn bg-gray-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-600 transition-colors"
+          class="steps-btn prev-step-2-btn bg-gray-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-600 transition-colors"
         >
           ← Back to Cake Selection
         </button>
 
         <button
           type="button"
-          class="next-step-3-btn bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+          class="steps-btn next-step-3-btn text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
         >
           Continue to Summary →
         </button>
@@ -318,9 +318,9 @@ Start by building the HTML structure for Step 1 (party size selector), then upda
         </p>
       </div>
 
-      <div class="summary-content max-w-2xl mx-auto">
+      <div class="summary-content">
         <!-- Order Details -->
-        <div class="order-summary bg-white border rounded-lg p-6 mb-6">
+        <div class="order-summary bg-white border rounded-lg p-5 mb-5">
           <h3 class="text-xl font-semibold mb-4">Your Wedding Box</h3>
 
           <!-- Party Size -->
@@ -362,7 +362,7 @@ Start by building the HTML structure for Step 1 (party size selector), then upda
 
         <!-- Additional Info -->
         <div class="additional-info bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-          <h4 class="font-semibold text-blue-800 mb-2">What's Included:</h4>
+          <h4 class="font-semibold text-blue-800 mb-2 font-bold">What's Included:</h4>
           <ul class="text-sm text-blue-700 space-y-1">
             <li>• Professional packaging and presentation</li>
             <li>• UK-wide delivery (28+ days advance notice)</li>
@@ -375,14 +375,14 @@ Start by building the HTML structure for Step 1 (party size selector), then upda
       <div class="flex justify-between items-center">
         <button
           type="button"
-          class="prev-step-3-btn bg-gray-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-600 transition-colors"
+          class="steps-btn prev-step-3-btn bg-gray-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-600 transition-colors"
         >
           ← Back to Restrictions
         </button>
 
         <button
           type="button"
-          class="next-step-4-btn bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+          class="steps-btn next-step-4-btn text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
         >
           Continue to Delivery →
         </button>
@@ -398,7 +398,7 @@ Start by building the HTML structure for Step 1 (party size selector), then upda
         </p>
       </div>
 
-      <div class="delivery-form max-w-2xl mx-auto">
+      <div class="delivery-form">
         <!-- Delivery Date -->
         <div class="form-group mb-6">
           <label class="block text-lg font-semibold mb-2">Delivery Date *</label>
@@ -434,7 +434,7 @@ Start by building the HTML structure for Step 1 (party size selector), then upda
           <div class="local-delivery-option bg-yellow-50 border border-yellow-200 rounded-lg p-4">
             <label class="flex items-center cursor-pointer">
               <input type="checkbox" class="local-delivery-checkbox mr-3" data-fee="25.00">
-              <div>
+              <div style="padding-left: 1rem;">
                 <div class="font-medium">Local Delivery & Setup Service</div>
                 <div class="text-sm text-gray-600">Professional delivery and presentation setup at your venue</div>
                 <div class="text-sm font-semibold text-yellow-700">+£25.00</div>
@@ -447,14 +447,14 @@ Start by building the HTML structure for Step 1 (party size selector), then upda
       <div class="flex justify-between items-center">
         <button
           type="button"
-          class="prev-step-4-btn bg-gray-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-600 transition-colors"
+          class="steps-btn prev-step-4-btn bg-gray-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-600 transition-colors"
         >
           ← Back to Summary
         </button>
 
         <button
           type="button"
-          class="next-step-5-btn bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-700 transition-colors"
+          class="steps-btn next-step-5-btn text-white px-8 py-3 rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-700 transition-colors"
           disabled
         >
           Continue to Payment →
@@ -471,9 +471,9 @@ Start by building the HTML structure for Step 1 (party size selector), then upda
         </p>
       </div>
 
-      <div class="payment-options max-w-2xl mx-auto">
+      <div class="payment-options">
         <!-- Final Summary -->
-        <div class="final-summary bg-white border rounded-lg p-6 mb-6">
+        <div class="final-summary bg-white border rounded-lg p-5 mb-5">
           <h3 class="text-xl font-semibold mb-4">Final Order Summary</h3>
 
           <!-- All order details will be populated here by JavaScript -->
@@ -495,7 +495,7 @@ Start by building the HTML structure for Step 1 (party size selector), then upda
           <div class="payment-option mb-4">
             <label class="flex items-center cursor-pointer bg-white border-2 border-gray-300 rounded-lg p-4 hover:border-blue-500">
               <input type="radio" name="payment_type" value="full" class="mr-3" checked>
-              <div>
+              <div style="padding-left: 1rem;">
                 <div class="font-medium">Pay Full Amount</div>
                 <div class="text-sm text-gray-600">Complete payment now</div>
                 <div class="text-lg font-bold text-green-600 mt-1">
@@ -508,7 +508,7 @@ Start by building the HTML structure for Step 1 (party size selector), then upda
           <div class="payment-option">
             <label class="flex items-center cursor-pointer bg-white border-2 border-gray-300 rounded-lg p-4 hover:border-blue-500">
               <input type="radio" name="payment_type" value="deposit" class="mr-3">
-              <div>
+              <div style="padding-left: 1rem;">
                 <div class="font-medium">Pay Deposit (50%)</div>
                 <div class="text-sm text-gray-600">Pay remaining balance closer to delivery</div>
                 <div class="text-lg font-bold text-blue-600 mt-1">
@@ -522,8 +522,8 @@ Start by building the HTML structure for Step 1 (party size selector), then upda
         <!-- Terms and Conditions -->
         <div class="terms-conditions mb-6">
           <label class="flex items-start cursor-pointer">
-            <input type="checkbox" class="terms-checkbox mr-3 mt-1" required>
-            <div class="text-sm text-gray-700">
+            <input type="checkbox" class="terms-checkbox" required>
+            <div style="padding-left: 1rem; font-size: 12px; color: #4B5563;">
               I agree to the <a href="#" class="text-blue-600 underline">Terms and Conditions</a>
               and <a href="#" class="text-blue-600 underline">Privacy Policy</a>.
               I understand that all orders require 28+ days advance notice and are subject to availability.
@@ -535,14 +535,14 @@ Start by building the HTML structure for Step 1 (party size selector), then upda
       <div class="flex justify-between items-center">
         <button
           type="button"
-          class="prev-step-5-btn bg-gray-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-600 transition-colors"
+          class="steps-btn prev-step-5-btn bg-gray-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-600 transition-colors"
         >
           ← Back to Delivery
         </button>
 
         <button
           type="button"
-          class="final-submit-btn bg-green-600 text-white px-8 py-3 rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-green-700 transition-colors text-lg"
+          class="steps-btn final-submit-btn bg-green-600 text-white px-8 py-3 rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-green-700 transition-colors text-lg"
           disabled
         >
           🛒 Add to Cart & Checkout
@@ -580,7 +580,7 @@ Start by building the HTML structure for Step 1 (party size selector), then upda
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #e5e7eb;
+    background-color: #fff;
     color: #6b7280;
     display: flex;
     align-items: center;
@@ -591,12 +591,12 @@ Start by building the HTML structure for Step 1 (party size selector), then upda
   }
 
   .step-indicator.active .step-circle {
-    background-color: #2563eb;
+    background-color: #EF862A;
     color: white;
   }
 
   .step-indicator.completed .step-circle {
-    background-color: #10b981;
+    background-color: #3B6D82;
     color: white;
   }
 
@@ -607,22 +607,20 @@ Start by building the HTML structure for Step 1 (party size selector), then upda
   }
 
   .step-indicator.active .step-label {
-    color: #2563eb;
+    color: #EF862A;
   }
 
   .step-line {
     flex: 1;
     height: 2px;
-    background-color: #e5e7eb;
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    right: 0;
+    background-color: #fff;
+    margin: 0 16px;
+    align-self: center;
     z-index: 1;
   }
 
   .party-size-btn.selected {
-    border-color: #2563eb;
+    border-color: #EF862A;
     background-color: #eff6ff;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
@@ -634,7 +632,7 @@ Start by building the HTML structure for Step 1 (party size selector), then upda
   }
 
   .cake-option.selected {
-    border-color: #2563eb;
+    border-color: #EF862A;
     box-shadow: 0 8px 25px rgba(37, 99, 235, 0.15);
     transform: translateY(-2px);
   }
@@ -648,6 +646,62 @@ Start by building the HTML structure for Step 1 (party size selector), then upda
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+
+  .steps-btn {
+    background-color: transparent;
+    color: black;
+    border-radius: 20px;
+    padding: 0.75rem 0.9rem;
+    border: 1px solid black;
+  }
+
+  .steps-btn:hover {
+    background-color: black;
+    color: white;
+  }
+
+  .steps-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .steps-btn:disabled:hover {
+    opacity: 0.5;
+    background: none;
+    color: black;
+  }
+
+  .premium-option,
+  .local-delivery-option {
+    border-color: #FBBF24;
+    background-color: #FFFBEB;
+  }
+
+  .excluded-notice {
+    background-color: #FEF3F2;
+    border-color: #FECACA;
+  }
+
+  /* Tailwind CSS Fallbacks for older versions */
+  .hover\:shadow-lg:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  .rounded-lg {
+    border-radius: 0.5rem; /* 8px */
+  }
+
+  .border-gray-200 {
+    border-color: #e5e7eb;
+  }
+
+  .bg-opacity-20 {
+    background-color: rgba(255, 101, 0, 0.2);
+  }
+
+  .rounded-full {
+    border-radius: 9999px;
   }
 
   @media (max-width: 768px) {
@@ -1096,7 +1150,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .catch(error => {
       console.error('Error adding to cart:', error);
       alert('There was an error adding the item to your cart. Please try again. Error: ' + error.message);
-      
+
       finalSubmitBtn.textContent = '🛒 Add to Cart & Checkout';
       finalSubmitBtn.disabled = false;
     });
