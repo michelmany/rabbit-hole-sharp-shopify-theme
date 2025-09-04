@@ -198,8 +198,8 @@ Start by building the HTML structure for Step 1 (party size selector), then upda
                     </div>
                   </div>
 
-                  <div class="selected-overlay hidden absolute inset-0 bg-opacity-20 flex items-center justify-center bg-black">
-                    <div class="text-white rounded-full p-2">
+                  <div class="selected-overlay hidden absolute inset-0 bg-opacity-20 flex items-center justify-center">
+                    <div class="text-white rounded-full p-2 bg-black">
                       <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                       </svg>
@@ -704,6 +704,9 @@ Start by building the HTML structure for Step 1 (party size selector), then upda
     border-radius: 9999px;
   }
 
+  .bg-black {
+    }
+
   @media (max-width: 768px) {
     .wizard-container {
       padding: 1rem;
@@ -751,7 +754,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // State Variables
   let selectedPartySize = null;
-  let selectedProduct = null;
+  let selectedProducts = []; // Changed from selectedProduct to selectedProducts array
   let premiumUpgrade = false;
   let localDelivery = false;
   let paymentType = 'full';
@@ -784,18 +787,31 @@ document.addEventListener('DOMContentLoaded', function() {
   // Step 2: Cake Selection
   cakeOptions.forEach(option => {
     option.addEventListener('click', function() {
-      cakeOptions.forEach(opt => opt.classList.remove('selected'));
-      this.classList.add('selected');
+      const productId = this.dataset.productId;
+      const isSelected = this.classList.contains('selected');
 
-      selectedProduct = {
-        id: this.dataset.productId,
-        handle: this.dataset.productHandle,
-        title: this.dataset.productTitle,
-        price: parseFloat(this.dataset.productPrice) / 100, // Convert from cents
-        variantId: this.dataset.productVariantId || this.dataset.productId
-      };
+      if (isSelected) {
+        // Remove from selection
+        this.classList.remove('selected');
+        selectedProducts = selectedProducts.filter(p => p.id !== productId);
+      } else {
+        // Add to selection if under limit
+        const maxSelections = parseInt('{{ max_cake_selections }}');
+        if (selectedProducts.length < maxSelections) {
+          this.classList.add('selected');
+          selectedProducts.push({
+            id: this.dataset.productId,
+            handle: this.dataset.productHandle,
+            title: this.dataset.productTitle,
+            price: parseFloat(this.dataset.productPrice) / 100, // Convert from cents
+            variantId: this.dataset.productVariantId || this.dataset.productId
+          });
+        } else {
+          alert(`You can only select up to ${maxSelections} cakes for your party size.`);
+        }
+      }
 
-      nextStep2Btn.disabled = false;
+      nextStep2Btn.disabled = selectedProducts.length === 0;
       updateAllDisplays();
     });
   });
@@ -803,7 +819,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Step 2 -> 3: Next step button
   if (nextStep2Btn) {
     nextStep2Btn.addEventListener('click', function() {
-      if (selectedProduct) {
+      if (selectedProducts.length > 0) {
         showStep(3);
       }
     });
@@ -915,27 +931,34 @@ document.addEventListener('DOMContentLoaded', function() {
       display.textContent = selectedPartySize || '0';
     });
 
-    // Update selected cake displays
-    if (selectedProduct) {
+    // Update selected cakes displays for multiple products
+    if (selectedProducts.length > 0) {
       const cakeTitles = wizard.querySelectorAll('.selected-cake-title');
       const cakePrices = wizard.querySelectorAll('.selected-cake-price');
 
+      // For single displays, show first product or summary
       cakeTitles.forEach(title => {
-        title.textContent = selectedProduct.title;
+        if (selectedProducts.length === 1) {
+          title.textContent = selectedProducts[0].title;
+        } else {
+          title.textContent = `${selectedProducts.length} cakes selected`;
+        }
       });
 
+      // Calculate total price of selected products
+      const totalPrice = selectedProducts.reduce((sum, product) => sum + product.price, 0);
       cakePrices.forEach(price => {
-        price.textContent = '£' + selectedProduct.price.toFixed(2);
+        price.textContent = '£' + totalPrice.toFixed(2);
       });
 
-      // Update cake image in Step 3
+      // Update cake image in Step 3 (show first selected cake)
       const cakeImage = wizard.querySelector('.selected-cake-image');
-      if (cakeImage) {
-        const selectedCakeOption = wizard.querySelector('.cake-option.selected');
-        if (selectedCakeOption) {
-          const imgSrc = selectedCakeOption.querySelector('img')?.src;
+      if (cakeImage && selectedProducts.length > 0) {
+        const firstSelectedOption = wizard.querySelector(`.cake-option[data-product-id="${selectedProducts[0].id}"]`);
+        if (firstSelectedOption) {
+          const imgSrc = firstSelectedOption.querySelector('img')?.src;
           if (imgSrc) {
-            cakeImage.innerHTML = `<img src="${imgSrc}" alt="${selectedProduct.title}" class="w-full h-full object-cover rounded-lg">`;
+            cakeImage.innerHTML = `<img src="${imgSrc}" alt="${selectedProducts[0].title}" class="w-full h-full object-cover rounded-lg">`;
           }
         }
       }
@@ -961,8 +984,11 @@ document.addEventListener('DOMContentLoaded', function() {
   function updateTotalCalculations() {
     let total = SHIPPING_FEE;
 
-    if (selectedProduct) {
-      total += selectedProduct.price;
+    // Add all selected product prices
+    if (selectedProducts.length > 0) {
+      selectedProducts.forEach(product => {
+        total += product.price;
+      });
     }
 
     if (premiumUpgrade) {
@@ -1001,22 +1027,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let html = '';
 
-    if (selectedProduct) {
-      html += `
-        <div class="flex justify-between py-2 border-b">
-          <div>
-            <div class="font-medium">${selectedProduct.title}</div>
-            <div class="text-sm text-gray-600">Party size: ${selectedPartySize} guests</div>
+    // Show all selected products
+    if (selectedProducts.length > 0) {
+      selectedProducts.forEach(product => {
+        html += `
+          <div class="flex justify-between py-2 border-b">
+            <div>
+              <div class="font-medium">${product.title}</div>
+              <div class="text-sm text-gray-600">Party size: ${selectedPartySize} guests</div>
+            </div>
+            <span class="font-bold">£${product.price.toFixed(2)}</span>
           </div>
-          <span class="font-bold">£${selectedProduct.price.toFixed(2)}</span>
-        </div>
-      `;
+        `;
+      });
     }
 
     if (premiumUpgrade) {
       html += `
         <div class="flex justify-between py-2 border-b">
-          <span>Premium Upgrade</span>
+          <span>Premium Decoration Upgrade</span>
           <span class="font-bold text-yellow-600">+£${PREMIUM_SURCHARGE.toFixed(2)}</span>
         </div>
       `;
@@ -1044,8 +1073,11 @@ document.addEventListener('DOMContentLoaded', function() {
   function calculateTotal() {
     let total = SHIPPING_FEE;
 
-    if (selectedProduct) {
-      total += selectedProduct.price;
+    // Add all selected product prices
+    if (selectedProducts.length > 0) {
+      selectedProducts.forEach(product => {
+        total += product.price;
+      });
     }
 
     if (premiumUpgrade) {
@@ -1084,7 +1116,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function validateFinalSubmit() {
-    return selectedProduct && selectedPartySize && deliveryDate.value && termsCheckbox.checked;
+    return selectedProducts.length > 0 && selectedPartySize && deliveryDate.value && termsCheckbox.checked;
   }
 
   function addToCart() {
@@ -1117,13 +1149,34 @@ document.addEventListener('DOMContentLoaded', function() {
       properties['Local Delivery & Setup'] = 'Yes (+£' + LOCAL_DELIVERY_FEE.toFixed(2) + ')';
     }
 
-    // Add main product to cart
-    const formData = {
-      'items': [{
-        'id': selectedProduct.id, // This should be the variant ID
+    // Prepare items for cart
+    const cartItems = [];
+
+    // Add all selected products
+    selectedProducts.forEach(product => {
+      cartItems.push({
+        'id': product.variantId || product.id,
         'quantity': 1,
-        'properties': properties
-      }]
+        'properties': {
+          ...properties,
+          'Product Name': product.title
+        }
+      });
+    });
+
+    // Add premium upgrade as a separate line item if selected
+    if (premiumUpgrade) {
+      // You'll need to create a premium upgrade product in Shopify
+      // For now, we'll add it as properties to the first item
+      if (cartItems.length > 0) {
+        cartItems[0].properties['Premium Decoration Upgrade'] = 'Yes (+£' + PREMIUM_SURCHARGE.toFixed(2) + ')';
+        // Add the premium upgrade cost to the first item's price
+        cartItems[0].properties['Premium Upgrade Cost'] = '£' + PREMIUM_SURCHARGE.toFixed(2);
+      }
+    }
+
+    const formData = {
+      'items': cartItems
     };
 
     console.log('Adding to cart:', formData);
@@ -1154,12 +1207,17 @@ document.addEventListener('DOMContentLoaded', function() {
       finalSubmitBtn.textContent = '🛒 Add to Cart & Checkout';
       finalSubmitBtn.disabled = false;
     });
-  }  // Set minimum date for delivery date input
+  }
+
+  // Set minimum date for delivery date input
   if (deliveryDate) {
     const today = new Date();
     const minDate = new Date(today.getTime() + (28 * 24 * 60 * 60 * 1000));
     deliveryDate.min = minDate.toISOString().split('T')[0];
   }
+
+  // Initialize form validation
+  updateAllDisplays();
 });
 </script>
 
