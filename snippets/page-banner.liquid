@@ -1,0 +1,61 @@
+<style>
+  .page-banner.section-content {
+    padding-top: 230px;
+    padding-bottom: 120px;
+  }
+</style>
+
+{%- liquid
+  unless loading
+    assign loading = 'lazy'
+  endunless
+
+  unless preload
+    assign preload = false
+  endunless
+-%}
+
+<div class="page-banner section-content relative z-10 mx-auto max-w-site px-section">
+  <div class="{% if display_on_card %}card mx-auto{% endif %}">
+    <div class="{% if display_on_card %}card__surface p-5 lg:p-10{% endif %} break-words">
+      {%- if page.title != '' and show_page_title -%}
+        <h1 class="max-w-4xl mx-auto font-heading heading-feature heading-style text-white text-center {{ settings.heading_drop_shadow_style }}">
+          {{ page.title }}
+        </h1>
+      {%- endif -%}
+      {%- if page.content != blank and show_page_description -%}
+        <div class="{% unless page.title == blank %}mt-5{% endunless %} rte mx-auto max-w-xl text-center text-rte  text-white">
+          {{ page.content }}
+        </div>
+      {%- endif -%}
+      {%- if linklist != blank -%}
+        <div class="relative mt-5 py-2">
+          <nav role="navigation">
+            <ul class="flex flex-wrap justify-center gap-2.5">
+              {%- for link in linklist.links -%}
+                <li class="inline-block">
+                  {%- if link.active -%}
+                    <a
+                      class="btn bg-scheme-text text-sm text-scheme-text-contrast after:hidden lg:text-base"
+                      href="{{ link.url }}"
+                      aria-current="page"
+                    >
+                      {{- link.title -}}
+                    </a>
+                  {%- else -%}
+                    <a
+                      class="btn bg-scheme-secondary-background text-sm text-scheme-text after:hidden lg:text-base"
+                      href="{{ link.url }}"
+                    >
+                      {{- link.title -}}
+                    </a>
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          </nav>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>

@@ -4,29 +4,13 @@
 {% endcomment %}
 
 <div class="page-wedding-builder">
-  {% comment %} Page Header {% endcomment %}
-  <div class="page-header bg-gradient-to-r from-pink-50 to-purple-50 py-12">
-    <div class="container mx-auto px-4 text-center">
-      <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-        {{ page.title | default: 'Wedding Box Builder' }}
-      </h1>
-      {% if page.content != blank %}
-        <div class="text-lg text-gray-600 max-w-2xl mx-auto">
-          {{ page.content }}
-        </div>
-      {% else %}
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-          Create the perfect wedding celebration with our custom cake selection.
-          Choose your party size and let us help you find the ideal cakes for your special day.
-        </p>
-      {% endif %}
-    </div>
-  </div>
+  <!-- Banner Section using main-page-banner with shape divider block -->
+  {%- section 'main-page-banner' -%}
 
-  {% comment %} Wedding Form Wizard Section {% endcomment %}
   <div class="wedding-builder-section py-8">
+    <!-- Use the Wedding Form Wizard Section -->
     {% section 'wedding-form-wizard' %}
-    
+
     <!-- Include page content if any -->
     {{ content_for_layout }}
   </div>

@@ -1,0 +1,319 @@
+<section
+  class="relative overflow-hidden full-bleed-section {% unless page.metafields.custom.header_bg or page.metafields.custom.banner_image %}bg-scheme-background{% endunless %} {% unless page.metafields.custom.header_text %}text-scheme-text{% endunless %} {% if section.settings.use_gradient_background %}bg-scheme-gradient{% endif %}"
+  style="
+    {% if page.metafields.custom.banner_image %}
+      background: url('{{ page.metafields.custom.banner_image | image_url: width: 2048 }}') no-repeat center center / cover;
+    {% elsif page.metafields.custom.header_bg %}
+      background: {{ page.metafields.custom.header_bg }};
+    {% endif %}
+    {% if page.metafields.custom.header_text %}
+      color: {{ page.metafields.custom.header_text }};
+    {% endif %}
+    position: relative;
+  "
+  data-color-scheme="{{ section.settings.color_scheme }}"
+>
+  {% if page.metafields.custom.banner_image %}
+    <div
+      style="
+        position: absolute;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.1);
+        pointer-events: none;
+      "
+    ></div>
+  {% endif %}
+
+  {%- liquid
+    assign preload = false
+    if section.index == 1
+      assign preload = true
+    endif
+
+    assign loading = 'lazy'
+    if section.index <= 3
+      assign loading = 'eager'
+    endif
+  -%}
+
+  {%- render 'page-banner',
+    display_on_card: section.settings.display_on_card,
+    show_page_title: section.settings.show_page_title,
+    show_page_description: section.settings.show_page_description,
+    linklist: section.settings.linklist,
+    loading: loading,
+    preload: preload
+  -%}
+
+  {%- liquid
+    for block in section.blocks
+      case block.type
+        when 'background_shape'
+          render 'block-background-shape', block: block
+        when 'background_pattern'
+          render 'block-background-pattern', block: block, scheme: section.settings.color_scheme
+        when 'shape_divider'
+          render 'block-shape-divider', block: block
+      endcase
+    endfor
+  -%}
+</section>
+
+{%- assign stickers = section.blocks | where: 'type', 'sticker' -%}
+{%- liquid
+  for sticker in stickers
+    render 'block-sticker', block: sticker
+  endfor
+-%}
+
+{% schema %}
+{
+  "name": "Page Banner",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "display_on_card",
+      "label": "t:common.settings.display_on_card.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_page_title",
+      "label": "Show page title",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_page_description",
+      "label": "Show page description",
+      "default": true
+    },
+    {
+      "type": "link_list",
+      "id": "linklist",
+      "label": "t:common.settings.linklist.label",
+      "info": "t:common.settings.linklist.info"
+    },
+    {
+      "type": "header",
+      "content": "t:common.settings.header_color"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "scheme1",
+      "label": "t:common.settings.color_scheme.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_gradient_background",
+      "label": "t:common.settings.use_gradient_background.label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "background_pattern",
+      "name": "t:common.blocks.background_pattern.name",
+      "settings": [
+        {
+          "type": "select",
+          "id": "type",
+          "label": "t:common.blocks.background_pattern.settings.type.label",
+          "options": [
+            {
+              "value": "diagonal_lines",
+              "label": "t:common.options.diagonal_lines.label",
+              "group": "t:common.blocks.background_pattern.settings.type.options.group_lines"
+            },
+            {
+              "value": "grid",
+              "label": "t:common.options.grid_lines.label",
+              "group": "t:common.blocks.background_pattern.settings.type.options.group_lines"
+            },
+            {
+              "value": "dots",
+              "label": "t:common.options.dots.label",
+              "group": "t:common.blocks.background_pattern.settings.type.options.group_shapes"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "color",
+          "label": "t:common.blocks.background_pattern.settings.color.label",
+          "default": "text",
+          "options": [
+            {
+              "value": "text",
+              "label": "t:common.options.text.label"
+            },
+            {
+              "value": "accent-1",
+              "label": "t:common.options.accent_1.label"
+            },
+            {
+              "value": "accent-2",
+              "label": "t:common.options.accent_2.label"
+            }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "size",
+          "min": 8,
+          "max": 600,
+          "unit": "px",
+          "label": "t:common.blocks.background_pattern.settings.size.label",
+          "step": 8,
+          "default": 24
+        },
+        {
+          "type": "range",
+          "id": "opacity",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "t:common.settings.opacity.label",
+          "default": 100
+        }
+      ]
+    },
+    {
+      "type": "background_shape",
+      "name": "t:common.blocks.background_shape.name",
+      "settings": [
+        {
+          "type": "select",
+          "id": "shape",
+          "label": "t:common.blocks.background_shape.settings.shape.label",
+          "default": "square",
+          "options": [
+            {
+              "value": "square",
+              "label": "t:common.blocks.background_shape.settings.shape.options.square.label",
+              "group": "t:common.groups.basic"
+            },
+            {
+              "value": "circle",
+              "label": "t:common.blocks.background_shape.settings.shape.options.circle.label",
+              "group": "t:common.groups.basic"
+            },
+            {
+              "value": "triangle",
+              "label": "t:common.blocks.background_shape.settings.shape.options.triangle.label",
+              "group": "t:common.groups.basic"
+            }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "size",
+          "min": 25,
+          "max": 300,
+          "step": 5,
+          "label": "t:common.blocks.background_shape.settings.size.label",
+          "default": 100
+        },
+        {
+          "type": "range",
+          "id": "opacity",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "t:common.settings.opacity.label",
+          "default": 100
+        }
+      ]
+    },
+    {
+      "name": "t:common.blocks.sticker.name",
+      "type": "sticker",
+      "settings": [
+        {
+          "type": "range",
+          "id": "width",
+          "min": 100,
+          "max": 300,
+          "step": 10,
+          "unit": "px",
+          "label": "t:common.blocks.sticker.settings.width.label",
+          "default": 150
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "t:common.blocks.sticker.settings.text.label",
+          "info": "t:common.blocks.sticker.settings.text.info",
+          "default": "Sticker"
+        },
+        {
+          "type": "select",
+          "id": "shape",
+          "label": "t:common.blocks.sticker.settings.shape.label",
+          "options": [
+            {
+              "value": "fit_to_text",
+              "label": "t:common.blocks.sticker.settings.shape.options.fit_to_text.label"
+            },
+            {
+              "value": "circle",
+              "label": "t:common.options.circle.label",
+              "group": "t:common.groups.basic"
+            },
+            {
+              "value": "star_1",
+              "label": "t:common.options.star_1.label",
+              "group": "t:common.groups.stars"
+            }
+          ],
+          "default": "star_1"
+        }
+      ]
+    },
+    {
+      "name": "t:common.blocks.shape_divider.name",
+      "type": "shape_divider",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "select",
+          "label": "t:common.blocks.shape_divider.settings.target_section.label",
+          "id": "target_section",
+          "default": "above",
+          "options": [
+            {
+              "value": "above",
+              "label": "t:common.blocks.shape_divider.settings.target_section.options.section_above.label"
+            },
+            {
+              "value": "below",
+              "label": "t:common.blocks.shape_divider.settings.target_section.options.section_below.label"
+            }
+          ],
+          "info": "t:common.blocks.shape_divider.settings.target_section.info"
+        },
+        {
+          "type": "select",
+          "label": "t:common.blocks.shape_divider.settings.style.label",
+          "id": "style",
+          "default": "waves-1-patterned_1200x20",
+          "options": [
+            {
+              "value": "rhc-1-patterned_1200x20",
+              "label": "t:common.blocks.shape_divider.settings.style.options.rhc_1.label",
+              "group": "t:common.blocks.shape_divider.settings.style.group_patterned"
+            },
+            {
+              "value": "waves-1-patterned_1200x20",
+              "label": "t:common.blocks.shape_divider.settings.style.options.waves_1.label",
+              "group": "t:common.blocks.shape_divider.settings.style.group_patterned"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
